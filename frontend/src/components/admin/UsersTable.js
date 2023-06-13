@@ -71,7 +71,7 @@ function UsersTable() {
     }
 
     return (
-        <div className="mt-5">
+        <div className="mt-5 users-table">
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>

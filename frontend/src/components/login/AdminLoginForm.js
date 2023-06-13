@@ -23,11 +23,11 @@ function AdminLoginForm({login}) {
             <form>
                 <h1 className="m-3">ADMIN LOGIN</h1>
 
-                <input className="custom-input" type="email" id="email" placeholder="Email address"  onChange={(event)=>{setAdminEmail(event.target.value)}} />
+                <input className="custom-input mt-5" type="email" id="email" placeholder="Email address"  onChange={(event)=>{setAdminEmail(event.target.value)}} />
 
                 <input className="custom-input" type="password" id="password" placeholder="Password" onChange={(event)=>{setAdminPassword(event.target.value)}}/>
 
-                <Button type="submit" className="mt-3 custom-button" onClick={ loginAdmin }>LOGIN</Button>
+                <Button type="submit" className="mt-5 custom-button" onClick={ loginAdmin }>LOGIN</Button>
             </form>
         </div>
     );

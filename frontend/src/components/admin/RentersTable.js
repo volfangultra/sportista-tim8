@@ -69,7 +69,7 @@ function RentersTable() {
             });
     }
     return (
-        <div className="mt-5">
+        <div className="mt-5 renters-table">
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
