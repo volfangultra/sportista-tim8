@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
 import {Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField} from "@mui/material";
+import {toast} from "react-toastify";
 
 function ContactForm() {
     const [firstName, setFirstName] = useState('');
@@ -19,7 +20,21 @@ function ContactForm() {
             message
         })
 
-        alert("Message successfully sent to admin!")
+        setFirstName("");
+        setLastName("");
+        setSubject("");
+        setMessage("");
+
+        toast.success('Message successfully sent to admin!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
     return (
@@ -30,6 +45,7 @@ function ContactForm() {
                     id="first_name"
                     name="first_name"
                     label="First name"
+                    value={firstName}
                     fullWidth
                     onChange={(e) => {setFirstName(e.target.value)}} required
                 />
@@ -40,20 +56,23 @@ function ContactForm() {
                     id="last_name"
                     name="last_name"
                     label="Last name"
+                    value={lastName}
                     fullWidth
                     onChange={(e) => {setLastName(e.target.value)}} required
                 />
             </Box>
             <Box mb={3}>
                 <FormControl fullWidth>
+                    <InputLabel id="subject-label">Subject</InputLabel>
                     <Select
                         sx={{ width: "14rem" }}
                         className="custom-input contact-input"
                         id="subject"
                         name="subject"
-                        value={subject}
+                        label="Subject"
                         onChange={(e) => { setSubject(e.target.value) }}
                         required
+                        labelId="subject-label"
                     >
                         <MenuItem value="Inquiry">Inquiry</MenuItem>
                         <MenuItem value="Feedback">Feedback</MenuItem>
@@ -70,6 +89,7 @@ function ContactForm() {
                     id="message"
                     name="message"
                     label="Message"
+                    value={message}
                     multiline
                     rows={5}
                     fullWidth
@@ -77,7 +97,7 @@ function ContactForm() {
                     required
                 />
             </Box>
-            <Button className="custom-button mt-3" onClick={sendMessage} type={"submit"}>SEND</Button>
+            <Button className="custom-button mt-3" onClick={sendMessage}>SEND</Button>
         </form>
     );
 }

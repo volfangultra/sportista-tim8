@@ -5,6 +5,7 @@ import {verify, register} from "../../auth/Auth";
 import {connect} from "react-redux";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
+import {toast, ToastContainer} from "react-toastify";
 
 const RenterRegisterForm = React.memo(({register, verify}) => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -27,17 +28,73 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
 
     const handleNextStep = () => {
         if (currentStep === 1 && !renterName) {
-            alert('Please enter your name.');
+
+            toast.error('Please enter your name.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         } else if (currentStep === 1 && !renterEmail) {
-            alert('Please enter your email address.');
+            toast.error('Please enter your email address.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         } else if (currentStep === 1 && !renterPassword) {
-            alert('Please enter your password.');
+            toast.error('Please enter your password.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+
         } else if (currentStep === 1 && (!/\d/.test(renterPassword) || renterPassword.length < 8)) {
-            alert('Please enter a password with at least 8 characters and containing numbers.')
+            toast.error('Please enter a password with at least 8 characters and containing numbers.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }else if (currentStep === 2 && !renterCity) {
-            alert('Please enter your city.');
+            toast.error('Please enter your city.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         } else if (currentStep === 2 && !renterPhone) {
-            alert('Please enter your phone number.')
+            toast.error('Please enter your phone number.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }  else {
             setCurrentStep(currentStep+1);
         }
@@ -106,7 +163,16 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
         setBlockButton(true)
         // Perform form submission logic here
         if (!termsAccepted) {
-            alert('Please agree to the terms and conditions and privacy policy if you want to proceed.');
+            toast.error('Please agree to the terms and conditions and privacy policy if you want to proceed.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
             return;
         }
         const DATA = {
@@ -317,6 +383,18 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
 
     return (
         <div className="container" style={{ alignItems: 'center', justifyContent: 'center' }} onSubmit={handleSubmit} >
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
             {renderCurrentStepForm()}
         </div>
     );
