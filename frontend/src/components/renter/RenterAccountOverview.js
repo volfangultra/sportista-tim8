@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {connect, useSelector} from 'react-redux';
+import { connect } from 'react-redux';
 import "../../pages/renter/Renter.css";
 import axios from "axios";
 import { TextField, Button, Box } from '@mui/material';
@@ -72,7 +72,7 @@ const RenterAccountOverview = (props) => {
 
     return (
         <form className="renterAccountForm" action="#">
-            {renterData.length == 0 ? (
+            {renterData.length === 0 ? (
                 <p>Loading renter data...</p>
             ) : (
                 <>

@@ -6,6 +6,9 @@ import {connect} from "react-redux";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
 import {toast, ToastContainer} from "react-toastify";
+import {Checkbox, TextField} from "@mui/material";
+import {FormControlLabel} from "@material-ui/core";
+import {FiEye, FiEyeOff} from "react-icons/fi";
 
 const RenterRegisterForm = React.memo(({register, verify}) => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -20,6 +23,7 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
     const [phoneError, setPhoneError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [blockButton, setBlockButton] = useState(false);
+    const [showRenterPassword, setShowRenterPassword] = useState(false);
 
     if(!gotData)
         axios.get( `${SERVER_URL}/daj_sportove`).then((res) => {
@@ -190,6 +194,10 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
         window.location.href = '/login';
     };
 
+    const toggleRenterPasswordVisibility = () => {
+        setShowRenterPassword(!showRenterPassword);
+    }
+
     const renderCurrentStepForm = () => {
         switch (currentStep) {
             case 1:
@@ -200,45 +208,48 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                             <div className="step"></div>
                             <div className="step"></div>
                         </div>
-
                         <div className="text-center">
                             <h5 className="mt-5 mb-5">Personal info</h5>
-                            <input
+                            <TextField
                                 className="custom-input"
                                 type="text"
                                 id="name"
-                                placeholder="Full name"
+                                label="Full name"
                                 value={renterName}
                                 onChange={handleRenterNameChange}
                                 required
                             />
                         </div>
-
                         <div>
-                            <input
-                                className="custom-input"
+                            <TextField
+                                className="custom-input mt-2"
                                 type="email"
                                 id="email"
-                                placeholder="E-mail"
+                                label="E-mail"
                                 value={renterEmail}
                                 onChange={handleRenterEmailChange}
                                 required
                             />
                             {emailError && <div className="error">{emailError}</div>}
                         </div>
-
                         <div>
-                            <input
-                                className="custom-input"
-                                type="password"
+                            <TextField
+                                className="custom-input mt-2"
+                                type={showRenterPassword ? "text" : "password"}
                                 id="password"
-                                placeholder="Password"
+                                label="Password"
                                 value={renterPassword}
                                 onChange={handleRenterPasswordChange}
                                 required
+                                InputProps={{
+                                    endAdornment: (
+                                        <div style={{ cursor: "pointer" }} onClick={toggleRenterPasswordVisibility}>
+                                            {showRenterPassword ? <FiEyeOff /> : <FiEye />}
+                                        </div>
+                                    ),
+                                }}
                             />
                         </div>
-
                         <Button onClick={handleNextStep} className="nextButton custom-button">
                             Next
                         </Button>
@@ -255,23 +266,22 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                         <div className="text-center">
                             <h5 className="mt-5 mb-5">More personal info</h5>
                             <div>
-                                <input
+                                <TextField
                                     className="custom-input"
                                     type="text"
                                     id="city"
-                                    placeholder="City"
+                                    label="City"
                                     value={renterCity}
                                     onChange={handleRenterCityChange}
                                     required
                                 />
                             </div>
-
                             <div className="form-group">
-                                <input
-                                    className="custom-input"
+                                <TextField
+                                    className="custom-input mt-2"
                                     type="text"
                                     id="phoneNumber"
-                                    placeholder="Phone number"
+                                    label="Phone number"
                                     value={renterPhone}
                                     onChange={handleRenterPhoneChange}
                                     required
@@ -308,70 +318,61 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                 } else {
                     return (
                         <>
-                            <div className="steps">
-                                <div className="step completed"></div>
-                                <div className="step completed"></div>
-                                <div className="step active"></div>
-                            </div>
-                            <div className="mb-3">
-                                <h5 className="mt-5 mb-5">Terms and Conditions</h5>
-                                <div>
-                                    <p>Welcome to Sportista Field Rental!</p>
-                                    <p>
-                                        By using our platform, you agree to comply with the following terms and
-                                        conditions:
-                                    </p>
-                                    <p>
-                                        1. Use of the Platform
-                                        - You are responsible for maintaining the confidentiality of your
-                                        account.
-                                        - You agree not to use the platform for any illegal or unauthorized
-                                        purposes.
-                                    </p>
-                                    <p>
-                                        2. Field Rental
-                                        - The platform facilitates the rental of sports fields.
-                                        - The availability and booking process may vary and are subject to
-                                        specific terms outlined on the platform.
-                                        - Any disputes or issues regarding field rental are the responsibility
-                                        of the field renter and user.
-                                    </p>
-                                    <p>
-                                        3. Liability
-                                        - We are not responsible for any accidents, injuries, or damages that
-                                        may occur during field rental.
-                                        - Users and renters are advised to establish their own agreements
-                                        regarding liability and responsibilities.
-                                    </p>
-                                    <p>
-                                        4. Privacy
-                                        - We collect and store user data in accordance with our privacy policy.
-                                        - We implement security measures to protect user information, but we
-                                        cannot guarantee complete security.
-                                    </p>
-                                    <p>
-                                        5. Disclaimer
-                                        - The platform is provided "as is" and we do not make any warranties or
-                                        representations.
-                                        - We are not responsible for the accuracy or availability of the
-                                        platform's content.
-                                    </p>
-                                    <p>
-                                        By using our platform, you agree to these terms and conditions.
-                                        If you do not agree, please refrain from using the platform.
-                                    </p>
+                            <div className="scrollable-container">
+                                <div className="steps">
+                                    <div className="step completed"></div>
+                                    <div className="step completed"></div>
+                                    <div className="step active"></div>
                                 </div>
+                                <div className="mb-3">
+                                    <h5 className="mt-5 mb-5">Terms and Conditions</h5>
+                                    <div>
+                                        <p>Welcome to Sportista Field Rental!</p>
+                                        <p>
+                                            By using our platform, you agree to comply with the following terms and conditions:
+                                        </p>
+                                        <p>
+                                            1. Use of the Platform
+                                            - You are responsible for maintaining the confidentiality of your account.
+                                            - You agree not to use the platform for any illegal or unauthorized purposes.
+                                        </p>
+                                        <p>
+                                            2. Field Rental
+                                            - The platform facilitates the rental of sports fields.
+                                            - The availability and booking process may vary and are subject to specific terms outlined on the platform.
+                                            - Any disputes or issues regarding field rental are the responsibility of the field renter and user.
+                                        </p>
+                                        <p>
+                                            3. Liability
+                                            - We are not responsible for any accidents, injuries, or damages that may occur during field rental.
+                                            - Users and renters are advised to establish their own agreements regarding liability and responsibilities.
+                                        </p>
+                                        <p>
+                                            4. Privacy
+                                            - We collect and store user data in accordance with our privacy policy.
+                                            - We implement security measures to protect user information, but we cannot guarantee complete security.
+                                        </p>
+                                        <p>
+                                            5. Disclaimer
+                                            - The platform is provided "as is" and we do not make any warranties or representations.
+                                            - We are not responsible for the accuracy or availability of the platform's content.
+                                        </p>
+                                        <p>
+                                            By using our platform, you agree to these terms and conditions. If you do not agree, please refrain from using the platform.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="mb-3">
+                                <FormControlLabel
+                                    control={<Checkbox className="mt-4 mb-4" style={{ marginRight: "1rem" }} required onChange={handleTermsAcceptance} />}
+                                    label="I agree to the terms and conditions and privacy policy"
+                                />
                             </div>
-
-                            <div className="mb-3">
-                                <input className="mt-4 mb-4" style={{ marginRight: "1rem" }} type="checkbox" required={true} onChange={handleTermsAcceptance} />
-                                <label>I agree to the terms and conditions and privacy policy</label>
-                            </div>
-
-                            <div className="form-group">
+                                <div className="form-group">
                                 <Button onClick={handleSubmit} className="custom-button nextButton" type="button" style={{ float: 'right' }}>
                                     Register
                                 </Button>
+                            </div>
                             </div>
                         </>
                     );

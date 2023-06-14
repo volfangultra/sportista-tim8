@@ -10,7 +10,7 @@ const FieldDetailsModal = (props) => {
 
     return (
         <>
-            <Button className="custom-button mt-2" onClick={openModal}>Details</Button>
+            <Button className="custom-button" onClick={openModal}>Details</Button>
             <Modal show={isOpen} onHide={closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>{props.name}</Modal.Title>

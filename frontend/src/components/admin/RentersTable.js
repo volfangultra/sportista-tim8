@@ -94,8 +94,7 @@ function RentersTable() {
                                     <div>
                                         <Button className="custom-button m-2" onClick={() => openModal(renter)}>WARNING</Button>
                                         <Modal show={isOpen} onHide={closeModal}>
-                                            <Modal.Header closeButton>
-                                            </Modal.Header>
+                                            <Modal.Header closeButton></Modal.Header>
                                             <Modal.Body>
                                                 <Form>
                                                     <Form.Group controlId="message">

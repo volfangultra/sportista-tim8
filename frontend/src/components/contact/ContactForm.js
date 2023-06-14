@@ -6,6 +6,7 @@ import {SERVER_URL} from "../../auth/Consts";
 import {Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField} from "@mui/material";
 import {toast} from "react-toastify";
 
+
 function ContactForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -63,21 +64,21 @@ function ContactForm() {
             </Box>
             <Box mb={3}>
                 <FormControl fullWidth>
-                    <InputLabel id="subject-label">Subject</InputLabel>
-                    <Select
+                    <TextField
+                        select
                         sx={{ width: "14rem" }}
                         className="custom-input contact-input"
                         id="subject"
                         name="subject"
                         label="Subject"
+                        value={subject}
                         onChange={(e) => { setSubject(e.target.value) }}
                         required
-                        labelId="subject-label"
                     >
                         <MenuItem value="Inquiry">Inquiry</MenuItem>
                         <MenuItem value="Feedback">Feedback</MenuItem>
                         <MenuItem value="Support">Support</MenuItem>
-                    </Select>
+                    </TextField>
                 </FormControl>
             </Box>
             <Box mb={3}>

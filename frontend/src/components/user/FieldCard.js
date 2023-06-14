@@ -1,12 +1,9 @@
 import "../../pages/user/User.css";
 import React, {useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import FieldDetailsModal from "./FieldDetailsModal";
 import BookFieldModal from "./BookFieldModal";
@@ -51,12 +48,12 @@ function FieldCard(props) {
                         <Carousel showThumbs={false}>
                             {field.fields.images.split("SPLIT").map((image) => (
                                 <div>
-                                    <img src={image} alt="Field photo"/>
+                                    <img src={image} />
                                 </div>
                             ))}
                         </Carousel>
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5">
                                 {field.fields.name}
                             </Typography>
                         </CardContent>
@@ -66,23 +63,23 @@ function FieldCard(props) {
                                                details={field.fields.details} price={field.fields.price}/>
                         </CardActions>
                         <CardActions className="justify-content-between" disableSpacing>
-                                <span>
+                                <span style={{ marginLeft: "2rem", cursor: "pointer" }}>
                                     {!favoriteMap[field.pk] &&
-                                        <FavoriteBorder color="primary" fontSize="small" onClick={() => {
+                                        <FavoriteBorder color="primary" onClick={() => {
                                             axios.post(`${SERVER_URL}/user/favorite_field/${field.pk}/${props.user.id}/`).then(() => {
                                                 setFavorite(!favorite)
                                             })
                                         }}/>
                                     }
                                     {favoriteMap[field.pk] &&
-                                        <Favorite color="primary" fontSize="small" onClick={() => {
+                                        <Favorite color="primary" onClick={() => {
                                             axios.post(`${SERVER_URL}/user/unfavorite_field/${field.pk}/${props.user.id}/`).then(() => setFavorite(!favorite))
                                         }}/>
                                     }
                                 </span>
-                            <span>
+                                <span style={{ marginRight: "2rem" }}>
                                     <Typography component="span">4.5/5 </Typography>
-                                    <StarIcon color="primary" fontSize="small"/>
+                                    <StarIcon color="primary" />
                                 </span>
                         </CardActions>
                     </Card>}

@@ -32,7 +32,7 @@
 
 .card {
    width: 18rem; /* Fiksirana širina kartice */
-   height: 25rem;
+   height: 28rem;
    display: flex;
    flex-direction: column;
    text-align: center;
@@ -62,8 +62,62 @@
    flex-grow: 1;
 }
 
-.shuffle-box {
+.card3 {
+   width: 18rem; /* Fiksirana širina kartice */
+   height: 25rem;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+}
+
+.card3 img {
+   width: 100%;
+   height: 16rem; /* Fiksirana visina slike */
+   object-fit: cover;
+}
+
+.card4 {
+   width: 18rem; /* Fiksirana širina kartice */
+   height: 25rem;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+}
+
+.card4 img {
+   width: 100%;
+   height: 16rem; /* Fiksirana visina slike */
+   object-fit: cover;
+}
+
+.my-teams-comp-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 27rem;
+   margin: 0 auto;
+   padding: 3rem;
    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
    background: #ffffff;
-   padding: 3rem;
+}
+
+.teams-inputs {
+   width: 19rem;
+}
+
+.team-container {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-gap: 2rem;
+   margin-top: 2rem;
+}
+
+.team-container > div {
+   text-align: center;
+}
+
+.team-container > div > ul {
+   padding-left: 0;
+   list-style-type: none;
 }
