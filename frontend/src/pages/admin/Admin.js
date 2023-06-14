@@ -4,7 +4,6 @@ import "./Admin.css";
 //components
 import AdminSidebar from "../../components/navigation/AdminSidebar";
 import DashboardCharts from "../../components/admin/DashboardCharts";
-import MostRentedFields from "../../components/admin/MostRentedFields";
 
 function Dashboard() {
     return (

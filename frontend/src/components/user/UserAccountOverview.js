@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {connect, useSelector} from 'react-redux';
+import { connect } from 'react-redux';
 import "../../pages/user/User.css";
 import axios from "axios";
 import { TextField, Box } from '@mui/material';
@@ -73,7 +73,7 @@ const UserAccountOverview = (props) => {
 
     return (
         <form className="userAccountForm" action="#">
-            {userData.length == 0 ? (
+            {userData.length === 0 ? (
                 <p>Loading user data...</p>
             ) : (
                 <>
@@ -120,7 +120,7 @@ const UserAccountOverview = (props) => {
                 </>
             )}
             <Button className="custom-button mt-3" onClick={callFuns}>
-                EDIT
+                SAVE
             </Button>
         </form>
     );

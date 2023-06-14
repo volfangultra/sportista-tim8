@@ -132,4 +132,10 @@
     }
 }
 
-
+.scrollable-container {
+    margin: 3rem auto;
+    max-width: 800px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 1rem;
+}

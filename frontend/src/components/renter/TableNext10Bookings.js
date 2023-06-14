@@ -28,14 +28,14 @@ function TableNext10Bookings({ isAuthenticated,user }) {
                     <TableBody>
                             <TableRow>
                                 <TableCell>1</TableCell>
-                                <TableCell>Test</TableCell>
-                                <TableCell>Test</TableCell>
-                                <TableCell>Test</TableCell>
-                                <TableCell>Test</TableCell>
-                                <TableCell>Test</TableCell>
+                                <TableCell>Vistafon</TableCell>
+                                <TableCell>alic.said@user.sportista.com</TableCell>
+                                <TableCell>062143021</TableCell>
+                                <TableCell>23-02-2023</TableCell>
+                                <TableCell>17:00h - 20:00h</TableCell>
                                 <TableCell>
                                     <div>
-                                        <Button className="custom-button m-2">DECLINE</Button>
+                                        <Button className="custom-button m-2">DENY</Button>
                                         <Button className="custom-button m-2">APPROVE</Button>
                                     </div>
                                 </TableCell>
