@@ -29,7 +29,7 @@ function FieldCard(props) {
             })
         }
         if(props.user != null)
-            axios.get(`${SERVER_URL}/user/get_favorite_fields/${props.user.id}`)
+            axios.get(`${SERVER_URL}/user/get_favorite_fields/${props.user.id}/`)
                 .then((response) => {
                     for (let field in response.data)
                         temp[response.data[field]] = true
