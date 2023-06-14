@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 //components
 import UserSidebar from "../../components/navigation/UserSidebar";
@@ -6,11 +6,29 @@ import UserStats from "../../components/user/UserStats";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import MyReservationCard from "../../components/user/MyReservationCard";
+import axios from "axios";
 
 function MyReservations({ user, isAuthenticated }) {
 
     // if(!isAuthenticated && user == null)
     //     return (<Navigate to={"/"}/>)
+    const [fields, setFields] = useState([]);
+
+    useEffect(() => {
+        getFields();
+    }, [user]);
+    function getFields() {
+        if(user)
+            axios
+                .get(`http://127.0.0.1:8000/user/my-reservations/${user.id}/`)
+                .then((response) => {
+                    console.log(response.data)
+                    setFields(response.data)
+                })
+                .catch((error) => {
+                    console.error('Error fetching fields:', error);
+                });
+    }
 
     const scheduled = 20;
     const played = 15;
@@ -22,7 +40,7 @@ function MyReservations({ user, isAuthenticated }) {
                 <h1>My Reservations</h1>
                 <h5>List of your bookings.</h5>
                 <div className="fieldCards">
-                    <MyReservationCard />
+                    <MyReservationCard fields={fields} />
                 </div>
                 <div>
                     <h1 className="mt-5">Stats</h1>
