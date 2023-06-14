@@ -3,12 +3,12 @@ import "./Contact.css";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
-import {Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField} from "@mui/material";
+import {Box, FormControl, MenuItem, Select, TextField} from "@mui/material";
 
 function ContactForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [subject, setSubject] = useState('Subject');
+    const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
 
     function sendMessage(){
@@ -46,11 +46,13 @@ function ContactForm() {
             </Box>
             <Box mb={3}>
                 <FormControl fullWidth>
-                    <Select
+                    <TextField
+                        select
                         sx={{ width: "14rem" }}
                         className="custom-input contact-input"
                         id="subject"
                         name="subject"
+                        label="Subject"
                         value={subject}
                         onChange={(e) => { setSubject(e.target.value) }}
                         required
@@ -58,7 +60,7 @@ function ContactForm() {
                         <MenuItem value="Inquiry">Inquiry</MenuItem>
                         <MenuItem value="Feedback">Feedback</MenuItem>
                         <MenuItem value="Support">Support</MenuItem>
-                    </Select>
+                    </TextField>
                 </FormControl>
             </Box>
             <Box mb={3}>

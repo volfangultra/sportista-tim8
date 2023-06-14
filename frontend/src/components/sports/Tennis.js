@@ -37,7 +37,7 @@ function Tennis(props) {
                     <h2>No fields for this category available at this time!</h2>
                 ) : (
                     fields.map((field) => (
-                        <Card key={field.fields.id} className="card3">
+                        <Card className="card3" key={field.fields.id}>
                             <Carousel showThumbs={false}>
                                 {field.fields.images.split("SPLIT").map((image) => (
                                     <div>
@@ -46,23 +46,14 @@ function Tennis(props) {
                                 ))}
                             </Carousel>
                             <CardContent>
-                                <Typography variant="h5" component="div">
+                                <Typography gutterBottom variant="h5">
                                     {field.fields.name}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Location: {field.fields.address}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Price: {field.fields.price}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Rating: 4.5/5 {field.fields.grades}
-                                    <StarIcon />
                                 </Typography>
                             </CardContent>
                             <CardActions className="d-flex justify-content-evenly">
-                                <BookFieldModal />
-                                <FieldDetailsModal />
+                                <BookFieldModal field={field} user={props.user}/>
+                                <FieldDetailsModal name={field.fields.name} address={field.fields.address}
+                                                   details={field.fields.details} price={field.fields.price}/>
                             </CardActions>
                         </Card>
                     ))

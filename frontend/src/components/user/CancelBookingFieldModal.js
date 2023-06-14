@@ -10,10 +10,9 @@ const CancelBookingFieldModal = () => {
 
     return (
         <>
-            <Button className="custom-button mt-2" onClick={openModal}>CANCEL</Button>
+            <Button className="custom-button" onClick={openModal}>CANCEL</Button>
             <Modal show={isOpen} onHide={closeModal}>
-                <Modal.Header closeButton>
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <Modal.Body className="d-flex flex-column align-items-center">
                     <h5>Are you sure you want to cancel this reservation?</h5>
                     <Button className="custom-button mt-3" >

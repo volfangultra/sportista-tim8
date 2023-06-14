@@ -91,22 +91,20 @@ function FieldFormAction(props) {
     return (
         <form encType="multipart/form-data">
             <Box mb={1}>
-                <FormControl fullWidth>
-                    <InputLabel htmlFor="formBasicSport">Sport</InputLabel>
-                    <Select
-                        className="custom-input"
-                        aria-label="Select sport"
-                        variant="outlined"
-                        onChange={(e) => setSport(e.target.value)}
-                    >
-                        <MenuItem value="">Select sport</MenuItem>
-                        {hasSports.map((sport) => (
-                            <MenuItem key={sport.pk} value={sport.pk}>
-                                {sport.fields.name}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                <TextField
+                    select
+                    className="custom-input"
+                    label="Select sport"
+                    variant="outlined"
+                    value={sport}
+                    onChange={(e) => setSport(e.target.value)}
+                >
+                    {hasSports.map((sport) => (
+                        <MenuItem key={sport.pk} value={sport.pk}>
+                            {sport.fields.name}
+                        </MenuItem>
+                    ))}
+                </TextField>
             </Box>
 
             <Box mb={1}>
@@ -117,11 +115,27 @@ function FieldFormAction(props) {
                     onChange={(e) => setName(e.target.value)}
                 />
             </Box>
-            <Box mb={1}>
-                <label htmlFor="start">Start:</label>
-                <input type="time" onChange={(e)=>setStart(e.target.value)}/>
-                <label htmlFor="end">End:</label>
-                <input type="time" onChange={(e)=>setEnd(e.target.value)}/>
+            <Box mb={1} className="d-flex">
+                <TextField
+                    sx={{ margin: "0 1rem 0 0" }}
+                    className="custom-input"
+                    id="start"
+                    label="Working hours from"
+                    type="time"
+                    value={start}
+                    onChange={(e)=>setStart(e.target.value)}
+                    variant="outlined"
+                />
+                <TextField
+                    sx={{ margin: "0 0 0 1rem" }}
+                    className="custom-input"
+                    id="end"
+                    label="Working hours to"
+                    type="time"
+                    value={end}
+                    onChange={(e)=>setEnd(e.target.value)}
+                    variant="outlined"
+                />
             </Box>
 
             <Box mb={1}>
@@ -143,11 +157,12 @@ function FieldFormAction(props) {
             </Box>
 
             <Box mb={1}>
-                <InputLabel htmlFor="formBasicImg">Image</InputLabel>
                 <TextField
                     className="custom-input"
                     type="file"
                     id="formBasicImg"
+                    label="Image"
+                    variant="outlined"
                     onChange={(e) => setImages(e.target.files)}
                     inputProps={{ multiple: true }}
                 />
@@ -160,13 +175,14 @@ function FieldFormAction(props) {
             )}
 
             <Box mb={3}>
-                <InputLabel htmlFor="textarea">Description</InputLabel>
-                <TextareaAutosize
+                <TextField
                     className="custom-input"
-                    id="textarea"
+                    id="description"
+                    name="description"
+                    label="Description"
+                    multiline
                     rows={3}
-                    maxLength={60}
-                    variant="outlined"
+                    fullWidthrequired
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </Box>

@@ -66,6 +66,20 @@
   background-color: #5b8291 !important;
 }
 
+.custom-button5 {
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 5px !important;
+  border: 1px solid black;
+  background: #2e424d !important;
+  color: white !important;
+}
+
+.custom-button5:hover {
+  transition: transform 0.3s;
+  transform: scale(1.1);
+}
+
 .custom-input {
   background: #eee;
   border: none;

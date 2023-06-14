@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { connect } from 'react-redux';
 import { Modal } from "react-bootstrap";
 import Button from '@material-ui/core/Button';
 import {SERVER_URL} from "../../auth/Consts";
@@ -21,6 +20,7 @@ const BookFieldModal = (props) => {
     const handleLogin = () => {
         window.location.href = '/login';
     };
+
     const resetModal = () => {
         setSelectedTimeFrom("NONE")
         setSelectedTimeTo("NONE")
@@ -156,10 +156,9 @@ const BookFieldModal = (props) => {
 
     return (
         <>
-            <Button className="custom-button mt-2" onClick={openModal}>BOOK</Button>
+            <Button className="custom-button" onClick={openModal}>BOOK</Button>
             <Modal show={isOpen} onHide={closeModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>BOOK THIS FIELD</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="d-flex flex-column align-items-center">
                     <input className="custom-input" type="date" value={selectedDate.toISOString().split('T')[0]} onChange={(event) => {setSelectedDate(new Date(event.target.value))}}/>

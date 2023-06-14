@@ -1,6 +1,4 @@
-import {SERVER_URL} from "../../auth/Consts";
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 
