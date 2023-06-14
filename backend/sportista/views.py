@@ -1,5 +1,6 @@
 from django.core import serializers
 from django.db.models.functions import ExtractMonth
+from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework.decorators import api_view
@@ -71,6 +72,35 @@ def getRenterFields(request, params):
     res = serializers.serialize('json', list_of_fields)
 
     return HttpResponse(res, content_type="text/json-comment-filtered")
+
+
+@api_view(['GET'])
+def getUserReservations(request, params):
+    citavatabela = TeamRentsField.objects.all()
+    prazna = []
+
+    for red in citavatabela:
+        red = model_to_dict(red)
+        tim = Team.objects.get(id=red["id_teama"])
+        tim = model_to_dict(tim)
+        fild = Field.objects.get(id=red["id_fielda"])
+        fild = model_to_dict(fild)
+
+        if tim["id_leader"] == params:
+            red["beginning"] = red["beginning"].strftime('%Y-%m-%d %H:%M:%S')
+            red["ending"] = red["ending"].strftime('%Y-%m-%d %H:%M:%S')
+            red["fild"] = fild
+            red["fild"]["starts"] = red["fild"]["starts"].strftime('%Y-%m-%d %H:%M:%S')
+            red["fild"]["ends"] = red["fild"]["ends"].strftime('%Y-%m-%d %H:%M:%S')
+            red["fild"]["has_teams"] = ""
+            prazna.append(red)
+
+    print(prazna)
+    res = json.dumps(prazna)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
+
+
 
 
 @api_view(['GET'])

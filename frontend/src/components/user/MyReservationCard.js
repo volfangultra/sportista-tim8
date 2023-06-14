@@ -7,26 +7,40 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import FieldDetailsModal from "./FieldDetailsModal";
 import CancelBookingFieldModal from "./CancelBookingFieldModal";
+import {Carousel} from "react-responsive-carousel";
 
-function FieldCard() {
+function FieldCard(props) {
+    console.log(props.fields)
     return (
-        <Card className="card4">
-            <CardMedia
-                component="img"
-                height="140"
-                image={require('../../resources/images/teren1.jpg')}
-                alt="Field"
-            />
+        <div style={{display:"flex"}}>
+        {props.fields.map((field) => (
+        <Card sx={{ maxWidth: 345,marginRight:"10px" }}>
+            <Carousel showThumbs={false}>
+                {field.fild.images.split("SPLIT").map((image) => (
+                    <CardMedia
+                        component="img"
+                        height="140"
+                        image={image}
+                        alt="Field"
+                    />
+                ))}
+            </Carousel>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Field Name
+                    <p>{field.fild.name}</p>
+                    <p>{field.beginning}</p>
                 </Typography>
             </CardContent>
             <CardActions className="d-flex justify-content-evenly">
                 <CancelBookingFieldModal />
-                <FieldDetailsModal />
+                <FieldDetailsModal address={field.fild.address} details={field.fild.details} price={field.fild.price} />
             </CardActions>
-        </Card>
+            <CardActions className="float-end" disableSpacing>
+                <Typography component="span">4.5/5 </Typography>
+                <StarIcon color="primary" fontSize="small" />
+            </CardActions>
+        </Card>))}
+        </div>
     );
 }
 

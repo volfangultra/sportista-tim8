@@ -21,6 +21,7 @@ urlpatterns = [
     path("daj_sportove", views.dajSportove),
     path("sport/<int:params>/", views.getFields, name="getSport"),
     path("renter/my-fields/<int:params>/", views.getRenterFields, name="getRenterFields"),
+    path("user/my-reservations/<int:params>/", views.getUserReservations, name="getUserReservations"),
     path("user/dashboard", views.getUserFields, name="getUserFields"),
     path("renter/delete/<int:params>/", views.deleteRenterField, name="deleteRenterField"),
 
