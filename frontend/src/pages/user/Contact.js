@@ -5,6 +5,7 @@ import UserSidebar from "../../components/navigation/UserSidebar";
 import ContactForm from "../../components/contact/ContactForm";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 
 function Contact({ user, isAuthenticated }) {
 
@@ -17,6 +18,18 @@ function Contact({ user, isAuthenticated }) {
             <div className="page-margin">
                 <h1>Contact</h1>
                 <h5>Contact support team for any questions.</h5>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
                 <ContactForm />
             </div>
         </div>
