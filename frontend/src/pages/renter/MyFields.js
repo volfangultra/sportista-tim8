@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import axios from "axios";
 import AddFieldModal from "../../components/renter/AddFieldModal";
+import {ToastContainer} from "react-toastify";
 
 function MyFields({user,isAuthenticated}) {
 
@@ -33,11 +34,23 @@ function MyFields({user,isAuthenticated}) {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="background-grayish" style={{ display: 'flex' }}>
             <RenterSidebar />
             <div className="page-margin">
                 <h1>My Fields</h1>
                 <h5>List of all your fields.</h5>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
                 <Field user={user} fields={fields} getf={getFields}/>
                 <AddFieldModal props={user} getf={getFields}/>
             </div>

@@ -1,7 +1,8 @@
 .login-form-page {
-    height: 76vh;
-    display: flex;
-    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    background: #ffffff;
+    margin: 2rem;
+    text-align: center;
 }
 
 .loginh1 {
@@ -14,10 +15,6 @@
     line-height: 20px;
     letter-spacing: 1px;
     margin: 20px 0 30px;
-}
-
-.loginspan {
-    font-size: 12px;
 }
 
 .logina {
@@ -33,7 +30,7 @@
     overflow: hidden;
     width: 768px;
     max-width: 100%;
-    min-height: 480px;
+    min-height: 400px;
 }
 
 .forgot_password {
@@ -98,7 +95,7 @@
 }
 
 .overlay {
-    background: #dcdcdc no-repeat 0 0 / cover;
+    background: #eaebed no-repeat 0 0 / cover;
     color: black;
     position: relative;
     left: -100%;
@@ -164,23 +161,9 @@
     transform: translateY(20%);
 }
 
-.custom-login-btn {
-    height: 2.5rem;
-    width: 5rem;
-    border-radius: 5px;
-    background: white;
-    color: black;
-    border: 1px solid black;
-}
-
-.custom-login-btn:hover {
-    background: black;
-    color: white;
-}
-
 .admin-login-form {
-    border: 1px solid;
-    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    background: #ffffff;
     width: 25rem;
     margin: 2rem;
     padding: 3rem;

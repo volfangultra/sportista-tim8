@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
 import '../../pages/admin/Admin.css';
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import {styled} from "@mui/material";
+import Card from "@mui/material/Card";
 
 function DashboardCharts() {
     const [rentersCount, setRentersCount] = useState(0);
@@ -98,15 +102,76 @@ function DashboardCharts() {
         }
     }, [rentersCount, usersCount, rentalsData]);
 
+    const CardContainer = styled("div")({
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+        gap: "1rem",
+    });
+
+    const CardWrapper = styled(Card)({
+        width: "100%",
+        maxWidth: "25rem",
+        boxShadow: "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"
+    });
+
     return (
         <div className="dashboard-data mt-5">
-            <div className="chart-container">
-                <canvas ref={pieChartRef} />
-            </div>
-
-            <div className="chart-container bar-chart">
-                <canvas ref={barChartRef} />
-            </div>
+            <CardContainer className="analytic-cards">
+                <CardWrapper>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Card 1
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        </Typography>
+                        <Typography>
+                            DODATI NEKI CHART
+                        </Typography>
+                    </CardContent>
+                </CardWrapper>
+                <CardWrapper>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Card 2
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        </Typography>
+                        <canvas ref={barChartRef} id="barChartRef" />
+                    </CardContent>
+                </CardWrapper>
+                <CardWrapper>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Card 3
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        </Typography>
+                        <canvas ref={pieChartRef} id="pieChartRef" />
+                    </CardContent>
+                </CardWrapper>
+                <CardWrapper>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Card 4
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        </Typography>
+                        <Typography>
+                            DODATI NEKI CHART
+                        </Typography>
+                    </CardContent>
+                </CardWrapper>
+            </CardContainer>
         </div>
     );
 }

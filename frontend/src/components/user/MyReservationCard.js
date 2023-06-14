@@ -37,7 +37,7 @@ function FieldCard(props) {
                     <p>{field.beginning}</p>
                 </Typography>
             </CardContent>
-            <CardActions className="d-flex justify-content-between">
+            <CardActions className="d-flex justify-content-evenly">
                 <CancelBookingFieldModal />
                 <FieldDetailsModal address={field.fild.address} details={field.fild.details} price={field.fild.price} />
             </CardActions>

@@ -11,7 +11,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 function Basketball(props) {
 
     const [fields, setFields] = useState([]);
-
     useEffect(() => {
         getFields();
     }, []);
@@ -37,7 +36,7 @@ function Basketball(props) {
                     <h2>No fields for this category available at this time!</h2>
                 ) : (
                     fields.map((field) => (
-                        <Card key={field.fields.id} sx={{ margin: '10px', maxWidth: 300 }}>
+                        <Card className="card3" key={field.fields.id}>
                             <Carousel showThumbs={false}>
                                 {field.fields.images.split("SPLIT").map((image) => (
                                     <div>
@@ -60,7 +59,7 @@ function Basketball(props) {
                                     <StarIcon />
                                 </Typography>
                             </CardContent>
-                            <CardActions className="d-flex justify-content-between">
+                            <CardActions className="d-flex justify-content-evenly">
                                 <BookFieldModal field={field}/>
                                 <FieldDetailsModal />
                             </CardActions>

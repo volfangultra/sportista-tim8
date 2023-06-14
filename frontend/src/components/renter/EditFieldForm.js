@@ -183,7 +183,7 @@ function EditFieldForm(props, { user, isAuthenticated } ) {
             </Box>
 
             <Box textAlign="center">
-                <Button variant="outlined" className="mt-3" onClick={callFuns}>
+                <Button className="custom-button mt-3" onClick={callFuns}>
                     EDIT
                 </Button>
             </Box>

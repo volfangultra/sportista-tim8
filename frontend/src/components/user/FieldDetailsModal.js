@@ -10,7 +10,7 @@ const FieldDetailsModal = (props) => {
 
     return (
         <>
-            <Button variant="outlined" onClick={openModal}>Details</Button>
+            <Button className="custom-button mt-2" onClick={openModal}>Details</Button>
             <Modal show={isOpen} onHide={closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>{props.name}</Modal.Title>
@@ -20,7 +20,7 @@ const FieldDetailsModal = (props) => {
                     <p>Details: {props.details}</p>
                     <p>Price: {props.price}</p>
                     <p>Posto u bazi nemamo vise podataka o terenu, ovdje mozemo dodati jos kad je koji dostupan</p>
-                    <Button variant="outlined" className="mt-3">BOOK</Button>
+                    <Button className="custom-button mt-3">BOOK</Button>
                 </Modal.Body>
             </Modal>
         </>

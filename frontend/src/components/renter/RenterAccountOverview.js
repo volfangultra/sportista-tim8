@@ -3,6 +3,7 @@ import {connect, useSelector} from 'react-redux';
 import "../../pages/renter/Renter.css";
 import axios from "axios";
 import { TextField, Button, Box } from '@mui/material';
+import {toast} from "react-toastify";
 
 const RenterAccountOverview = (props) => {
     const [renterData, setRenterData] = useState([]);
@@ -56,6 +57,16 @@ const RenterAccountOverview = (props) => {
     function callFuns(){
         changeRenterData()
         setTimeout(getRenterData,300)
+        toast.success('Account edited successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
 
@@ -65,7 +76,7 @@ const RenterAccountOverview = (props) => {
                 <p>Loading renter data...</p>
             ) : (
                 <>
-                    <Box mb={2}>
+                    <Box mb={3}>
                         <TextField
                             className="custom-input"
                             label="Full name"
@@ -75,7 +86,7 @@ const RenterAccountOverview = (props) => {
                             onChange={(e) => setName(e.target.value)}
                         />
                     </Box>
-                    <Box mb={2}>
+                    <Box mb={3}>
                         <TextField
                             className="custom-input"
                             label="Email"
@@ -85,7 +96,7 @@ const RenterAccountOverview = (props) => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </Box>
-                    <Box mb={2}>
+                    <Box mb={3}>
                         <TextField
                             className="custom-input"
                             label="City"
@@ -95,7 +106,7 @@ const RenterAccountOverview = (props) => {
                             onChange={(e) => setCity(e.target.value)}
                         />
                     </Box>
-                    <Box mb={2}>
+                    <Box mb={3}>
                         <TextField
                             className="custom-input"
                             label="Phone number"
@@ -107,8 +118,8 @@ const RenterAccountOverview = (props) => {
                     </Box>
                 </>
             )}
-            <Button className="mt-3" onClick={callFuns} variant="outlined">
-                EDIT
+            <Button className="custom-button mt-3" onClick={callFuns} >
+                SAVE
             </Button>
         </form>
     );

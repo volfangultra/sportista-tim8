@@ -31,7 +31,7 @@ function ResetPassword({reset_password}) {
             <TopNavbar />
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
                 <TextField
-                    className="mt-5 mb-3 w-50"
+                    className="mt-5 mb-3 w-25"
                     type="email"
                     label="Email"
                     value={email}
@@ -39,7 +39,7 @@ function ResetPassword({reset_password}) {
                     required
                     variant="outlined"
                 />
-                <Button variant="outlined" onClick={resetPassword} className="nextButton">
+                <Button className="custom-button mt-3" onClick={resetPassword}>
                     Next
                 </Button>
             </div>

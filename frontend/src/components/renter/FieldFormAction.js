@@ -6,6 +6,7 @@ import { SERVER_URL } from "../../auth/Consts";
 import Button from "@material-ui/core/Button";
 import { Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from "@mui/material";
 import defaultImage from '../../../src/resources/images/favicon.jpg';
+import {toast} from "react-toastify";
 
 function FieldFormAction(props) {
 
@@ -81,11 +82,31 @@ function FieldFormAction(props) {
                 });
         }
     }
+    const notify2 = () => toast.success('Field created successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     function callFuns() {
         posalji();
         props.closeModal();
         setTimeout(props.getF, 330);
+        toast.success('Field created successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
     return (
@@ -172,7 +193,7 @@ function FieldFormAction(props) {
             </Box>
 
             <Box textAlign="center">
-                <Button variant="outlined" className="mt-3" onClick={callFuns}>
+                <Button className="custom-button mt-2" onClick={callFuns}>
                     {props.action}
                 </Button>
             </Box>

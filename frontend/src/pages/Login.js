@@ -16,9 +16,9 @@ function Login({ isAuthenticated, user }) {
             return (<Navigate to={"/user"}/>)
 
     return (
-        <div className="fixed-top all body">
+        <div className="background-grayish" style={{ height: "100vh", width: "100%" }}>
             <Navbar />
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div className="d-flex justify-content-center">
                 <LoginForm/>
                 <Footer />
             </div>

@@ -4,6 +4,7 @@ import React from 'react';
 import RenterSidebar from "../../components/navigation/RenterSidebar";
 import {Navigate} from "react-router-dom";
 import {connect} from "react-redux";
+import AnalyticCharts from "../../components/renter/AnalyticCharts";
 
 function Analytics({isAuthenticated,user}) {
 
@@ -11,11 +12,12 @@ function Analytics({isAuthenticated,user}) {
     //     return (<Navigate to={"/"}/>)
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="background-grayish" style={{ display: 'flex' }}>
             <RenterSidebar />
             <div className="page-margin">
                 <h1>Analytics</h1>
                 <h5>Statistics and graphs for your profile and fields.</h5>
+                <AnalyticCharts />
             </div>
         </div>
     );

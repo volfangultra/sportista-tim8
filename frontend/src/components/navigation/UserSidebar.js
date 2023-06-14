@@ -13,7 +13,7 @@ const RenterSidebar = () => {
 
     return (
         <div className='sticky-div' style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-            <CDBSidebar textColor='#333' backgroundColor='#f4f4f4'>
+            <CDBSidebar textColor='white' backgroundColor='#2e424d'>
                 <CDBSidebarHeader prefix={<i className='fa fa-bars fa-large'></i>}>
                     <img src='/favicon.svg' alt='logo' style={{ width: '30px' , paddingRight: '3px'}}/>
                     <span className='text-decoration-none' style={{ color: 'inherit' }}>
@@ -31,6 +31,16 @@ const RenterSidebar = () => {
                         <NavLink exact to="/user/my-reservations" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
                             <CDBSidebarMenuItem icon='calendar'>
                                 My Reservations
+                            </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink exact to="/user/my-teams" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
+                            <CDBSidebarMenuItem icon='users'>
+                                My Teams
+                            </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink exact to="/user/favorites" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
+                            <CDBSidebarMenuItem icon='heart'>
+                                Favorites
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/user/shuffle-teams" className={({ isActive }) => (isActive ? "activeClicked" : '')}>

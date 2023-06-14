@@ -37,7 +37,7 @@ function TableTennis(props) {
                     <h2>No fields for this category available at this time!</h2>
                 ) : (
                     fields.map((field) => (
-                        <Card key={field.fields.id} sx={{ margin: '10px', maxWidth: 300 }}>
+                        <Card key={field.fields.id} className="card3">
                             <Carousel showThumbs={false}>
                                 {field.fields.images.split("SPLIT").map((image) => (
                                     <div>
@@ -60,7 +60,7 @@ function TableTennis(props) {
                                     <StarIcon />
                                 </Typography>
                             </CardContent>
-                            <CardActions className="d-flex justify-content-between">
+                            <CardActions className="d-flex justify-content-evenly">
                                 <BookFieldModal />
                                 <FieldDetailsModal />
                             </CardActions>

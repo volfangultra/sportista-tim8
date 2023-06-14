@@ -11,13 +11,11 @@ const EditFieldModal = (props) => {
 
     return (
         <>
-            <Button variant="outlined" onClick={openModal}>
+            <Button className="custom-button" onClick={openModal}>
                 EDIT
             </Button>
             <Modal show={isOpen} onHide={closeModal}>
-                <Modal.Header closeButton>
-                    EDIT FIELD
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>
                     <EditFieldForm field_id={props.field_id} closeModal={closeModal} getf={props.getf}/>
                 </Modal.Body>

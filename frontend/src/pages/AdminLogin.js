@@ -7,7 +7,7 @@ import {Navigate} from "react-router-dom";
 import Footer from "../components/navigation/Footer";
 import AdminLoginForm from "../components/login/AdminLoginForm";
 
-function Login({isAuthenticated, user}) {
+function Login({ isAuthenticated, user }) {
     // if(isAuthenticated && user != null)
     //     if(user.is_renter)
     //         return (<Navigate to={"/renter"}/>)
@@ -15,9 +15,9 @@ function Login({isAuthenticated, user}) {
     //         return (<Navigate to={"/user"}/>)
 
     return (
-        <div className={"fixed-top all body"}>
+        <div className="background-grayish" style={{ height: "100vh", width: "100%" }}>
             <Navbar />
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <AdminLoginForm/>
                 <Footer />
             </div>

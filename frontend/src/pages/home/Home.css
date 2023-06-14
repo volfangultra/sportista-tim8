@@ -1,6 +1,7 @@
-*{
+* {
     font-family: Montserrat, sans-serif;
 }
+
 .mapped_image {
     width : 75%;
     height : auto;
@@ -10,15 +11,10 @@
     height: 3rem;
     width: 3rem;
     border-radius: 50%;
-    background: white;
-    color: black;
+    background: #2e424d;
+    color: white;
     border: 1px solid black;
     margin: 2rem;
-}
-
-.faq-fab:hover {
-    background: black;
-    color: white;
 }
 
 .scaler {
@@ -34,8 +30,8 @@
 }
 
 .sportsPage {
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
@@ -51,21 +47,6 @@
     text-align: center;
     margin-bottom: 2rem;
     margin-top: 2rem;
-}
-
-.cardContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 4rem;
-}
-
-.cardRow {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
 }
 
 .home_slika{
@@ -261,4 +242,18 @@
     75% {
         content: "Loading...";
     }
+}
+
+.card3 {
+    width: 18rem; /* Fiksirana širina kartice */
+    height: 28rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.card3 img {
+    width: 100%;
+    height: 15rem; /* Fiksirana visina slike */
+    object-fit: cover;
 }

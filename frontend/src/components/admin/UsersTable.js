@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import DeleteConfirmationModalUser from "./DeleteConfirmationModalUser";
-
 import Button from '@material-ui/core/Button';
 import {Form, Modal} from "react-bootstrap";
 import Table from '@material-ui/core/Table';
@@ -12,9 +10,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+//components
+import DeleteConfirmationModalUser from "./DeleteConfirmationModalUser";
+
 function UsersTable() {
     const [users, setUsers] = useState([]);
-    const [counter, setCounter] = useState(1);
     const [isOpen, setIsOpen] = useState(false);
     const [warningMessage, setWarningMessage] = useState('');
     const [selectedUser, setSelectedUser] = useState(null);
@@ -71,7 +71,7 @@ function UsersTable() {
     }
 
     return (
-        <div className="mt-5">
+        <div className="mt-5 box_shadow">
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -82,7 +82,7 @@ function UsersTable() {
                             <TableCell>Email address</TableCell>
                             <TableCell>Gender</TableCell>
                             <TableCell>City</TableCell>
-                            <TableCell>Action</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -96,15 +96,13 @@ function UsersTable() {
                                 <TableCell>{user.city}</TableCell>
                                 <TableCell>
                                     <div>
-                                        <Button variant="outlined" onClick={() => openModal(user)}>WARNING</Button>
+                                        <Button className="custom-button m-2" onClick={() => openModal(user)}>WARNING</Button>
                                         <Modal show={isOpen} onHide={closeModal}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>Send Warning Message</Modal.Title>
-                                        </Modal.Header>
+                                        <Modal.Header closeButton></Modal.Header>
                                         <Modal.Body>
                                             <Form>
                                                 <Form.Group controlId="message">
-                                                    <Form.Label>Message</Form.Label>
+                                                    <h5 className="mb-3 mt-2">Send warning message to this user.</h5>
                                                     <Form.Control
                                                         as="textarea"
                                                         rows={4}
@@ -112,16 +110,16 @@ function UsersTable() {
                                                         onChange={(e) => setWarningMessage(e.target.value)}
                                                     />
                                                 </Form.Group>
+                                            <div className="d-flex justify-content-center mt-3">
+                                                <Button className="custom-button m-2" onClick={closeModal}>
+                                                    CANCEL
+                                                </Button>
+                                                <Button className="custom-button m-2" onClick={() => sendWarningMessage()} >
+                                                    SEND
+                                                </Button>
+                                            </div>
                                             </Form>
                                         </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button variant="secondary" onClick={closeModal}>
-                                                Cancel
-                                            </Button>
-                                            <Button variant="primary" onClick={() => sendWarningMessage()} >
-                                                Send
-                                            </Button>
-                                        </Modal.Footer>
                                     </Modal>
                                         <DeleteConfirmationModalUser user_id={user.id} getU={getUsers}/>
                                     </div>
