@@ -47,7 +47,7 @@ function FieldCard(props) {
             {props.fields.map((field) => (
                 <div>
                     {(!props.onlyFavorites || favoriteMap[field.pk]) &&
-                    <Card sx={{maxWidth: 345}}>
+                    <Card className="card">
                         <Carousel showThumbs={false}>
                             {field.fields.images.split("SPLIT").map((image) => (
                                 <div>
@@ -60,7 +60,7 @@ function FieldCard(props) {
                                 {field.fields.name}
                             </Typography>
                         </CardContent>
-                        <CardActions className="d-flex justify-content-between">
+                        <CardActions className="d-flex justify-content-evenly">
                             <BookFieldModal field={field} user={props.user}/>
                             <FieldDetailsModal name={field.fields.name} address={field.fields.address}
                                                details={field.fields.details} price={field.fields.price}/>

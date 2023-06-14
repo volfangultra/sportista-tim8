@@ -41,8 +41,8 @@ const ShuffleTeams = () => {
     };
 
     return (
-        <div>
-            <form className="mt-5" onSubmit={handleFormSubmit}>
+        <div className="shuffle-box mt-5">
+            <form onSubmit={handleFormSubmit}>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item>
                         <TextField
@@ -58,38 +58,40 @@ const ShuffleTeams = () => {
                 </Grid>
                 <Grid className="mt-3" container spacing={2} justifyContent="center">
                     <Grid item>
-                        <Button variant="outlined" type="submit">Shuffle</Button>
+                        <Button className="custom-button" type="submit">Shuffle</Button>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" onClick={handleClearInput}>Clear</Button>
+                        <Button className="custom-button" onClick={handleClearInput}>Clear</Button>
                     </Grid>
                 </Grid>
             </form>
             <Grid className="mt-5" container spacing={2}>
-                <Grid className="players-box" item xs={6}>
-                    <Typography variant="h5" component="h3">Team A:</Typography>
-                    {teamA.length > 0 ? (
-                        <ul>
-                            {teamA.map((player, index) => (
-                                <li key={index}>{player}</li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <Typography>•</Typography>
-                    )}
-                </Grid>
-                <Grid className="players-box" item xs={6}>
-                    <Typography variant="h5" component="h3">Team B:</Typography>
-                    {teamB.length > 0 ? (
-                        <ul>
-                            {teamB.map((player, index) => (
-                                <li key={index}>{player}</li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <Typography>•</Typography>
-                    )}
-                </Grid>
+                <div className="d-flex justify-content-center w-100">
+                    <Grid item xs={6}>
+                        <Typography variant="h5" component="h3">Team A:</Typography>
+                        {teamA.length > 0 ? (
+                            <ul>
+                                {teamA.map((player, index) => (
+                                    <li key={index}>{player}</li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <Typography>•</Typography>
+                        )}
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="h5" component="h3">Team B:</Typography>
+                        {teamB.length > 0 ? (
+                            <ul>
+                                {teamB.map((player, index) => (
+                                    <li key={index}>{player}</li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <Typography>•</Typography>
+                        )}
+                    </Grid>
+                </div>
             </Grid>
         </div>
     );

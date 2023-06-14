@@ -36,7 +36,7 @@ function Handball(props) {
                     <h2>No fields for this category available at this time!</h2>
                 ) : (
                     fields.map((field) => (
-                        <Card key={field.fields.id} sx={{ margin: '10px', maxWidth: 300 }}>
+                        <Card key={field.fields.id} className="card3">
                             <Carousel showThumbs={false}>
                                 {field.fields.images.split("SPLIT").map((image) => (
                                     <div>

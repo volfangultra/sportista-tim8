@@ -5,6 +5,8 @@ import "./User.css";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //components
 import UserSidebar from "../../components/navigation/UserSidebar";
@@ -16,6 +18,27 @@ import RecommendedFields from "../../components/user/RecomendedFields";
 function Dashboard({user, isAuthenticated}) {
     const [fields, setFields] = useState([]);
     const [activeTab, setActiveTab] = useState(1);
+
+    const notify = () => toast.error('ERRRRRROR!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
+    const notify2 = () => toast.success('SUCCCEEEESS', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -46,6 +69,23 @@ function Dashboard({user, isAuthenticated}) {
             <div className="page-margin">
                 <h1>Dashboard</h1>
                 <h5>List of available fields for booking.</h5>
+
+                <button onClick={notify}>Notify!</button>
+                <button onClick={notify2}>Notify2!</button>
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
+                {/* Same as */}
+
                 <div className="tabs">
                     <Tab
                         label="All Fields"

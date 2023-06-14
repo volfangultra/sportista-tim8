@@ -31,6 +31,8 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminInbox from "./pages/admin/Inbox";
 import ShuffleTeamsPage from "./pages/user/ShuffleTeamsPage";
 import Favorites from "./pages/user/Favorites";
+import ArchivedMessages from "./pages/admin/ArchivedMessages";
+import MyTeams from "./pages/user/MyTeams";
 
 function App() {
   return (
@@ -50,6 +52,7 @@ function App() {
               <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin/inbox" element={<AdminInbox />} />
+              <Route path="/admin/arcvhied-messages" element={<ArchivedMessages/>} />
               <Route path="/admin/renters" element={<Renters />} />
               <Route path="/admin/users" element={<Users />} />
               <Route path="/renter" element={<Renter />} />
@@ -60,6 +63,7 @@ function App() {
               <Route path="/user" element={<User />} />
               <Route path="/user/my-reservations" element={<MyReservations />} />
               <Route path="/user/favorites" element={<Favorites />} />
+              <Route path="/user/my-teams" element={<MyTeams />} />
               <Route path="/user/shuffle-teams" element={<ShuffleTeamsPage />} />
               <Route path="/user/invites" element={<Invites />} />
               <Route path="/user/account" element={<UserAccount />} />

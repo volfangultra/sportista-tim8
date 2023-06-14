@@ -30,8 +30,8 @@
 }
 
 .sportsPage {
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
@@ -242,4 +242,18 @@
     75% {
         content: "Loading...";
     }
+}
+
+.card3 {
+    width: 18rem; /* Fiksirana širina kartice */
+    height: 28rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.card3 img {
+    width: 100%;
+    height: 15rem; /* Fiksirana visina slike */
+    object-fit: cover;
 }

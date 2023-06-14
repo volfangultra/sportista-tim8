@@ -14,7 +14,7 @@ import CancelBookingFieldModal from "./CancelBookingFieldModal";
 
 function FieldCard() {
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card className="card">
             <CardMedia
                 component="img"
                 height="140"
@@ -26,7 +26,7 @@ function FieldCard() {
                     Field Name
                 </Typography>
             </CardContent>
-            <CardActions className="d-flex justify-content-between">
+            <CardActions className="d-flex justify-content-evenly">
                 <CancelBookingFieldModal />
                 <FieldDetailsModal />
             </CardActions>

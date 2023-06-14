@@ -156,7 +156,7 @@ const BookFieldModal = (props) => {
 
     return (
         <>
-            <Button variant="outlined" onClick={openModal}>BOOK</Button>
+            <Button className="custom-button mt-2" onClick={openModal}>BOOK</Button>
             <Modal show={isOpen} onHide={closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>BOOK THIS FIELD</Modal.Title>
@@ -175,11 +175,11 @@ const BookFieldModal = (props) => {
 
                     {!isUserLoggedIn && <p>You need to be logged in to book this field.</p>}
                     {isUserLoggedIn ? (
-                        <Button variant="outlined" className="mt-3" onClick={handleBooking}>
+                        <Button className="custom-button mt-3" onClick={handleBooking}>
                             BOOK
                         </Button>
                     ) : (
-                        <Button variant="outlined" className="mt-3" onClick={handleLogin}>
+                        <Button className="custom-button mt-3" onClick={handleLogin}>
                             LOGIN
                         </Button>
                     )}
