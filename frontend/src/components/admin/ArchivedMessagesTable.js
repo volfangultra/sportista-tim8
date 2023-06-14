@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 
-function InboxTable() {
+function ArchivedMessagesTable() {
     return (
         <div className="mt-5 box_shadow">
             <TableContainer component={Paper}>
@@ -36,7 +36,6 @@ function InboxTable() {
                             <TableCell>
                                 <div>
                                     <Button className="custom-button m-2">DELETE</Button>
-                                    <Button className="custom-button m-2">READ</Button>
                                 </div>
                             </TableCell>
                         </TableRow>
@@ -47,4 +46,4 @@ function InboxTable() {
     );
 }
 
-export default InboxTable;
+export default ArchivedMessagesTable;

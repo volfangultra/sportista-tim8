@@ -65,7 +65,7 @@ const RenterAccountOverview = (props) => {
                 <p>Loading renter data...</p>
             ) : (
                 <>
-                    <Box mb={2}>
+                    <Box mb={3}>
                         <TextField
                             className="custom-input"
                             label="Full name"
@@ -75,7 +75,7 @@ const RenterAccountOverview = (props) => {
                             onChange={(e) => setName(e.target.value)}
                         />
                     </Box>
-                    <Box mb={2}>
+                    <Box mb={3}>
                         <TextField
                             className="custom-input"
                             label="Email"
@@ -85,7 +85,7 @@ const RenterAccountOverview = (props) => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </Box>
-                    <Box mb={2}>
+                    <Box mb={3}>
                         <TextField
                             className="custom-input"
                             label="City"
@@ -95,7 +95,7 @@ const RenterAccountOverview = (props) => {
                             onChange={(e) => setCity(e.target.value)}
                         />
                     </Box>
-                    <Box mb={2}>
+                    <Box mb={3}>
                         <TextField
                             className="custom-input"
                             label="Phone number"
@@ -107,8 +107,8 @@ const RenterAccountOverview = (props) => {
                     </Box>
                 </>
             )}
-            <Button className="mt-3" onClick={callFuns} variant="outlined">
-                EDIT
+            <Button className="custom-button mt-3" onClick={callFuns} >
+                SAVE
             </Button>
         </form>
     );

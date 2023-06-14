@@ -19,7 +19,7 @@ function FieldCard(props) {
         <div className="cardContainer">
             <div className="cardRow">
             {props.fields.map((field) => (
-                <Card className="card" sx={{ maxWidth: 345 }}>
+                <Card className="card">
                     <Carousel showThumbs={false}>
                         {field.fields.images.split("SPLIT").map((image) => (
                             <div>

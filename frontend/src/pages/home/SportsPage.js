@@ -33,7 +33,7 @@ function SportsPage() {
             {sport === 'handball' && <Handball header="Handball" />}
             {sport === 'table_tennis' && <TableTennis header="Table Tennis" />}
             {sport === 'hockey' && <Hockey header="Hockey" />}
-            <Pagination style={{ marginBottom: "2rem" }} count={10} variant="outlined" shape="rounded" />
+            <Pagination className="m-5" count={10} variant="outlined" shape="rounded" />
             <Footer />
         </div>
     );

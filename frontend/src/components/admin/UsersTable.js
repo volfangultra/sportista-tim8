@@ -71,7 +71,7 @@ function UsersTable() {
     }
 
     return (
-        <div className="mt-5 users-table">
+        <div className="mt-5 box_shadow">
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -82,7 +82,7 @@ function UsersTable() {
                             <TableCell>Email address</TableCell>
                             <TableCell>Gender</TableCell>
                             <TableCell>City</TableCell>
-                            <TableCell>Action</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -102,7 +102,7 @@ function UsersTable() {
                                         <Modal.Body>
                                             <Form>
                                                 <Form.Group controlId="message">
-                                                    <Form.Label>Message</Form.Label>
+                                                    <h5 className="mb-3 mt-2">Send warning message to this user.</h5>
                                                     <Form.Control
                                                         as="textarea"
                                                         rows={4}
@@ -110,16 +110,16 @@ function UsersTable() {
                                                         onChange={(e) => setWarningMessage(e.target.value)}
                                                     />
                                                 </Form.Group>
+                                            <div className="d-flex justify-content-center mt-3">
+                                                <Button className="custom-button m-2" onClick={closeModal}>
+                                                    CANCEL
+                                                </Button>
+                                                <Button className="custom-button m-2" onClick={() => sendWarningMessage()} >
+                                                    SEND
+                                                </Button>
+                                            </div>
                                             </Form>
                                         </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button variant="secondary" onClick={closeModal}>
-                                                Cancel
-                                            </Button>
-                                            <Button variant="primary" onClick={() => sendWarningMessage()} >
-                                                Send
-                                            </Button>
-                                        </Modal.Footer>
                                     </Modal>
                                         <DeleteConfirmationModalUser user_id={user.id} getU={getUsers}/>
                                     </div>

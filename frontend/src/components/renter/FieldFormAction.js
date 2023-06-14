@@ -162,7 +162,7 @@ function FieldFormAction(props) {
             </Box>
 
             <Box textAlign="center">
-                <Button variant="outlined" className="mt-3" onClick={callFuns}>
+                <Button className="custom-button mt-2" onClick={callFuns}>
                     {props.action}
                 </Button>
             </Box>
