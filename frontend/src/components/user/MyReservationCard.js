@@ -35,6 +35,7 @@ function FieldCard(props) {
                 <Typography gutterBottom variant="h5" component="div">
                     <p>{field.fild.name}</p>
                     <p>{field.beginning}</p>
+                    <p>{field.ending}</p>
                 </Typography>
             </CardContent>
             <CardActions className="d-flex justify-content-between">
