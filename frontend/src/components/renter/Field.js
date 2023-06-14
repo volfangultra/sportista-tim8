@@ -36,7 +36,7 @@ function Field(props) {
                             <Divider className="mt-3 mb-3" />
                             <div className="d-flex flex-row align-items-center justify-content-evenly">
                                 <Button>
-                                    <ViewFieldModal />
+                                    <ViewFieldModal field={field}/>
                                 </Button>
                                 <Button>
                                     <EditFieldModal field_id={field.pk} getf={props.getf} />
