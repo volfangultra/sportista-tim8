@@ -4,6 +4,7 @@ import "../../pages/user/User.css";
 import axios from "axios";
 import { TextField, Box } from '@mui/material';
 import Button from '@material-ui/core/Button';
+import {toast} from "react-toastify";
 
 const UserAccountOverview = (props) => {
     const [userData, setUserData] = useState([]);
@@ -57,6 +58,16 @@ const UserAccountOverview = (props) => {
     function callFuns(){
         changeUserData()
         setTimeout(getUserData,300)
+        toast.success('Account edited successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
 

@@ -3,6 +3,8 @@ import "./LoginForm.css";
 import { connect } from "react-redux";
 import { login } from "../../auth/Auth";
 import Button from '@material-ui/core/Button';
+import {toast, ToastContainer} from "react-toastify";
+
 import TextField from '@material-ui/core/TextField';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
@@ -68,19 +70,67 @@ function LoginForm({ login }) {
     const displayAlert = () => {
         if (error && Object.keys(error).length > 0) {
             if (error.email != null) {
-                alert(error.email);
+                toast.error(error.email, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             } else if (error.password != null) {
-                alert(error.password);
-            } else if (error.detail != null) {
-                alert(error.detail);
-            } else {
-                alert("Error with login")
+                toast.error(error.password, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            } else if(error.detail != null){
+                toast.error(error.detail, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }else {
+                toast.error('Error with login', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
         }
     };
 
     return (
         <div className="login-form-page">
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
             <div className={isRightPanelActive ? 'dowebok right-panel-active' : 'dowebok'} id="dowebok">
                 <div className="form-container sign-up-container">
                     <form action="#">

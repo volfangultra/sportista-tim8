@@ -5,6 +5,7 @@ import {register} from "../../auth/Auth";
 import {connect} from "react-redux";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
+import {toast, ToastContainer} from "react-toastify";
 import {Checkbox, MenuItem, TextField} from "@mui/material";
 import {FormControlLabel} from "@material-ui/core";
 import {FiEye, FiEyeOff} from "react-icons/fi";
@@ -60,23 +61,112 @@ function UserRegisterForm({register}) {
 
     const handleNextStep = () => {
         if (currentStep === 1 && !userFirstName) {
-            alert('Please enter your first name.');
-        } else if (currentStep === 1 && !userLastName) {
-            alert('Please enter your last name.');
-        } else if (currentStep === 1 && !userEmail) {
-            alert('Please enter your email address.')
-        } else if (currentStep === 1 && !userPassword) {
-            alert('Please enter your password.');
-        } else if (currentStep === 1 && (!/\d/.test(userPassword) || userPassword.length < 8)) {
-            alert('Please enter a password with at least 8 characters and containing numbers.')
-        } else if (currentStep === 2 && !userGender) {
-            alert('Please enter your gender.');
-        } else if (currentStep === 2 && !userDateOfBirth) {
-            alert('Please enter your date of birth.')
-        } else if (currentStep === 3 && chosenSports.length === 0) {
-            alert('Please select at least one sport');
-        } else if (currentStep === 4 && Object.keys(userAvailability).length === 0) {
-            alert('Please select at least one range of hours.');
+            toast.error('Please enter your first name.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (currentStep === 1 && !userLastName) {
+            toast.error('Please enter your last name.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (currentStep === 1 && !userEmail) {
+            toast.error('Please enter your email address.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (currentStep === 1 && !userPassword) {
+            toast.error('Please enter your password.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (currentStep === 1 && (!/\d/.test(userPassword) || userPassword.length < 8)) {
+            toast.error('Please enter a password with at least 8 characters and containing numbers.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (currentStep === 2 && !userGender) {
+            toast.error('Please enter your gender.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (currentStep === 2 && !userDateOfBirth) {
+            toast.error('Please enter your date of birth.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (currentStep === 3 && chosenSports.length === 0) {
+            toast.error('Please select at least one sport.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (currentStep === 4 && Object.keys(userAvailability).length === 0) {
+            toast.error('Please select at least one range of hours.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         } else {
             setCurrentStep(currentStep+1);
         }
@@ -124,7 +214,16 @@ function UserRegisterForm({register}) {
         event.preventDefault();
         // Perform form submission logic here
         if (!termsAccepted) {
-            alert('Please agree to the terms and conditions and privacy policy if you want to proceed.');
+            toast.error('Please agree to the terms and conditions and privacy policy if you want to proceed.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
             return;
         }
         const DATA = {
@@ -481,6 +580,18 @@ function UserRegisterForm({register}) {
 
     return (
         <div style={{ alignItems: 'center', justifyContent: 'center' }} onSubmit={handleSubmit} >
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
             {renderCurrentStepForm()}
         </div>
     );

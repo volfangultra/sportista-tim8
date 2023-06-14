@@ -3,12 +3,14 @@ import "./Contact.css";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
-import {Box, FormControl, MenuItem, Select, TextField} from "@mui/material";
+import {Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField} from "@mui/material";
+import {toast} from "react-toastify";
+
 
 function ContactForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [subject, setSubject] = useState('');
+    const [subject, setSubject] = useState('Subject');
     const [message, setMessage] = useState('');
 
     function sendMessage(){
@@ -19,7 +21,21 @@ function ContactForm() {
             message
         })
 
-        alert("Message successfully sent to admin!")
+        setFirstName("");
+        setLastName("");
+        setSubject("");
+        setMessage("");
+
+        toast.success('Message successfully sent to admin!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
     return (
@@ -30,6 +46,7 @@ function ContactForm() {
                     id="first_name"
                     name="first_name"
                     label="First name"
+                    value={firstName}
                     fullWidth
                     onChange={(e) => {setFirstName(e.target.value)}} required
                 />
@@ -40,6 +57,7 @@ function ContactForm() {
                     id="last_name"
                     name="last_name"
                     label="Last name"
+                    value={lastName}
                     fullWidth
                     onChange={(e) => {setLastName(e.target.value)}} required
                 />
@@ -72,6 +90,7 @@ function ContactForm() {
                     id="message"
                     name="message"
                     label="Message"
+                    value={message}
                     multiline
                     rows={5}
                     fullWidth
@@ -79,7 +98,7 @@ function ContactForm() {
                     required
                 />
             </Box>
-            <Button className="custom-button mt-3" onClick={sendMessage} type={"submit"}>SEND</Button>
+            <Button className="custom-button mt-3" onClick={sendMessage}>SEND</Button>
         </form>
     );
 }
