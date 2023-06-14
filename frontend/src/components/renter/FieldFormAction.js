@@ -13,6 +13,8 @@ function FieldFormAction(props) {
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [price, setPrice] = useState("");
+    const [start, setStart] = useState("");
+    const [end, setEnd] = useState("");
     const [images, setImages] = useState(null);
     const [description, setDescription] = useState("");
     const [hasSports, setHasSports] = useState([]);
@@ -32,6 +34,8 @@ function FieldFormAction(props) {
         location: location,
         img: images ? Array.from(images) : [defaultImage],
         description: description,
+        start:start,
+        end:end
     };
 
     function convertImagesToStrings(fileList) {
@@ -112,6 +116,12 @@ function FieldFormAction(props) {
                     variant="outlined"
                     onChange={(e) => setName(e.target.value)}
                 />
+            </Box>
+            <Box mb={1}>
+                <label htmlFor="start">Start:</label>
+                <input type="time" onChange={(e)=>setStart(e.target.value)}/>
+                <label htmlFor="end">End:</label>
+                <input type="time" onChange={(e)=>setEnd(e.target.value)}/>
             </Box>
 
             <Box mb={1}>

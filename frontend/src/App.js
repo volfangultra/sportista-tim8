@@ -30,6 +30,7 @@ import Authentification from "./auth/Authentification";
 import AdminLogin from "./pages/AdminLogin";
 import AdminInbox from "./pages/admin/Inbox";
 import ShuffleTeamsPage from "./pages/user/ShuffleTeamsPage";
+import Favorites from "./pages/user/Favorites";
 import ArchivedMessages from "./pages/admin/ArchivedMessages";
 import MyTeams from "./pages/user/MyTeams";
 
@@ -61,6 +62,7 @@ function App() {
               <Route path="/renter/contact" element={<RenterContact />} />
               <Route path="/user" element={<User />} />
               <Route path="/user/my-reservations" element={<MyReservations />} />
+              <Route path="/user/favorites" element={<Favorites />} />
               <Route path="/user/my-teams" element={<MyTeams />} />
               <Route path="/user/shuffle-teams" element={<ShuffleTeamsPage />} />
               <Route path="/user/invites" element={<Invites />} />

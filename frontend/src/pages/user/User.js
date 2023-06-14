@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./User.css";
+
+//components
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import axios from "axios";
@@ -97,7 +99,7 @@ function Dashboard({user, isAuthenticated}) {
                     />
                 </div>
                 <div className="fieldCards">
-                    {activeTab === 'fields' && <FieldCard fields={fields} user={user} />}
+                    {activeTab === 'fields' && <FieldCard onlyFavorites={false} fields={fields} user={user} />}
                     {activeTab === 'recommended' && <RecommendedFields />}
                 </div>
             </div>

@@ -11,7 +11,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 function Basketball(props) {
 
     const [fields, setFields] = useState([]);
-
     useEffect(() => {
         getFields();
     }, []);

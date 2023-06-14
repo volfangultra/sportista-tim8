@@ -21,6 +21,12 @@ const BookFieldModal = (props) => {
     const handleLogin = () => {
         window.location.href = '/login';
     };
+    const resetModal = () => {
+        setSelectedTimeFrom("NONE")
+        setSelectedTimeTo("NONE")
+        setSelectedDate(new Date())
+
+    }
 
     const handleTimeChangeFrom = (event) => {
         const newTimeFrom = event.target.value;
@@ -51,6 +57,7 @@ const BookFieldModal = (props) => {
         if(selectedTimeFrom === 'NONE' || selectedTimeTo === 'NONE')
             alert("Please select time")
         if(selectedTimeFrom && selectedTimeTo){
+            let validan = true
             let start = new Date(selectedDate)
             let end = new Date(selectedDate)
             start.setHours(selectedTimeFrom.split(':')[0])
@@ -59,6 +66,24 @@ const BookFieldModal = (props) => {
             end.setMinutes(selectedTimeTo.split(':')[1])
             if(start >= end)
                 alert("Wrong time selection")
+            bookedDates.forEach((date) => {
+                if(date.start.getDate() === selectedDate.getDate()){
+                    const time_appointed_start = 60 * start.getHours() + start.getMinutes()
+                    const time_appointed_end = 60 * end.getHours() + end.getMinutes()
+                    const time_start = 60 * date.start.getHours() + date.start.getMinutes()
+                    const time_end = 60 * date.end.getHours() + date.end.getMinutes()
+                    validan = !((time_start > time_appointed_start && time_end <= time_appointed_end) || (time_start >= time_appointed_start && time_end < time_appointed_end))
+                }
+            })
+
+            if(!validan){
+                alert("POSTOJI TERMIN IZMEDJU IZABRANIH DATUMA")
+                return
+            }
+            if(start >= end){
+                alert("POGRESNO IZABRANI DATUMI")
+                return
+            }
 
             axios.post(`${SERVER_URL}/user/solo_book_field/`, {
                 id_usera: props.user.id,
@@ -69,6 +94,7 @@ const BookFieldModal = (props) => {
                 ends:  end
             })
         }
+        closeModal()
 
     };
 
@@ -89,23 +115,35 @@ const BookFieldModal = (props) => {
                 start_date.setHours(24)
             }
             for (let i = start_date.getHours(); i <= end_date.getHours(); i++) {
-                let validan = true
+                let validHour = true
+                let validHalfHour = true
                 bookedDates.forEach((date) => {
                     date.start = new Date(date.start)
                     date.end = new Date(date.end)
-                    if(date.start.getDate() === selectedDate.getDate() && date.start.getHours() <= i && i <= date.end.getHours() && date.id_field === id){
-                        validan = false
+                    if(date.start.getDate() === selectedDate.getDate() && date.start.getHours() <= i && i <= date.end.getHours() && date.id_field !== id && !(date.end.getMinutes() === 0 && i === date.end.getHours())){
+                        validHour = false
                     }
+                    if(date.start.getDate() === selectedDate.getDate() && date.start.getHours() <= i && i <= date.end.getHours() && date.id_field !== id && !(date.end.getMinutes() === 30 && i === date.end.getHours())){
+                        if(!(validHour === true && i === date.end.getHours()))
+                            validHalfHour = false
+                    }
+                    if(i === end_date.getHours())
+                        validHalfHour = false
 
                 })
-                if(validan)
+                if(validHour)
                     options.push(
                         <option key={`${i}:00`} value={`${i}:00`}>{`${i}:00`}</option>,
-                        <option key={`${i}:30`} value={`${i}:30`}>{`${i}:30`}</option>
+                    );
+                if(validHalfHour)
+                    options.push(
+                        <option key={`${i}:30`} value={`${i}:30`}>{`${i}:30`}</option>,
                     );
             }
 
         }
+        if(options.length === 2)
+            return [ <option>NONE</option> ]
         return options;
     };
 
@@ -114,7 +152,7 @@ const BookFieldModal = (props) => {
             setBookedDates(result.data)
         })
         setIsOpen(true)};
-    const closeModal = () => setIsOpen(false);
+    const closeModal = () => {resetModal(); setIsOpen(false)};
 
     return (
         <>

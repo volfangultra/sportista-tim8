@@ -91,9 +91,6 @@ class Field(models.Model):
 
     image = models.TextField(null=True)
     price = models.IntegerField(null=True)
-    starts = models.TimeField()
-    ends = models.TimeField()
-    price = models.IntegerField(null=True)
 
     is_sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
     grades = models.ManyToManyField(SportistaUser, through="UserGradesField", blank=True)

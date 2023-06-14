@@ -38,6 +38,11 @@ const RenterSidebar = () => {
                                 My Teams
                             </CDBSidebarMenuItem>
                         </NavLink>
+                        <NavLink exact to="/user/favorites" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
+                            <CDBSidebarMenuItem icon='heart'>
+                                Favorites
+                            </CDBSidebarMenuItem>
+                        </NavLink>
                         <NavLink exact to="/user/shuffle-teams" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
                             <CDBSidebarMenuItem icon='random'>
                                 Shuffle Teams

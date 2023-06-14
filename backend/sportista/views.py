@@ -155,7 +155,8 @@ def deleteRenterField(request, params):
 
 @api_view(['POST'])
 def spremi(request):
-    objekat = Field(id_rentera_id=request.data.get("user"), name=request.data.get("name"),address=request.data.get("location"),details=request.data.get("description"),starts="1:1",ends="1:1",is_sport_id=request.data.get("sport"),price=request.data.get("price"))
+    print(request.data.get("start"))
+    objekat = Field(id_rentera_id=request.data.get("user"), name=request.data.get("name"),address=request.data.get("location"),details=request.data.get("description"),starts=request.data.get("start"),ends=request.data.get("end"),is_sport_id=request.data.get("sport"),price=request.data.get("price"))
     objekat.save()
     lista = objekat.get_my_images()
     for image in request.data.get("img"):
@@ -227,6 +228,7 @@ def deleteUser(request, params):
     UserAccount.objects.filter(id=params).delete()
     return HttpResponse("Ok")
 
+
 @api_view(['POST'])
 def book_field_solo(request):
     team = Team(id_leader=SportistaUser.objects.get(id=request.data.get("id_usera")), plays_sport_id=request.data.get("id_sporta"))
@@ -240,6 +242,7 @@ def book_field_solo(request):
     })
 
     return HttpResponse("Ok")
+
 
 @api_view(['GET'])
 def get_dates(request, field_id):
@@ -273,19 +276,32 @@ def sendEmail(request):
 
     return HttpResponse('Invalid request method')
 
-@api_view(['POST'])
-def book_field_solo(request):
-    team = Team(id_leader=SportistaUser.objects.get(id=request.data.get("id_usera")), plays_sport_id=request.data.get("id_sporta"))
-    team.save()
-    print(request.data)
-    field = Field.objects.get(id=request.data.get("id_fielda"))
-    field.has_teams.add(team, through_defaults={
-        'price': request.data.get("price"),
-        'beginning': request.data.get("start"),
-        'ending': request.data.get("ends")
-    })
 
+@api_view(['POST'])
+def favorite_field(request, field_id, user_id):
+    user = SportistaUser.objects.get(id=user_id)
+    field = Field.objects.get(id=field_id)
+    user.favourite_fields.add(field)
     return HttpResponse("Ok")
+
+@api_view(['POST'])
+def unfavorite_field(request, field_id, user_id):
+    user = SportistaUser.objects.get(id=user_id)
+    field = Field.objects.get(id=field_id)
+    user.favourite_fields.remove(field)
+    return HttpResponse("Ok")
+
+
+@api_view(['GET'])
+def get_favorite_field(request, user_id):
+    user = SportistaUser.objects.get(id=user_id)
+    fields = list(user.favourite_fields.all())
+    temp = []
+    for field in fields:
+        temp.append(field.id)
+    res = json.dumps(temp)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
 
 @api_view(['GET'])
 def get_dates(request, field_id):
