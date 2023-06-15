@@ -10,39 +10,29 @@
    display: flex;
    flex-direction: column;
    align-items: center;
-   border: 1px solid;
+   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+   background: #ffffff;
    padding: 2rem;
    margin-top: 5rem;
-}
-
-.players-box{
-   border: 1px solid;
 }
 
 .cardContainer {
    display: flex;
    flex-wrap: wrap;
-   gap: 20px;
+   flex-direction: column;
+   gap: 1.5rem;
 }
 
 .cardRow {
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
-   gap: 20px;
+   gap: 1.5rem;
 }
 
 .card {
-   width: 300px; /* Fiksirana širina kartice */
-   height: 400px;
-   display: flex;
-   flex-direction: column;
-   text-align: center;
-}
-
-.card2 {
-   width: 300px; /* Fiksirana širina kartice */
-   height: 400px;
+   width: 18rem; /* Fiksirana širina kartice */
+   height: 28rem;
    display: flex;
    flex-direction: column;
    text-align: center;
@@ -50,10 +40,84 @@
 
 .card img {
    width: 100%;
-   height: 250px; /* Fiksirana visina slike */
+   height: 16rem; /* Fiksirana visina slike */
+   object-fit: cover;
+}
+
+.card2 {
+   width: 18rem; /* Fiksirana širina kartice */
+   height: 29rem;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+}
+
+.card2 img {
+   width: 100%;
+   height: 15rem; /* Fiksirana visina slike */
    object-fit: cover;
 }
 
 .cardContent {
    flex-grow: 1;
+}
+
+.card3 {
+   width: 18rem; /* Fiksirana širina kartice */
+   height: 25rem;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+}
+
+.card3 img {
+   width: 100%;
+   height: 16rem; /* Fiksirana visina slike */
+   object-fit: cover;
+}
+
+.card4 {
+   width: 18rem; /* Fiksirana širina kartice */
+   height: 25rem;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+}
+
+.card4 img {
+   width: 100%;
+   height: 16rem; /* Fiksirana visina slike */
+   object-fit: cover;
+}
+
+.my-teams-comp-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 27rem;
+   margin: 0 auto;
+   padding: 3rem;
+   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+   background: #ffffff;
+}
+
+.teams-inputs {
+   width: 19rem;
+}
+
+.team-container {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-gap: 2rem;
+   margin-top: 2rem;
+}
+
+.team-container > div {
+   text-align: center;
+}
+
+.team-container > div > ul {
+   padding-left: 0;
+   list-style-type: none;
 }

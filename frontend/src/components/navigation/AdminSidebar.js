@@ -33,6 +33,11 @@ const AdminSidebar = () => {
                                 Inbox
                             </CDBSidebarMenuItem>
                         </NavLink>
+                        <NavLink to="/admin/arcvhied-messages" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
+                            <CDBSidebarMenuItem icon='archive'>
+                                Archived Messages
+                            </CDBSidebarMenuItem>
+                        </NavLink>
                         <NavLink to="/admin/renters" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
                             <CDBSidebarMenuItem icon='user-tag'>
                                 Renters

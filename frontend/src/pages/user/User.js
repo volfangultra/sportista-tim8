@@ -5,6 +5,7 @@ import "./User.css";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import axios from "axios";
+import 'react-toastify/dist/ReactToastify.css';
 
 //components
 import UserSidebar from "../../components/navigation/UserSidebar";
@@ -15,7 +16,7 @@ import RecommendedFields from "../../components/user/RecomendedFields";
 
 function Dashboard({user, isAuthenticated}) {
     const [fields, setFields] = useState([]);
-    const [activeTab, setActiveTab] = useState("fields");
+    const [activeTab, setActiveTab] = useState('fields');
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -46,6 +47,7 @@ function Dashboard({user, isAuthenticated}) {
             <div className="page-margin">
                 <h1>Dashboard</h1>
                 <h5>List of available fields for booking.</h5>
+
                 <div className="tabs">
                     <Tab
                         label="All Fields"

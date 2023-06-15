@@ -34,6 +34,7 @@ function Dashboard({user, isAuthenticated}) {
                 <UserSidebar />
             <div className="page-margin">
                 <h1>Favorites</h1>
+                <h5>List of your favourite fields.</h5>
                 <div className="fieldCards">
                     <FieldCard onlyFavorites={true} fields={fields} user={user}/>
                 </div>

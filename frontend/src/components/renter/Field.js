@@ -7,13 +7,13 @@ import EditFieldModal from "./EditFieldModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
+import ViewFieldModal from "./ViewFieldModal";
 
 function Field(props) {
 
@@ -34,9 +34,9 @@ function Field(props) {
                                 {field.fields.name}
                             </Typography>
                             <Divider className="mt-3 mb-3" />
-                            <div className="d-flex flex-row align-items-center justify-content-center">
-                                <Button className="custom-button">
-                                    VIEW
+                            <div className="d-flex flex-row align-items-center justify-content-evenly">
+                                <Button>
+                                    <ViewFieldModal field={field}/>
                                 </Button>
                                 <Button>
                                     <EditFieldModal field_id={field.pk} getf={props.getf} />

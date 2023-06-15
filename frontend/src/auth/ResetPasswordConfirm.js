@@ -40,7 +40,7 @@ function ResetPasswordConfirm({match, reset_password_confirm}) {
                     required
                     variant="outlined"
                 />
-                <Button variant="outlined" onClick={resetPasswordConfirm} className="nextButton">
+                <Button className="custom-button mt-3" onClick={resetPasswordConfirm}>
                 Next
             </Button>
             </div>

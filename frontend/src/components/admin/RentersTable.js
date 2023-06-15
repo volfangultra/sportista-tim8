@@ -69,7 +69,7 @@ function RentersTable() {
             });
     }
     return (
-        <div className="mt-5">
+        <div className="mt-5 box_shadow">
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -79,7 +79,7 @@ function RentersTable() {
                             <TableCell>Email address</TableCell>
                             <TableCell>City</TableCell>
                             <TableCell>Phone number</TableCell>
-                            <TableCell>Action</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -94,13 +94,11 @@ function RentersTable() {
                                     <div>
                                         <Button className="custom-button m-2" onClick={() => openModal(renter)}>WARNING</Button>
                                         <Modal show={isOpen} onHide={closeModal}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>Send Warning Message</Modal.Title>
-                                            </Modal.Header>
+                                            <Modal.Header closeButton></Modal.Header>
                                             <Modal.Body>
                                                 <Form>
                                                     <Form.Group controlId="message">
-                                                        <Form.Label>Message</Form.Label>
+                                                        <h5 className="mb-3 mt-2">Send warning message to this renter.</h5>
                                                         <Form.Control
                                                             as="textarea"
                                                             rows={4}
@@ -108,16 +106,16 @@ function RentersTable() {
                                                             onChange={(e) => setWarningMessage(e.target.value)}
                                                         />
                                                     </Form.Group>
+                                                    <div className="d-flex justify-content-center mt-3">
+                                                        <Button className="custom-button m-2" onClick={closeModal}>
+                                                            Cancel
+                                                        </Button>
+                                                        <Button className="custom-button m-2" onClick={() => sendWarningMessage()} >
+                                                            SEND
+                                                        </Button>
+                                                    </div>
                                                 </Form>
                                             </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button variant="secondary" onClick={closeModal}>
-                                                    Cancel
-                                                </Button>
-                                                <Button variant="primary" onClick={() => sendWarningMessage()} >
-                                                    Send
-                                                </Button>
-                                            </Modal.Footer>
                                         </Modal>
                                         <DeleteConfirmationModalRenter renter_id={renter.id} getR={getRenters} />
                                     </div>

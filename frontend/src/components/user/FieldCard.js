@@ -1,12 +1,9 @@
 import "../../pages/user/User.css";
 import React, {useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import FieldDetailsModal from "./FieldDetailsModal";
 import BookFieldModal from "./BookFieldModal";
@@ -29,7 +26,7 @@ function FieldCard(props) {
             })
         }
         if(props.user != null)
-            axios.get(`${SERVER_URL}/user/get_favorite_fields/${props.user.id}`)
+            axios.get(`${SERVER_URL}/user/get_favorite_fields/${props.user.id}/`)
                 .then((response) => {
                     for (let field in response.data)
                         temp[response.data[field]] = true
@@ -47,42 +44,42 @@ function FieldCard(props) {
             {props.fields.map((field) => (
                 <div>
                     {(!props.onlyFavorites || favoriteMap[field.pk]) &&
-                    <Card sx={{maxWidth: 345}}>
+                    <Card className="card">
                         <Carousel showThumbs={false}>
                             {field.fields.images.split("SPLIT").map((image) => (
                                 <div>
-                                    <img src={image} alt="Field photo"/>
+                                    <img src={image} />
                                 </div>
                             ))}
                         </Carousel>
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5">
                                 {field.fields.name}
                             </Typography>
                         </CardContent>
-                        <CardActions className="d-flex justify-content-between">
+                        <CardActions className="d-flex justify-content-evenly">
                             <BookFieldModal field={field} user={props.user}/>
                             <FieldDetailsModal name={field.fields.name} address={field.fields.address}
                                                details={field.fields.details} price={field.fields.price}/>
                         </CardActions>
                         <CardActions className="justify-content-between" disableSpacing>
-                                <span>
+                                <span style={{ marginLeft: "2rem", cursor: "pointer" }}>
                                     {!favoriteMap[field.pk] &&
-                                        <FavoriteBorder color="primary" fontSize="small" onClick={() => {
+                                        <FavoriteBorder color="primary" onClick={() => {
                                             axios.post(`${SERVER_URL}/user/favorite_field/${field.pk}/${props.user.id}/`).then(() => {
                                                 setFavorite(!favorite)
                                             })
                                         }}/>
                                     }
                                     {favoriteMap[field.pk] &&
-                                        <Favorite color="primary" fontSize="small" onClick={() => {
+                                        <Favorite color="primary" onClick={() => {
                                             axios.post(`${SERVER_URL}/user/unfavorite_field/${field.pk}/${props.user.id}/`).then(() => setFavorite(!favorite))
                                         }}/>
                                     }
                                 </span>
-                            <span>
+                                <span style={{ marginRight: "2rem" }}>
                                     <Typography component="span">4.5/5 </Typography>
-                                    <StarIcon color="primary" fontSize="small"/>
+                                    <StarIcon color="primary" />
                                 </span>
                         </CardActions>
                     </Card>}

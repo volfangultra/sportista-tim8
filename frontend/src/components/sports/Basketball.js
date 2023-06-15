@@ -7,6 +7,8 @@ import BookFieldModal from "../user/BookFieldModal";
 import FieldDetailsModal from "../user/FieldDetailsModal";
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import {Favorite, FavoriteBorder} from "@mui/icons-material";
+import {SERVER_URL} from "../../auth/Consts";
 
 function Basketball(props) {
 
@@ -36,7 +38,7 @@ function Basketball(props) {
                     <h2>No fields for this category available at this time!</h2>
                 ) : (
                     fields.map((field) => (
-                        <Card key={field.fields.id} sx={{ margin: '10px', maxWidth: 300 }}>
+                        <Card className="card3" key={field.fields.id}>
                             <Carousel showThumbs={false}>
                                 {field.fields.images.split("SPLIT").map((image) => (
                                     <div>
@@ -45,23 +47,14 @@ function Basketball(props) {
                                 ))}
                             </Carousel>
                             <CardContent>
-                                <Typography variant="h5" component="div">
+                                <Typography gutterBottom variant="h5">
                                     {field.fields.name}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Location: {field.fields.address}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Price: {field.fields.price}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Rating: 4.5/5 {field.fields.grades}
-                                    <StarIcon />
-                                </Typography>
                             </CardContent>
-                            <CardActions className="d-flex justify-content-between">
-                                <BookFieldModal field={field}/>
-                                <FieldDetailsModal />
+                            <CardActions className="d-flex justify-content-evenly">
+                                <BookFieldModal field={field} user={props.user}/>
+                                <FieldDetailsModal name={field.fields.name} address={field.fields.address}
+                                                   details={field.fields.details} price={field.fields.price}/>
                             </CardActions>
                         </Card>
                     ))

@@ -1,4 +1,3 @@
-import Form from 'react-bootstrap/Form';
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {connect} from "react-redux";
@@ -110,22 +109,20 @@ function EditFieldForm(props, { user, isAuthenticated } ) {
         <form encType="multipart/form-data">
             <Box mb={1}>
                 <FormControl fullWidth>
-                    <InputLabel htmlFor="formBasicSport">Sport</InputLabel>
-                    <Select
+                    <TextField
+                        select
                         className="custom-input"
-                        aria-label="Select sport"
-                        variant="outlined"
+                        label="Select sport"
                         value={sport}
+                        variant="outlined"
                         onChange={(e) => setSport(e.target.value)}
-
                     >
-                        <MenuItem value="">Select sport</MenuItem>
                         {hasSports.map((sport) => (
                             <MenuItem key={sport.pk} value={sport.pk}>
                                 {sport.fields.name}
                             </MenuItem>
                         ))}
-                    </Select>
+                    </TextField>
                 </FormControl>
             </Box>
 
@@ -160,23 +157,26 @@ function EditFieldForm(props, { user, isAuthenticated } ) {
             </Box>
 
             <Box mb={1}>
-                <InputLabel htmlFor="formBasicImg">Image</InputLabel>
                 <TextField
                     className="custom-input"
                     type="file"
                     id="formBasicImg"
+                    label="Image"
+                    variant="outlined"
                     onChange={(e) => setImg(e.target.files[0])}
+                    inputProps={{ multiple: true }}
                 />
             </Box>
 
             <Box mb={3}>
-                <InputLabel htmlFor="textarea">Description</InputLabel>
-                <TextareaAutosize
+                <TextField
                     className="custom-input"
-                    id="textarea"
+                    id="description"
+                    name="description"
+                    label="Description"
+                    multiline
                     rows={3}
-                    maxLength={60}
-                    variant="outlined"
+                    fullWidthrequired
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />

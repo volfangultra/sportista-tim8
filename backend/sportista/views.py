@@ -80,6 +80,35 @@ def getRenterFields(request, params):
 
 
 @api_view(['GET'])
+def getUserReservations(request, params):
+    citavatabela = TeamRentsField.objects.all()
+    prazna = []
+
+    for red in citavatabela:
+        red = model_to_dict(red)
+        tim = Team.objects.get(id=red["id_teama"])
+        tim = model_to_dict(tim)
+        fild = Field.objects.get(id=red["id_fielda"])
+        fild = model_to_dict(fild)
+
+        if tim["id_leader"] == params:
+            red["beginning"] = red["beginning"].strftime('%Y-%m-%d %H:%M:%S')
+            red["ending"] = red["ending"].strftime('%Y-%m-%d %H:%M:%S')
+            red["fild"] = fild
+            red["fild"]["starts"] = red["fild"]["starts"].strftime('%Y-%m-%d %H:%M:%S')
+            red["fild"]["ends"] = red["fild"]["ends"].strftime('%Y-%m-%d %H:%M:%S')
+            red["fild"]["has_teams"] = ""
+            prazna.append(red)
+
+    print(prazna)
+    res = json.dumps(prazna)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
+
+
+
+
+@api_view(['GET'])
 def getUserFields(request):
     list_of_fields = Field.objects.filter(lock=False)
     res = serializers.serialize('json', list_of_fields)
@@ -161,7 +190,8 @@ def deleteRenterField(request, params):
 
 @api_view(['POST'])
 def spremi(request):
-    objekat = Field(id_rentera_id=request.data.get("user"), name=request.data.get("name"),address=request.data.get("location"),details=request.data.get("description"),starts="1:1",ends="1:1",is_sport_id=request.data.get("sport"),price=request.data.get("price"))
+    print(request.data.get("start"))
+    objekat = Field(id_rentera_id=request.data.get("user"), name=request.data.get("name"),address=request.data.get("location"),details=request.data.get("description"),starts=request.data.get("start"),ends=request.data.get("end"),is_sport_id=request.data.get("sport"),price=request.data.get("price"))
     objekat.save()
     lista = objekat.get_my_images()
     for image in request.data.get("img"):

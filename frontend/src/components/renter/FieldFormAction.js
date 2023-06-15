@@ -6,6 +6,7 @@ import { SERVER_URL } from "../../auth/Consts";
 import Button from "@material-ui/core/Button";
 import { Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from "@mui/material";
 import defaultImage from '../../../src/resources/images/favicon.jpg';
+import {toast} from "react-toastify";
 
 function FieldFormAction(props) {
 
@@ -13,6 +14,8 @@ function FieldFormAction(props) {
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [price, setPrice] = useState("");
+    const [start, setStart] = useState("");
+    const [end, setEnd] = useState("");
     const [images, setImages] = useState(null);
     const [description, setDescription] = useState("");
     const [hasSports, setHasSports] = useState([]);
@@ -32,6 +35,8 @@ function FieldFormAction(props) {
         location: location,
         img: images ? Array.from(images) : [defaultImage],
         description: description,
+        start:start,
+        end:end
     };
 
     function convertImagesToStrings(fileList) {
@@ -77,32 +82,56 @@ function FieldFormAction(props) {
                 });
         }
     }
+    const notify2 = () => toast.success('Field created successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     function callFuns() {
         posalji();
         props.closeModal();
         setTimeout(props.getF, 330);
+        toast.success('Field created successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
+    const handleKeyPress =(event) =>{
+
+        if (event.key === 'Enter') {
+            callFuns();
+        }
     }
 
     return (
-        <form encType="multipart/form-data">
+        <form encType="multipart/form-data" onKeyPress={handleKeyPress}>
             <Box mb={1}>
-                <FormControl fullWidth>
-                    <InputLabel htmlFor="formBasicSport">Sport</InputLabel>
-                    <Select
-                        className="custom-input"
-                        aria-label="Select sport"
-                        variant="outlined"
-                        onChange={(e) => setSport(e.target.value)}
-                    >
-                        <MenuItem value="">Select sport</MenuItem>
-                        {hasSports.map((sport) => (
-                            <MenuItem key={sport.pk} value={sport.pk}>
-                                {sport.fields.name}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                <TextField
+                    select
+                    className="custom-input"
+                    label="Select sport"
+                    variant="outlined"
+                    value={sport}
+                    onChange={(e) => setSport(e.target.value)}
+                >
+                    {hasSports.map((sport) => (
+                        <MenuItem key={sport.pk} value={sport.pk}>
+                            {sport.fields.name}
+                        </MenuItem>
+                    ))}
+                </TextField>
             </Box>
 
             <Box mb={1}>
@@ -111,6 +140,28 @@ function FieldFormAction(props) {
                     label="Name"
                     variant="outlined"
                     onChange={(e) => setName(e.target.value)}
+                />
+            </Box>
+            <Box mb={1} className="d-flex">
+                <TextField
+                    sx={{ margin: "0 1rem 0 0" }}
+                    className="custom-input"
+                    id="start"
+                    label="Working hours from"
+                    type="time"
+                    value={start}
+                    onChange={(e)=>setStart(e.target.value)}
+                    variant="outlined"
+                />
+                <TextField
+                    sx={{ margin: "0 0 0 1rem" }}
+                    className="custom-input"
+                    id="end"
+                    label="Working hours to"
+                    type="time"
+                    value={end}
+                    onChange={(e)=>setEnd(e.target.value)}
+                    variant="outlined"
                 />
             </Box>
 
@@ -133,11 +184,12 @@ function FieldFormAction(props) {
             </Box>
 
             <Box mb={1}>
-                <InputLabel htmlFor="formBasicImg">Image</InputLabel>
                 <TextField
                     className="custom-input"
                     type="file"
                     id="formBasicImg"
+                    label="Image"
+                    variant="outlined"
                     onChange={(e) => setImages(e.target.files)}
                     inputProps={{ multiple: true }}
                 />
@@ -150,19 +202,20 @@ function FieldFormAction(props) {
             )}
 
             <Box mb={3}>
-                <InputLabel htmlFor="textarea">Description</InputLabel>
-                <TextareaAutosize
+                <TextField
                     className="custom-input"
-                    id="textarea"
+                    id="description"
+                    name="description"
+                    label="Description"
+                    multiline
                     rows={3}
-                    maxLength={60}
-                    variant="outlined"
+                    fullWidthrequired
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </Box>
 
             <Box textAlign="center">
-                <Button variant="outlined" className="mt-3" onClick={callFuns}>
+                <Button className="custom-button mt-2" onClick={callFuns}>
                     {props.action}
                 </Button>
             </Box>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
+import {toast} from "react-toastify";
 
 const DeleteConfirmationModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +27,16 @@ const DeleteConfirmationModal = (props) => {
         closeModal();
         deleteField(props.field_id);
         setTimeout(props.getf, 330)
+        toast.success('Field deleted successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     };
 
     return (
