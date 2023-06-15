@@ -29,16 +29,14 @@ const DeleteConfirmationModalUser = (props) => {
 
     return (
         <>
-            <Button variant="danger" className="buttonDelete" onClick={openModal}>
+            <Button className="custom-button m-2" onClick={openModal}>
                 DELETE
             </Button>
             <Modal show={isOpen} onHide={closeModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>DELETE USER</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <Modal.Body className="text-center">
                     <h5>Are you sure you want to delete the user?</h5>
-                    <Button variant="outlined" className="mt-3" onClick={() => callFuns()}>
+                    <Button className="custom-button m-2" onClick={() => callFuns()}>
                         DELETE
                     </Button>
                 </Modal.Body>

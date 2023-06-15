@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
 import FieldFormAction from "./FieldFormAction";
+import "../../pages/renter/Renter.css";
 
 const AddFieldModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,16 +14,14 @@ const AddFieldModal = (props) => {
         <>
             <Fab
                 style={{ position: "fixed", right: "30px", bottom: "30px" }}
-                color="primary"
                 aria-label="Add"
                 onClick={openModal}
+                className="add-fab"
             >
                 <AddIcon />
             </Fab>
             <Modal show={isOpen} onHide={closeModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>ADD NEW FIELD</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>
                     <FieldFormAction
                         action="ADD"

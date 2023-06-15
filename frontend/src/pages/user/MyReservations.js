@@ -34,7 +34,7 @@ function MyReservations({ user, isAuthenticated }) {
     const played = 15;
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="background-grayish" style={{ display: 'flex' }}>
             <UserSidebar />
             <div className="page-margin">
                 <h1>My Reservations</h1>

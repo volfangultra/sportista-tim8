@@ -29,6 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
+MAX_UPLOAD_SIZE = "5242880"
+
 
 # Application definition
 

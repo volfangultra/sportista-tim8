@@ -1,11 +1,14 @@
 import React, { useState, useEffect  } from 'react';
-import Form from 'react-bootstrap/Form';
 import Button from '@material-ui/core/Button';
 import "./RegisterForm.css";
 import {verify, register} from "../../auth/Auth";
 import {connect} from "react-redux";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
+import {toast, ToastContainer} from "react-toastify";
+import {Checkbox, TextField} from "@mui/material";
+import {FormControlLabel} from "@material-ui/core";
+import {FiEye, FiEyeOff} from "react-icons/fi";
 
 const RenterRegisterForm = React.memo(({register, verify}) => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -20,6 +23,7 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
     const [phoneError, setPhoneError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [blockButton, setBlockButton] = useState(false);
+    const [showRenterPassword, setShowRenterPassword] = useState(false);
 
     if(!gotData)
         axios.get( `${SERVER_URL}/daj_sportove`).then((res) => {
@@ -28,17 +32,73 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
 
     const handleNextStep = () => {
         if (currentStep === 1 && !renterName) {
-            alert('Please enter your name.');
+
+            toast.error('Please enter your name.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         } else if (currentStep === 1 && !renterEmail) {
-            alert('Please enter your email address.');
+            toast.error('Please enter your email address.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         } else if (currentStep === 1 && !renterPassword) {
-            alert('Please enter your password.');
+            toast.error('Please enter your password.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+
         } else if (currentStep === 1 && (!/\d/.test(renterPassword) || renterPassword.length < 8)) {
-            alert('Please enter a password with at least 8 characters and containing numbers.')
+            toast.error('Please enter a password with at least 8 characters and containing numbers.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }else if (currentStep === 2 && !renterCity) {
-            alert('Please enter your city.');
+            toast.error('Please enter your city.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         } else if (currentStep === 2 && !renterPhone) {
-            alert('Please enter your phone number.')
+            toast.error('Please enter your phone number.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }  else {
             setCurrentStep(currentStep+1);
         }
@@ -107,7 +167,16 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
         setBlockButton(true)
         // Perform form submission logic here
         if (!termsAccepted) {
-            alert('Please agree to the terms and conditions and privacy policy if you want to proceed.');
+            toast.error('Please agree to the terms and conditions and privacy policy if you want to proceed.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
             return;
         }
         const DATA = {
@@ -125,6 +194,10 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
         window.location.href = '/login';
     };
 
+    const toggleRenterPasswordVisibility = () => {
+        setShowRenterPassword(!showRenterPassword);
+    }
+
     const renderCurrentStepForm = () => {
         switch (currentStep) {
             case 1:
@@ -135,89 +208,94 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                             <div className="step"></div>
                             <div className="step"></div>
                         </div>
-
-                        <div className="form-group">
-                            <input
+                        <div className="text-center">
+                            <h5 className="mt-5 mb-5">Personal info</h5>
+                            <TextField
                                 className="custom-input"
                                 type="text"
                                 id="name"
-                                placeholder="Name"
+                                label="Full name"
                                 value={renterName}
                                 onChange={handleRenterNameChange}
                                 required
                             />
                         </div>
-
-                        <div className="form-group">
-                            <input
-                                className="custom-input"
+                        <div>
+                            <TextField
+                                className="custom-input mt-2"
                                 type="email"
                                 id="email"
-                                placeholder="E-mail"
+                                label="E-mail"
                                 value={renterEmail}
                                 onChange={handleRenterEmailChange}
                                 required
                             />
                             {emailError && <div className="error">{emailError}</div>}
                         </div>
-
-                        <div className="form-group">
-                            <input
-                                className="custom-input"
-                                type="password"
+                        <div>
+                            <TextField
+                                className="custom-input mt-2"
+                                type={showRenterPassword ? "text" : "password"}
                                 id="password"
-                                placeholder="Password"
+                                label="Password"
                                 value={renterPassword}
                                 onChange={handleRenterPasswordChange}
                                 required
+                                InputProps={{
+                                    endAdornment: (
+                                        <div style={{ cursor: "pointer" }} onClick={toggleRenterPasswordVisibility}>
+                                            {showRenterPassword ? <FiEyeOff /> : <FiEye />}
+                                        </div>
+                                    ),
+                                }}
                             />
                         </div>
-
-                        <button onClick={handleNextStep} className="nextButton custom-register-button">
+                        <Button onClick={handleNextStep} className="nextButton custom-button">
                             Next
-                        </button>
+                        </Button>
                     </>
                 );
             case 2:
                 return (
                     <>
                         <div className="steps">
-                            <div className="step"></div>
+                            <div className="step completed"></div>
                             <div className="step active"></div>
                             <div className="step"></div>
                         </div>
-                        <div className="form-group">
-                            <input
-                                className="custom-input"
-                                type="text"
-                                id="city"
-                                placeholder="City"
-                                value={renterCity}
-                                onChange={handleRenterCityChange}
-                                required
-                            />
+                        <div className="text-center">
+                            <h5 className="mt-5 mb-5">More personal info</h5>
+                            <div>
+                                <TextField
+                                    className="custom-input"
+                                    type="text"
+                                    id="city"
+                                    label="City"
+                                    value={renterCity}
+                                    onChange={handleRenterCityChange}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <TextField
+                                    className="custom-input mt-2"
+                                    type="text"
+                                    id="phoneNumber"
+                                    label="Phone number"
+                                    value={renterPhone}
+                                    onChange={handleRenterPhoneChange}
+                                    required
+                                />
+                                {phoneError && <div className="error">{phoneError}</div>}
+                            </div>
                         </div>
-
-                        <div className="form-group">
-                            <input
-                                className="custom-input"
-                                type="text"
-                                id="phoneNumber"
-                                placeholder="Phone number"
-                                value={renterPhone}
-                                onChange={handleRenterPhoneChange}
-                                required
-                            />
-                            {phoneError && <div className="error">{phoneError}</div>}
-                        </div>
-
                         <div>
-                            <button className="previousButton custom-register-button" onClick={handlePrevStep}>
+                            <Button className="previousButton custom-button" onClick={handlePrevStep}>
                                 Previous
-                            </button>
-                            <button className="nextButton custom-register-button" onClick={handleNextStep}>
+                            </Button>
+                            <Button className="nextButton custom-button" onClick={handleNextStep}>
                                 Next
-                            </button>
+                            </Button>
                         </div>
                     </>
                 );
@@ -230,8 +308,8 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                                 <h4>Thank you for registering! Please check your email to activate your account.</h4>
                                 <h4>After that, you can proceed to login.</h4>
                             </div>
-                            <div>
-                                <Button onClick={handleLoginButtonClick} className="login-button">
+                            <div className="float-end mb-3">
+                                <Button onClick={handleLoginButtonClick} className="custom-button nextButton">
                                     Login
                                 </Button>
                             </div>
@@ -240,75 +318,61 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                 } else {
                     return (
                         <>
-                            <div className="steps">
-                                <div className="step"></div>
-                                <div className="step"></div>
-                                <div className="step active"></div>
+                            <div className="scrollable-container">
+                                <div className="steps">
+                                    <div className="step completed"></div>
+                                    <div className="step completed"></div>
+                                    <div className="step active"></div>
+                                </div>
+                                <div className="mb-3">
+                                    <h5 className="mt-5 mb-5">Terms and Conditions</h5>
+                                    <div>
+                                        <p>Welcome to Sportista Field Rental!</p>
+                                        <p>
+                                            By using our platform, you agree to comply with the following terms and conditions:
+                                        </p>
+                                        <p>
+                                            1. Use of the Platform
+                                            - You are responsible for maintaining the confidentiality of your account.
+                                            - You agree not to use the platform for any illegal or unauthorized purposes.
+                                        </p>
+                                        <p>
+                                            2. Field Rental
+                                            - The platform facilitates the rental of sports fields.
+                                            - The availability and booking process may vary and are subject to specific terms outlined on the platform.
+                                            - Any disputes or issues regarding field rental are the responsibility of the field renter and user.
+                                        </p>
+                                        <p>
+                                            3. Liability
+                                            - We are not responsible for any accidents, injuries, or damages that may occur during field rental.
+                                            - Users and renters are advised to establish their own agreements regarding liability and responsibilities.
+                                        </p>
+                                        <p>
+                                            4. Privacy
+                                            - We collect and store user data in accordance with our privacy policy.
+                                            - We implement security measures to protect user information, but we cannot guarantee complete security.
+                                        </p>
+                                        <p>
+                                            5. Disclaimer
+                                            - The platform is provided "as is" and we do not make any warranties or representations.
+                                            - We are not responsible for the accuracy or availability of the platform's content.
+                                        </p>
+                                        <p>
+                                            By using our platform, you agree to these terms and conditions. If you do not agree, please refrain from using the platform.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="mb-3">
+                                <FormControlLabel
+                                    control={<Checkbox className="mt-4 mb-4" style={{ marginRight: "1rem" }} required onChange={handleTermsAcceptance} />}
+                                    label="I agree to the terms and conditions and privacy policy"
+                                />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="termsAndConditions" className="terms-and-conditions">
-        <pre>
-            {`
-            Terms and Conditions
-
-            Welcome to Sportista Field Rental! 
-            By using our platform, you agree to comply with the following terms and 
-            conditions:
-
-            1. Use of the Platform
-               - You are responsible for maintaining the confidentiality of your 
-                 account.
-               - You agree not to use the platform for any illegal or unauthorized 
-                 purposes.
-
-            2. Field Rental
-               - The platform facilitates the rental of sports fields.
-               - The availability and booking process may vary and are subject to 
-                 specific terms outlined on the platform.
-               - Any disputes or issues regarding field rental are the responsibility 
-                 of the field renter and user.
-
-            3. Liability
-               - We are not responsible for any accidents, injuries, or damages that 
-                 may occur during field rental.
-               - Users and renters are advised to establish their own agreements 
-                 regarding liability and responsibilities.
-
-            4. Privacy
-               - We collect and store user data in accordance with our privacy policy.
-               - We implement security measures to protect user information, but we 
-                 cannot guarantee complete security.
-
-            5. Disclaimer
-               - The platform is provided "as is" and we do not make any warranties or 
-                 representations.
-               - We are not responsible for the accuracy or availability of the 
-                 platform's content.
-
-            By using our platform, you agree to these terms and conditions. 
-            If you do not agree, please refrain from using the platform.
-            `}
-        </pre>
-                                </label>
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="termsAcceptance">
-                                    <input
-                                        type="checkbox"
-                                        id="termsAcceptance"
-                                        className="terms"
-                                        required
-                                        onChange={handleTermsAcceptance}
-                                    />
-                                    I agree to the terms and conditions and privacy policy
-                                </label>
-                            </div>
-
-                            <div className="form-group">
-                                <button onClick={handleSubmit} className="custom-register-button" type="button" style={{ float: 'right' }}>
+                                <div className="form-group">
+                                <Button onClick={handleSubmit} className="custom-button nextButton" type="button" style={{ float: 'right' }}>
                                     Register
-                                </button>
+                                </Button>
+                            </div>
                             </div>
                         </>
                     );
@@ -320,6 +384,18 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
 
     return (
         <div className="container" style={{ alignItems: 'center', justifyContent: 'center' }} onSubmit={handleSubmit} >
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
             {renderCurrentStepForm()}
         </div>
     );

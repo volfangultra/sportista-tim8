@@ -1,5 +1,6 @@
 import "./Navbar&Footer.css";
 import React from "react";
+import Button from "@material-ui/core/Button";
 
 function Footer() {
     return (
@@ -8,7 +9,7 @@ function Footer() {
                 &copy; 2023 SPORTISTA - TIM 8
             </div>
             <div className="admin-login">
-                <a href="http://localhost:3000/admin-login">Login as admin</a>
+                <a href="http://localhost:3000/admin-login"><Button style={{ color: "grey" }}>Admin Login</Button></a>
             </div>
         </footer>
     );

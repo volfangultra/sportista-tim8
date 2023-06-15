@@ -7,7 +7,7 @@ import Footer from "../components/navigation/Footer";
 
 function Register() {
     return (
-        <div>
+        <div className="background-grayish" style={{ height: "100vh", width: "100%" }}>
             <Navbar />
             <div className="d-flex justify-content-center">
                 <RegisterForm/>

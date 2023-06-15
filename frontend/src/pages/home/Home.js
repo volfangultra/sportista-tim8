@@ -66,7 +66,7 @@ const Home = ({ user, isAuthenticated }) => {
     return (
         <div>
             <TopNavbar />
-            <main className="align-items-center justify-content-center d-flex">
+            <main className="align-items-center justify-content-center d-flex text-center background-grayish">
                 <h4 className="display-6 m-3 fw-bold">WELCOME TO SPORTISTA!</h4>
                 <h4 className="display-6 mb-5 ">Book your favorite field in just a few clicks.</h4>
                 <div className="justify-content-center d-flex">

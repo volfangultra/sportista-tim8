@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {connect, useSelector} from 'react-redux';
+import { connect } from 'react-redux';
 import "../../pages/user/User.css";
 import axios from "axios";
 import { TextField, Box } from '@mui/material';
 import Button from '@material-ui/core/Button';
+import {toast} from "react-toastify";
 
 const UserAccountOverview = (props) => {
     const [userData, setUserData] = useState([]);
@@ -57,12 +58,22 @@ const UserAccountOverview = (props) => {
     function callFuns(){
         changeUserData()
         setTimeout(getUserData,300)
+        toast.success('Account edited successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
 
     return (
         <form className="userAccountForm" action="#">
-            {userData.length == 0 ? (
+            {userData.length === 0 ? (
                 <p>Loading user data...</p>
             ) : (
                 <>
@@ -108,8 +119,8 @@ const UserAccountOverview = (props) => {
                     </Box>
                 </>
             )}
-            <Button variant="outlined" className="mt-4" onClick={callFuns}>
-                EDIT
+            <Button className="custom-button mt-3" onClick={callFuns}>
+                SAVE
             </Button>
         </form>
     );

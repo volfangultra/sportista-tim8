@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
 import UserRegisterForm from './UserRegisterForm';
 import RenterRegisterForm from './RenterRegisterForm';
 import "./RegisterForm.css";
+import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 
 function RegisterForm() {
+
     const [registrationType, setRegistrationType] = useState('');
     const [currentStep, setCurrentStep] = useState(1);
 
@@ -16,31 +18,30 @@ function RegisterForm() {
     const renderCurrentStepForm = () => {
         if (currentStep === 1) {
             return (
-                <Form.Group>
-                    <Form.Label className="d-flex justify-content-center mb-5">
-                        <h4>Choose account type to register!</h4>
-                    </Form.Label>
-                    <div className="radio-group d-flex justify-content-evenly">
-                        <Form.Check
+                <FormControl component="fieldset">
+                    <Typography variant="h5" align="center" gutterBottom>
+                        Choose account type to register!
+                    </Typography>
+                    <RadioGroup
+                        className="radio-group d-flex justify-content-evenly"
+                        value={registrationType}
+                        onChange={handleRegistrationTypeChange}
+                        row
+                    >
+                        <FormControlLabel
                             className="registerType"
-                            type="radio"
-                            label="Renter"
-                            name="registrationType"
                             value="renter"
-                            checked={registrationType === 'renter'}
-                            onChange={handleRegistrationTypeChange}
+                            control={<Radio />}
+                            label={<Typography variant="subtitle1">Renter</Typography>}
                         />
-                        <Form.Check
+                        <FormControlLabel
                             className="registerType"
-                            type="radio"
-                            label="User"
-                            name="registrationType"
                             value="user"
-                            checked={registrationType === 'user'}
-                            onChange={handleRegistrationTypeChange}
+                            control={<Radio />}
+                            label={<Typography variant="subtitle1">User</Typography>}
                         />
-                    </div>
-                </Form.Group>
+                    </RadioGroup>
+                </FormControl>
             );
         } else if (currentStep === 2) {
             if (registrationType === 'user') {
@@ -54,9 +55,11 @@ function RegisterForm() {
 
     return (
         <div className="register-page">
-            <Form className="registerForm" style={{ minWidth: "30rem" }}>
-                {renderCurrentStepForm()}
-            </Form>
+            <Paper className="registerForm box_shadow" style={{ minWidth: '30rem' }}>
+                <Grid container justifyContent="center">
+                    {renderCurrentStepForm()}
+                </Grid>
+            </Paper>
         </div>
     );
 }

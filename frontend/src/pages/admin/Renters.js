@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 
 function Renters({isAuthenticated, user}) {
     return (
-        <div style={{display: 'flex'}}>
+        <div className="background-grayish" style={{display: 'flex'}}>
             <AdminSidebar/>
             <div className="page-margin">
                 <h1>Renters</h1>
