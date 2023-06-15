@@ -15,7 +15,7 @@ import RecommendedFields from "../../components/user/RecomendedFields";
 
 function Dashboard({user, isAuthenticated}) {
     const [fields, setFields] = useState([]);
-    const [activeTab, setActiveTab] = useState(1);
+    const [activeTab, setActiveTab] = useState("fields");
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);

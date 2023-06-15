@@ -28,10 +28,10 @@ function ResetPassword({reset_password}) {
 
     return (
         <div>
-            <TopNavbar />
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+            <TopNavbar/>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }} className={"mt-5"}>
                 <TextField
-                    className="mt-5 mb-3 w-50"
+                    className="custom-input  w-50 "
                     type="email"
                     label="Email"
                     value={email}

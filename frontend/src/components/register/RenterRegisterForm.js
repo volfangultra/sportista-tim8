@@ -13,17 +13,18 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
     const [renterPassword, setRenterPassword] = useState('');
     const [renterCity, setRenterCity] = useState('');
     const [renterPhone, setRenterPhone] = useState('');
-    const [gotData, setGotData] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [phoneError, setPhoneError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [blockButton, setBlockButton] = useState(false);
+    const [emails, setEmails] = useState([]);
 
-    if(!gotData)
-        axios.get( `${SERVER_URL}/daj_sportove`).then((res) => {
-            setGotData(true)
+    useEffect(()=>{
+        axios.get( `${SERVER_URL}/get_emails/`).then((res) => {
+            setEmails(res.data)
         })
+    },[])
 
     const handleNextStep = () => {
         if (currentStep === 1 && !renterName) {
@@ -32,7 +33,9 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
             alert('Please enter your email address.');
         } else if (currentStep === 1 && !renterPassword) {
             alert('Please enter your password.');
-        } else if (currentStep === 1 && (!/\d/.test(renterPassword) || renterPassword.length < 8)) {
+        } else if(emails.includes(renterEmail)){
+            alert('Email is taken')
+        }else if (currentStep === 1 && (!/\d/.test(renterPassword) || renterPassword.length < 8)) {
             alert('Please enter a password with at least 8 characters and containing numbers.')
         }else if (currentStep === 2 && !renterCity) {
             alert('Please enter your city.');

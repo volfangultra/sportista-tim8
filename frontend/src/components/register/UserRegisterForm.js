@@ -19,13 +19,17 @@ function UserRegisterForm({register}) {
     const [emailError, setEmailError] = useState('');
     const [userAvailability, setUserAvailability] = useState({});
     const [playsSports, setplaysSports] = useState([]);
-    const [gotData, setGotData] = useState(false);
     const [chosenSports, setChosenSprots] = useState([]);
-    if(!gotData)
-        axios.get( `${SERVER_URL}/daj_sportove`).then((res) => {
+    const [emails, setEmails] = useState([]);
+    useEffect(()=>{
+        axios.get( `${SERVER_URL}/get_sports/`).then((res) => {
             setplaysSports(res.data)
-            setGotData(true)
         })
+        axios.get( `${SERVER_URL}/get_emails/`).then((res) => {
+            setEmails(res.data)
+        })
+    },[])
+
 
     const handleUserFirstNameChange = (event) => {
         const inputText = event.target.value;
@@ -60,7 +64,9 @@ function UserRegisterForm({register}) {
             alert('Please enter your last name.');
         } else if (currentStep === 1 && !userEmail) {
             alert('Please enter your email address.')
-        } else if (currentStep === 1 && !userPassword) {
+        } else if (emails.includes(userEmail)){
+            alert('Email address is taken')
+        }else if (currentStep === 1 && !userPassword) {
             alert('Please enter your password.');
         } else if (currentStep === 1 && (!/\d/.test(userPassword) || userPassword.length < 8)) {
             alert('Please enter a password with at least 8 characters and containing numbers.')
@@ -87,7 +93,9 @@ function UserRegisterForm({register}) {
     };
 
     useEffect(() => {
-        if (userEmail && !isValidEmail(userEmail)) {
+        console.log(userEmail, emails)
+        console.log(emails.includes(userEmail))
+        if ((userEmail && !isValidEmail(userEmail)) || (emails.includes(userEmail))) {
             setEmailError('Please enter a valid email address.');
         } else {
             setEmailError('');

@@ -1,5 +1,6 @@
 from django.core import serializers
 from django.db.models.functions import ExtractMonth
+from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework.decorators import api_view
@@ -33,11 +34,16 @@ def index(request):
 
 
 @api_view(['GET'])
-def dajSportove(request):
-    lista_sportova = Sport.objects.all()
-    res = serializers.serialize('json', lista_sportova)
+def get_sports(request):
+    list_of_sports = Sport.objects.all()
+    res = serializers.serialize('json', list_of_sports)
     return HttpResponse(res, content_type="text/json-comment-filtered")
 
+def get_emails(request):
+    list_of_emails = list(UserAccount.objects.values_list('email', flat=True).all())
+    print(list_of_emails)
+    res = json.dumps(list_of_emails)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
 
 # @api_view(['GET'])
 # def getListaUsera(request):
@@ -357,4 +363,6 @@ def sendMessage(request):
     message = Inbox(first_name = request.data.get("firstName"), last_name = request.data.get("lastName"), subject = request.data.get("subject"), text = request.data.get("message"))
     message.save()
     return HttpResponse("ok")
+
+
 
