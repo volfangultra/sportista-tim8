@@ -83,7 +83,7 @@ function Dashboard({user, isAuthenticated}) {
     }
 
     if (!gotData)
-        axios.get(`${SERVER_URL}/daj_sportove`).then((res) => {
+        axios.get(`${SERVER_URL}/get_sports/`).then((res) => {
             setHasSports(res.data);
             setGotData(true);
         });
@@ -206,6 +206,9 @@ function Dashboard({user, isAuthenticated}) {
                                 value={sportFilter}
                                 onChange={(e) => setSport(e.target.value)}
                             >
+                                <MenuItem key={""} value={""}>
+                                    All
+                                </MenuItem>
                                 {hasSports.map((sport) => (
                                     <MenuItem key={sport.pk} value={sport.pk}>
                                         {sport.fields.name}
