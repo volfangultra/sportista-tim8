@@ -13,7 +13,7 @@ const AdminSidebar = () => {
 
     return (
         <div className='sticky-div' style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-            <CDBSidebar textColor='#333' backgroundColor='#f4f4f4'>
+            <CDBSidebar textColor='white' backgroundColor='#2e424d'>
                 <CDBSidebarHeader prefix={<i className='fa fa-bars fa-large'></i>}>
                     <img src='/favicon.svg' alt='logo' style={{ width: '30px' , paddingRight: '3px'}}/>
                     <span className='text-decoration-none' style={{ color: 'inherit' }}>
@@ -31,6 +31,11 @@ const AdminSidebar = () => {
                         <NavLink to="/admin/inbox" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
                             <CDBSidebarMenuItem icon='inbox'>
                                 Inbox
+                            </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink to="/admin/arcvhied-messages" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
+                            <CDBSidebarMenuItem icon='archive'>
+                                Archived Messages
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink to="/admin/renters" className={({ isActive }) => (isActive ? "activeClicked" : '')}>

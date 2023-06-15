@@ -2,14 +2,25 @@ import React, {useEffect, useState} from 'react';
 import "./User.css";
 
 //components
-import UserSidebar from "../../components/navigation/UserSidebar";
-import FieldCard from "../../components/user/FieldCard";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import axios from "axios";
+import 'react-toastify/dist/ReactToastify.css';
+
+//components
+import UserSidebar from "../../components/navigation/UserSidebar";
+import FieldCard from "../../components/user/FieldCard";
+import Tab from "../../components/user/Tab";
+import RecommendedFields from "../../components/user/RecomendedFields";
+
 
 function Dashboard({user, isAuthenticated}) {
     const [fields, setFields] = useState([]);
+    const [activeTab, setActiveTab] = useState('fields');
+
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+    };
 
     useEffect(() => {
         getFields();
@@ -31,13 +42,27 @@ function Dashboard({user, isAuthenticated}) {
     // if(!isAuthenticated && user == null)
     //     return (<Navigate to={"/"}/>)
     return (
-        <div style={{ display: 'flex' }}>
-                <UserSidebar />
+        <div className="background-grayish" style={{ display: 'flex' }}>
+            <UserSidebar />
             <div className="page-margin">
                 <h1>Dashboard</h1>
                 <h5>List of available fields for booking.</h5>
+
+                <div className="tabs">
+                    <Tab
+                        label="All Fields"
+                        active={activeTab === 'fields'}
+                        onClick={() => handleTabChange('fields')}
+                    />
+                    <Tab
+                        label="Recommended Fields"
+                        active={activeTab === 'recommended'}
+                        onClick={() => handleTabChange('recommended')}
+                    />
+                </div>
                 <div className="fieldCards">
-                    <FieldCard fields={fields} user={user}/>
+                    {activeTab === 'fields' && <FieldCard onlyFavorites={false} fields={fields} user={user} />}
+                    {activeTab === 'recommended' && <RecommendedFields />}
                 </div>
             </div>
         </div>

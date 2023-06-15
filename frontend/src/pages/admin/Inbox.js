@@ -3,17 +3,16 @@ import "./Admin.css";
 
 //components
 import AdminSidebar from "../../components/navigation/AdminSidebar";
-import DashboardCharts from "../../components/admin/DashboardCharts";
-import MostRentedFields from "../../components/admin/MostRentedFields";
+import InboxTable from "../../components/admin/InboxTable";
 
 function Inbox() {
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="background-grayish" style={{ display: 'flex' }}>
             <AdminSidebar />
             <div className="page-margin">
                 <h1>Inbox</h1>
                 <h5>All messages recieved from users and renters.</h5>
-                <h4>TABELA poruka + MODAL na kliknutu da se otvori i pročita</h4>
+                <InboxTable />
             </div>
         </div>
     );

@@ -8,7 +8,7 @@ import TableNext10Bookings from "../../components/renter/TableNext10Bookings";
 function Dashboard({isAuthenticated, user}) {
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="background-grayish" style={{ display: 'flex' }}>
             <RenterSidebar />
             <div className="page-margin">
                 <h1>Dashboard</h1>

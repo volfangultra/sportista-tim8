@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "./Admin.css";
 
 //components
@@ -8,7 +8,7 @@ import UsersTable from "../../components/admin/UsersTable";
 function Users() {
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="background-grayish" style={{ display: 'flex' }}>
             <AdminSidebar />
             <div className="page-margin">
                 <h1>Users</h1>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
+import {toast} from "react-toastify";
 
 const DeleteConfirmationModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,20 +27,28 @@ const DeleteConfirmationModal = (props) => {
         closeModal();
         deleteField(props.field_id);
         setTimeout(props.getf, 330)
+        toast.success('Field deleted successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     };
 
     return (
         <>
-            <Button variant="outlined" onClick={openModal}>
+            <Button className="custom-button" onClick={openModal}>
                 DELETE
             </Button>
             <Modal show={isOpen} onHide={closeModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>DELETE FIELD</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <Modal.Body className="text-center">
                     <h5>Are you sure you want to delete the field?</h5>
-                    <Button className="mt-3" variant="outlined" onClick={() => callFuns()}>
+                    <Button className="mt-3 custom-button" onClick={() => callFuns()}>
                         DELETE
                     </Button>
                 </Modal.Body>

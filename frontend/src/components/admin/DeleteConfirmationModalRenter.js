@@ -1,4 +1,3 @@
-import {SERVER_URL} from "../../auth/Consts";
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
@@ -30,14 +29,12 @@ const DeleteConfirmationModalRenter = (props) => {
 
     return (
         <>
-            <Button variant="outlined" onClick={openModal}>DELETE</Button>
+            <Button className="custom-button m-2" onClick={openModal}>DELETE</Button>
             <Modal show={isOpen} onHide={closeModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>DELETE RENTER</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <Modal.Body className="text-center">
                     <h5>Are you sure you want to delete the renter?</h5>
-                    <Button className="mt-3" variant="outlined" onClick={() => callFuns()}>DELETE</Button>
+                    <Button className="mt-3 custom-button" onClick={() => callFuns()}>DELETE</Button>
                 </Modal.Body>
             </Modal>
         </>

@@ -1,5 +1,90 @@
+
+/* colors:
+  1: #2e424d;
+  2: #5b8291;
+  3: #98dad9;
+  4: #eaebed;
+*/
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.background-grayish {
+  background: #eaebed;
+}
+
+.custom-button {
+  height: 2.5rem;
+  width: 5.5rem;
+  border-radius: 5px !important;
+  border: 1px solid black;
+  background: #2e424d !important;
+  color: white !important;
+}
+
+.custom-button:hover {
+  transition: transform 0.3s;
+  transform: scale(1.1);
+}
+
+.custom-button2 {
+  height: 2.5rem;
+  width: 5.5rem;
+  border-radius: 5px !important;
+  border: 1px solid black;
+  background: #5b8291 !important;
+  color: white !important;
+}
+
+.custom-button2:hover {
+  transition: transform 0.3s;
+  transform: scale(1.1);
+}
+
+.custom-button3 {
+  height: 2.5rem;
+  width: 15rem;
+  border-radius: 5px !important;
+  border: 1px solid black;
+  background: #2e424d !important;
+  color: white !important;
+  margin-right: 2rem !important;
+  margin-top: 2rem !important;
+}
+
+.custom-button3:hover {
+  transition: transform 0.3s;
+  transform: scale(1.1);
+}
+
+.custom-button3.active {
+  /* Active tab styles */
+  background-color: #5b8291 !important;
+}
+
+.custom-button5 {
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 5px !important;
+  border: 1px solid black;
+  background: #2e424d !important;
+  color: white !important;
+}
+
+.custom-button5:hover {
+  transition: transform 0.3s;
+  transform: scale(1.1);
+}
+
+.custom-input {
+  background: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+  outline: none;
 }
