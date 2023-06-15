@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography } from '@mui/material';
+import {Button, Card, CardContent, Typography} from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import CardActions from "@mui/material/CardActions";
 import BookFieldModal from "../user/BookFieldModal";
@@ -12,7 +12,7 @@ import {SERVER_URL} from "../../auth/Consts";
 
 function Basketball(props) {
 
-    const [fields, setFields] = useState([]);
+    var [fields, setFields] = useState([]);
     useEffect(() => {
         getFields();
     }, []);
@@ -28,11 +28,42 @@ function Basketball(props) {
             .catch((error) => {
                 console.error('Error fetching fields:', error);
             });
+
+
     }
+
+    useEffect(()=> {
+        handleClick();
+        }
+    , [fields]);
+
+    const handleClick = () => {
+        props.sendData(fields); // Invoke the callback function passed from the parent with the data
+    };
+
+    fields = fields.filter((field) => {
+        // Apply name filter
+        if (props.objectFilter.nameFilter && field.fields.name.toLowerCase().indexOf(props.objectFilter.nameFilter.toLowerCase()) === -1) {
+            return false;
+        }
+
+        // Apply location filter
+        if (props.objectFilter.locationFilter && field.fields.address.toLowerCase().indexOf(props.objectFilter.locationFilter.toLowerCase()) === -1) {
+            return false;
+        }
+
+        if (props.objectFilter.priceRange!=null && (props.objectFilter.priceRange[0] > field.fields.price || props.objectFilter.priceRange[1] < field.fields.price)) {
+            return false;
+        }
+
+
+        return true; // Field satisfies all filters
+    });
 
     return (
         <div className="cardContainer">
             <h1 className="sportHeader">{props.header}</h1>
+
             <div className="cardRow">
                 {fields.length === 0 ? (
                     <h2>No fields for this category available at this time!</h2>
