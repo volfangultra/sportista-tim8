@@ -116,6 +116,18 @@ function LoginForm({ login }) {
             }
         }
     };
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            loginUser(event); // Pozovi funkciju za prijavu korisnika
+        }
+    };
+    const handleKeyPresss = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            loginRenter(event); // Pozovi funkciju za prijavu korisnika
+        }
+    };
 
     return (
         <div className="login-form-page">
@@ -133,7 +145,7 @@ function LoginForm({ login }) {
             />
             <div className={isRightPanelActive ? 'dowebok right-panel-active' : 'dowebok'} id="dowebok">
                 <div className="form-container sign-up-container">
-                    <form action="#">
+                    <form action="#" onKeyPress={handleKeyPress}>
                         <h3 className="loginh1">USER LOGIN</h3>
                         <TextField
                             type="email"
@@ -165,7 +177,7 @@ function LoginForm({ login }) {
                     </form>
                 </div>
                 <div className="form-container sign-in-container">
-                    <form action="#">
+                    <form action="#" onKeyPress={handleKeyPresss}>
                         <h3 className="loginh1">RENTER LOGIN</h3>
                         <TextField
                             type="email"

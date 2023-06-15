@@ -108,9 +108,15 @@ function FieldFormAction(props) {
             theme: "light",
         });
     }
+    const handleKeyPress =(event) =>{
+
+        if (event.key === 'Enter') {
+            callFuns();
+        }
+    }
 
     return (
-        <form encType="multipart/form-data">
+        <form encType="multipart/form-data" onKeyPress={handleKeyPress}>
             <Box mb={1}>
                 <TextField
                     select
