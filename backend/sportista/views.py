@@ -41,7 +41,6 @@ def get_sports(request):
 
 def get_emails(request):
     list_of_emails = list(UserAccount.objects.values_list('email', flat=True).all())
-    print(list_of_emails)
     res = json.dumps(list_of_emails)
     return HttpResponse(res, content_type="text/json-comment-filtered")
 

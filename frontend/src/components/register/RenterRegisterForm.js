@@ -23,11 +23,14 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
     const [phoneError, setPhoneError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [blockButton, setBlockButton] = useState(false);
+    const [emails, setEmails] = useState([]);
+    const [showRenterPassword, setShowRenterPassword] = useState(false)
 
     useEffect(()=>{
         axios.get( `${SERVER_URL}/get_emails/`).then((res) => {
             setEmails(res.data)
         })
+    },[])
 
     const handleNextStep = () => {
         if (currentStep === 1 && !renterName) {
@@ -87,8 +90,7 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                 progress: undefined,
                 theme: "colored",
             });
-        }
-        }else if (currentStep === 2 && !renterCity) {
+        } else if (currentStep === 2 && !renterCity) {
             toast.error('Please enter your city.', {
                 position: "top-right",
                 autoClose: 5000,
@@ -413,4 +415,4 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
     );
 })
 
-export default connect(null, {register, verify})(RenterRegisterForm);
+export default connect(null, {register, verify})(RenterRegisterForm)
