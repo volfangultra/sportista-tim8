@@ -29,7 +29,6 @@ function UserRegisterForm({register}) {
     useEffect(()=>{
         axios.get( `${SERVER_URL}/get_sports/`).then((res) => {
             setplaysSports(res.data)
-            setGotData(true)
         })
         axios.get( `${SERVER_URL}/get_emails/`).then((res) => {
             setEmails(res.data)
