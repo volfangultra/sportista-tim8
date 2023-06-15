@@ -23,15 +23,19 @@ function UserRegisterForm({register}) {
     const [emailError, setEmailError] = useState('');
     const [userAvailability, setUserAvailability] = useState({});
     const [playsSports, setplaysSports] = useState([]);
-    const [gotData, setGotData] = useState(false);
     const [chosenSports, setChosenSprots] = useState([]);
     const [showUserPassword, setShowUserPassword] = useState(false);
-
-    if(!gotData)
-        axios.get( `${SERVER_URL}/daj_sportove`).then((res) => {
+    const [emails, setEmails] = useState([]);
+    useEffect(()=>{
+        axios.get( `${SERVER_URL}/get_sports/`).then((res) => {
             setplaysSports(res.data)
             setGotData(true)
         })
+        axios.get( `${SERVER_URL}/get_emails/`).then((res) => {
+            setEmails(res.data)
+        })
+    },[])
+
 
     const handleUserFirstNameChange = (event) => {
         const inputText = event.target.value;
@@ -86,6 +90,17 @@ function UserRegisterForm({register}) {
         }
         else if (currentStep === 1 && !userEmail) {
             toast.error('Please enter your email address.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }else if (currentStep === 1 && emails.includes(userEmail)){
+            toast.error('Email adress is taken', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
