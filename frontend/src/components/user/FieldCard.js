@@ -12,11 +12,23 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
+import {izracunaj_ratings} from "./MyPlayedCard";
 
 
 function FieldCard(props) {
     const [favoriteMap, setFavoriteMap] = useState({});
     const [favorite, setFavorite] = useState(true);
+    const [ratings, setRatings] = useState([])
+    useEffect(() => {
+        axios.get(`${SERVER_URL}/get_ratings/`)
+            .then((response) => {
+                setRatings(response.data)
+
+            })
+            .catch((error) => {
+                console.error('Error fetching fields:', error);
+            });
+    }, []);
 
     useEffect(()=>{
         let temp = {}
@@ -78,7 +90,9 @@ function FieldCard(props) {
                                     }
                                 </span>
                                 <span style={{ marginRight: "2rem" }}>
-                                    <Typography component="span">4.5/5 </Typography>
+                                    {ratings.length != 0 &&
+                                        <Typography component="span">{izracunaj_ratings(ratings, field.pk)} </Typography>
+                                    }
                                     <StarIcon color="primary" />
                                 </span>
                         </CardActions>

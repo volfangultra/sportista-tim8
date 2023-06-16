@@ -1,3 +1,6 @@
+import os
+os.environ["PYTHONIOENCODING"] = "utf-8"
+
 """
 Django settings for backendSportista project.
 
@@ -58,6 +61,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'backendSportista.urls'
 
