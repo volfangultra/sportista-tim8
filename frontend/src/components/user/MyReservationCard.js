@@ -50,7 +50,10 @@ function FieldCard(props) {
                     </CardContent>
                     <CardActions className="d-flex justify-content-evenly">
                         <CancelBookingFieldModal id={field.id} user={props.user} />
-                        <FieldDetailsModal address={field.fild.address} details={field.fild.details} price={field.fild.price} />
+                        <FieldDetailsModal name={field.fild.name} address={field.fild.address}
+                                           details={field.fild.details} price={field.price}
+                                           is_sport={field.fild.is_sport} starts={field.beginning}
+                                           ends={field.ending} title={"RESERVATION DETAILS"}/>
                     </CardActions>
                     <CardActions className="float-end" disableSpacing>
                         {ratings.length != 0 &&
