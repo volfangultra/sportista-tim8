@@ -16,6 +16,10 @@ urlpatterns = [
     path("admin/users/deleteUser/<int:params>/", views.deleteUser, name="deleteUser"),
     path("admin/users/getUsers/", views.getUsers, name="getUsers"),
     path("admin/users/send-email/", views.sendEmail, name="sendEmail"),
+    path("admin/inbox/getMessages/", views.getMessages, name="getMessages"),
+    path("admin/inbox/getArchivedMessages/", views.getArchivedMessages, name="getArchivedMessages"),
+    path("admin/inbox/delete/<int:params>/", views.deleteMessage, name="deleteMessage"),
+    path("admin/inbox/archive/<int:params>/", views.archiveMessage, name="archiveMessage"),
 
     path("renter/spremi", views.spremi, name="spremi"),
     path("get_sports/", views.get_sports),

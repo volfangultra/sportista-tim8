@@ -393,5 +393,32 @@ def sendMessage(request):
     message.save()
     return HttpResponse("ok")
 
+@api_view(['GET'])
+def getMessages(request):
+    messages = Inbox.objects.filter(archived=0)
+    res = serializers.serialize('json', messages)
+    print(res)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
+@api_view(['GET'])
+def getArchivedMessages(request):
+    messages = Inbox.objects.filter(archived=1)
+    res = serializers.serialize('json', messages)
+    print(res)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
+
+@api_view(['DELETE'])
+def deleteMessage(request, params):
+    print(params)
+    Inbox.objects.filter(pk=params).delete()
+    return HttpResponse('OK')
+
+@api_view(['POST'])
+def archiveMessage(request, params):
+    message = Inbox.objects.get(pk=params)
+    message.archived = True
+    message.save()
+    return HttpResponse("OK")
 
 
