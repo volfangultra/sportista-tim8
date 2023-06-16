@@ -143,3 +143,4 @@ class Inbox(models.Model):
     subject = models.TextField(null=True)
     text = models.TextField(null=True)
     time = models.DateTimeField(default=timezone.now)
+    archived = models.BooleanField(default=False)

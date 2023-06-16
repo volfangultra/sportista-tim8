@@ -22,7 +22,7 @@ function EditFieldForm(props, { user, isAuthenticated } ) {
     }, [user]);
 
     if(!gotData)
-        axios.get( `${SERVER_URL}/daj_sportove`).then((res) => {
+        axios.get( `${SERVER_URL}/get_sports/`).then((res) => {
             setHasSports(res.data)
             setGotData(true)
         })
