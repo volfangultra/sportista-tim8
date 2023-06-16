@@ -12,11 +12,23 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
+import {izracunaj_ratings} from "./MyPlayedCard";
 
 
 function FieldCard(props) {
     const [favoriteMap, setFavoriteMap] = useState({});
     const [favorite, setFavorite] = useState(true);
+    const [ratings, setRatings] = useState([])
+    useEffect(() => {
+        axios.get(`${SERVER_URL}/get_ratings/`)
+            .then((response) => {
+                setRatings(response.data)
+
+            })
+            .catch((error) => {
+                console.error('Error fetching fields:', error);
+            });
+    }, []);
 
     useEffect(()=>{
         let temp = {}
@@ -60,7 +72,9 @@ function FieldCard(props) {
                         <CardActions className="d-flex justify-content-evenly">
                             <BookFieldModal field={field} user={props.user}/>
                             <FieldDetailsModal name={field.fields.name} address={field.fields.address}
-                                               details={field.fields.details} price={field.fields.price}/>
+                                               details={field.fields.details} price={field.fields.price}
+                                               is_sport={field.fields.is_sport} starts={field.fields.starts}
+                                               ends={field.fields.ends} title={"FIELD DETAILS"}/>
                         </CardActions>
                         <CardActions className="justify-content-between" disableSpacing>
                                 <span style={{ marginLeft: "2rem", cursor: "pointer" }}>
@@ -78,7 +92,9 @@ function FieldCard(props) {
                                     }
                                 </span>
                                 <span style={{ marginRight: "2rem" }}>
-                                    <Typography component="span">4.5/5 </Typography>
+                                    {ratings.length != 0 &&
+                                        <Typography component="span">{izracunaj_ratings(ratings, field.pk)} </Typography>
+                                    }
                                     <StarIcon color="primary" />
                                 </span>
                         </CardActions>

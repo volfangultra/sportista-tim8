@@ -93,7 +93,6 @@ class Field(models.Model):
     price = models.IntegerField(null=True)
 
     is_sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
-    grades = models.ManyToManyField(SportistaUser, through="UserGradesField", blank=True)
     has_teams = models.ManyToManyField(Team, through="TeamRentsField", blank=True)
 
     def set_my_images(self, value):
@@ -109,6 +108,8 @@ class Field(models.Model):
 class TeamRentsField(models.Model):
     id_teama = models.ForeignKey(Team, on_delete=models.CASCADE)
     id_fielda = models.ForeignKey(Field, on_delete=models.CASCADE)
+    cancelled = models.BooleanField(default=False)
+    played = models.BooleanField(default=False)
     beginning = models.DateTimeField()
     ending = models.DateTimeField()
     price = models.IntegerField(default=0, null=True)
