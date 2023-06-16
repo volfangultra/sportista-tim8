@@ -397,6 +397,7 @@ function UserRegisterForm({register}) {
                                 value={userDateOfBirth}
                                 onChange={handleUserDateOfBirthChange}
                                 required
+                                InputLabelProps={{ shrink: true }}
                             />
                         </div>
 
@@ -413,7 +414,7 @@ function UserRegisterForm({register}) {
             case 3:
                 return (
                     <>
-                        <div className="steps">
+                        <div className="steps mt-5">
                             <div className="step completed"></div>
                             <div className="step completed"></div>
                             <div className="step active"></div>
@@ -421,7 +422,7 @@ function UserRegisterForm({register}) {
                             <div className="step"></div>
                         </div>
                         <div className="text-center">
-                            <h5 className="mt-5 mb-5">Which sports are you interested in?</h5>
+                            <h5 className="mt-4 mb-4">Which sports are you interested in?</h5>
                             <div className="sports-container">
                                 {playsSports.map((sport) => (
                                     <div key={sport.pk} className="sport-item">
@@ -453,7 +454,7 @@ function UserRegisterForm({register}) {
                 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                 return (
                     <>
-                        <div className="steps">
+                        <div className="steps mt-5">
                             <div className="step completed"></div>
                             <div className="step completed"></div>
                             <div className="step completed"></div>
@@ -461,11 +462,11 @@ function UserRegisterForm({register}) {
                             <div className="step"></div>
                         </div>
                         <div className="text-center">
-                            <h5 className="mt-5 mb-5">When are you available?</h5>
+                            <h5 className="">When are you available?</h5>
                             <div>
                                 {daysOfWeek.map((day) => (
                                     <div key={day} className="d-flex align-items-center">
-                                        <div className="d-flex align-items-center col-2 m-2">
+                                        <div className="d-flex align-items-center col-2 m-3">
                                             <label>{day}</label>
                                         </div>
                                         <div className="col">
@@ -495,7 +496,7 @@ function UserRegisterForm({register}) {
                                     </div>
                                 ))}
                             </div>
-                            <div className="d-flex justify-content-between mt-2">
+                            <div className="d-flex justify-content-between mb-3">
                                 <Button className="custom-button previousButton" onClick={handlePrevStep}>
                                     Previous
                                 </Button>

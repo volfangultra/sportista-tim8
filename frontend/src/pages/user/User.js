@@ -105,7 +105,6 @@ function Dashboard({user, isAuthenticated}) {
     }, [fields, minPrice, maxPrice]);
 
     fields = fields.filter((field) => {
-        console.log(field)
         // Apply name filter
         if (nameFilter && field.fields.name.toLowerCase().indexOf(nameFilter.toLowerCase()) === -1) {
             return false;
