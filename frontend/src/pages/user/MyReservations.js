@@ -6,7 +6,9 @@ import UserStats from "../../components/user/UserStats";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import MyReservationCard from "../../components/user/MyReservationCard";
+import MyPlayedCard from "../../components/user/MyPlayedCard";
 import axios from "axios";
+import MyCanceledCard from "../../components/user/MyCanceledCard";
 
 function MyReservations({ user, isAuthenticated }) {
 
@@ -22,7 +24,6 @@ function MyReservations({ user, isAuthenticated }) {
             axios
                 .get(`http://127.0.0.1:8000/user/my-reservations/${user.id}/`)
                 .then((response) => {
-                    console.log(response.data)
                     setFields(response.data)
                 })
                 .catch((error) => {
@@ -39,8 +40,18 @@ function MyReservations({ user, isAuthenticated }) {
             <div className="page-margin">
                 <h1>My Reservations</h1>
                 <h5>List of your bookings.</h5>
-                <div className="fieldCards">
+                <div className="fieldCards mb-5">
                     <MyReservationCard fields={fields} />
+                </div>
+                <h1>Confirmed Reservations</h1>
+                <h5>List of played bookings.</h5>
+                <div className="fieldCards mb-5">
+                    <MyPlayedCard fields={fields} user={user}/>
+                </div>
+                <h1>Canceled Reservations</h1>
+                <h5>List of canceled reservations.</h5>
+                <div className="fieldCards mb-5">
+                    <MyCanceledCard fields={fields} user={user} />
                 </div>
                 <div>
                     <h1 className="mt-5">Stats</h1>

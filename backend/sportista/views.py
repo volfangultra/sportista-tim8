@@ -9,10 +9,9 @@ from django.shortcuts import redirect
 from django.core.mail import send_mail
 from django.http import HttpResponse
 
-from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox
+from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox, UserGradesField
 
 from sportista.models import Field, Sport, UserAccount, SportistaUser, Renter, Team, TeamRentsField
-
 
 from sportista.recomendation import train, create_user_field_model
 
@@ -21,7 +20,6 @@ from sportista.recomendation import train, create_user_field_model
 
 
 # Create your views here.
-
 
 def test(request):
     train()
@@ -39,10 +37,12 @@ def get_sports(request):
     res = serializers.serialize('json', list_of_sports)
     return HttpResponse(res, content_type="text/json-comment-filtered")
 
+
 def get_emails(request):
     list_of_emails = list(UserAccount.objects.values_list('email', flat=True).all())
     res = json.dumps(list_of_emails)
     return HttpResponse(res, content_type="text/json-comment-filtered")
+
 
 # @api_view(['GET'])
 # def getListaUsera(request):
@@ -54,6 +54,7 @@ def get_emails(request):
 @api_view(['GET'])
 def getFields(request, params):
     list_of_fields = Field.objects.filter(is_sport=params, lock=False)
+
     res = serializers.serialize('json', list_of_fields)
 
     return HttpResponse(res, content_type="text/json-comment-filtered")
@@ -99,12 +100,8 @@ def getUserReservations(request, params):
             red["fild"]["has_teams"] = ""
             prazna.append(red)
 
-    print(prazna)
     res = json.dumps(prazna)
     return HttpResponse(res, content_type="text/json-comment-filtered")
-
-
-
 
 
 @api_view(['GET'])
@@ -186,11 +183,12 @@ def deleteRenterField(request, params):
     return HttpResponse("Ok")
 
 
-
 @api_view(['POST'])
 def spremi(request):
-    print(request.data.get("start"))
-    objekat = Field(id_rentera_id=request.data.get("user"), name=request.data.get("name"),address=request.data.get("location"),details=request.data.get("description"),starts=request.data.get("start"),ends=request.data.get("end"),is_sport_id=request.data.get("sport"),price=request.data.get("price"))
+    objekat = Field(id_rentera_id=request.data.get("user"), name=request.data.get("name"),
+                    address=request.data.get("location"), details=request.data.get("description"),
+                    starts=request.data.get("start"), ends=request.data.get("end"),
+                    is_sport_id=request.data.get("sport"), price=request.data.get("price"))
     objekat.save()
     lista = objekat.get_my_images()
     for image in request.data.get("img"):
@@ -207,7 +205,6 @@ def lock_field(request, id_field, state):
     else:
         Field.objects.filter(pk=id_field).update(lock=True)
     return HttpResponse("okej")
-
 
 
 @api_view(['GET'])
@@ -238,7 +235,8 @@ def getUsers(request):
         odgovarajuci_user = SportistaUser.objects.filter(id_logina=user.id)
 
         if odgovarajuci_user:
-            temp = {"id": user.id, "firstName": odgovarajuci_user[0].first_name, "lastName": odgovarajuci_user[0].last_name,
+            temp = {"id": user.id, "firstName": odgovarajuci_user[0].first_name,
+                    "lastName": odgovarajuci_user[0].last_name,
                     "gender": odgovarajuci_user[0].gender,
                     "email": list_of_users2[i].email, "city": list_of_users2[i].city}
             i = i + 1
@@ -265,9 +263,9 @@ def deleteUser(request, params):
 
 @api_view(['POST'])
 def book_field_solo(request):
-    team = Team(id_leader=SportistaUser.objects.get(id=request.data.get("id_usera")), plays_sport_id=request.data.get("id_sporta"))
+    team = Team(id_leader=SportistaUser.objects.get(id=request.data.get("id_usera")),
+                plays_sport_id=request.data.get("id_sporta"))
     team.save()
-    print(request.data)
     field = Field.objects.get(id=request.data.get("id_fielda"))
     field.has_teams.add(team, through_defaults={
         'price': request.data.get("price"),
@@ -318,6 +316,7 @@ def favorite_field(request, field_id, user_id):
     user.favourite_fields.add(field)
     return HttpResponse("Ok")
 
+
 @api_view(['POST'])
 def unfavorite_field(request, field_id, user_id):
     user = SportistaUser.objects.get(id=user_id)
@@ -349,12 +348,14 @@ def get_dates(request, field_id):
     res = json.dumps(temp)
     return HttpResponse(res, content_type="text/json-comment-filtered")
 
+
 @api_view(['GET'])
 def getUsersCount(request):
     count = SportistaUser.objects.count()
     data = {'broj_osoba': count}
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type='application/json')
+
 
 @api_view(['GET'])
 def getRentersCount(request):
@@ -363,6 +364,7 @@ def getRentersCount(request):
 
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type='application/json')
+
 
 @api_view(['GET'])
 def getRentalsData(request):
@@ -378,7 +380,8 @@ def getRentalsData(request):
 
     # Logika za brojanje iznajmljenih terena po mjesecima
     for month in months:
-        rentals_count = TeamRentsField.objects.annotate(rental_month=ExtractMonth('beginning')).filter(rental_month=months[month]).count()
+        rentals_count = TeamRentsField.objects.annotate(rental_month=ExtractMonth('beginning')).filter(
+            rental_month=months[month]).count()
         rentals_per_month.append(rentals_count)
 
     data = {
@@ -387,11 +390,65 @@ def getRentalsData(request):
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type='application/json')
 
+
 @api_view(['POST'])
 def sendMessage(request):
-    message = Inbox(first_name = request.data.get("firstName"), last_name = request.data.get("lastName"), subject = request.data.get("subject"), text = request.data.get("message"))
+    message = Inbox(first_name=request.data.get("firstName"), last_name=request.data.get("lastName"),
+                    subject=request.data.get("subject"), text=request.data.get("message"))
     message.save()
     return HttpResponse("ok")
 
 
+@api_view(['GET'])
+def get_bookings(request, id_rentera):
+    bookings = list(TeamRentsField.objects.all())
+    for i in range(len(bookings)):
+        bookings[i] = model_to_dict(bookings[i])
 
+    res = []
+    for booking in bookings:
+        print(booking)
+        if not booking["cancelled"] and not booking["played"]:
+            team = model_to_dict(Team.objects.get(id=booking["id_teama"]))
+            user = model_to_dict(SportistaUser.objects.get(id=team["id_leader"]))
+            userLogin = model_to_dict(UserAccount.objects.get(id=user["id_logina"]))
+            field = model_to_dict(Field.objects.get(id=booking["id_fielda"]))
+            if field["id_rentera"] == id_rentera:
+                res.append({
+                    "id": booking["id"],
+                    "field": field["name"],
+                    "booked_by": user["first_name"] + " " + user["last_name"],
+                    "start": booking["beginning"].strftime('%Y-%m-%d %H:%M:%S'),
+                    "end": booking["ending"].strftime('%Y-%m-%d %H:%M:%S'),
+                    "email": userLogin["email"]
+                })
+    res = json.dumps(res)
+    return HttpResponse(res, content_type='application/json')
+
+
+@api_view(['POST'])
+def cancel_booking(request, id_booking):
+    print("HELLO")
+    TeamRentsField.objects.filter(pk=id_booking).update(cancelled=True)
+
+    return HttpResponse("ok")
+
+
+@api_view(['POST'])
+def approve_booking(request, id_booking):
+    TeamRentsField.objects.filter(pk=id_booking).update(played=True)
+
+    return HttpResponse("ok")
+
+@api_view(['POST'])
+def rate_field(request, rating, id_field, id_user):
+    ocjena = UserGradesField(id_usera_id=id_user, id_fielda_id=id_field, grade=rating)
+    ocjena.save()
+    return HttpResponse("ok")
+
+@api_view(['GET'])
+def get_ratings(request):
+    ratings = UserGradesField.objects.all()
+    res = serializers.serialize('json', ratings)
+
+    return HttpResponse(res, content_type="application/json")

@@ -39,6 +39,11 @@ urlpatterns = [
     path("renter/getFieldData/<int:params>/", views.getFieldData, name="getFieldData"),
     path("user/getData/<int:params>/", views.getUserData, name="getUserData"),
     path("user/changeData/<int:params>/", views.changeUserData, name="changeUserData"),
+    path("renter/get_bookings/<int:id_rentera>/", views.get_bookings, name="get_bookings"),
+    path("renter/approve_booking/<int:id_booking>/", views.approve_booking, name="get_bookings"),
+    path("renter/cancel_booking/<int:id_booking>/", views.cancel_booking, name="get_bookings"),
+    path("user/rate_field/<int:rating>/<int:id_field>/<int:id_user>/", views.rate_field, name="rate"),
+    path("get_ratings/", views.get_ratings, name="get_ratings"),
 
     path("inbox/message/", views.sendMessage, name="sendMessage"),
 
