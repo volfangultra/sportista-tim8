@@ -55,7 +55,7 @@ function RegisterForm() {
 
     return (
         <div className="register-page">
-            <Paper className="registerForm box_shadow" style={{ minWidth: '30rem' }}>
+            <Paper className="registerForm box_shadow" style={{ minWidth: '30rem'}}>
                 <Grid container justifyContent="center">
                     {renderCurrentStepForm()}
                 </Grid>
