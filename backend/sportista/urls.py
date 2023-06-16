@@ -22,7 +22,8 @@ urlpatterns = [
     path("admin/inbox/archive/<int:params>/", views.archiveMessage, name="archiveMessage"),
 
     path("renter/spremi", views.spremi, name="spremi"),
-    path("daj_sportove", views.dajSportove),
+    path("get_sports/", views.get_sports),
+    path("get_emails/", views.get_emails),
     path("sport/<int:params>/", views.getFields, name="getSport"),
     path("renter/my-fields/<int:params>/", views.getRenterFields, name="getRenterFields"),
     path("user/my-reservations/<int:params>/", views.getUserReservations, name="getUserReservations"),

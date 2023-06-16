@@ -41,10 +41,16 @@ function ResetPassword({ reset_password }) {
                     className="mt-5 mb-3 w-25"
                     type="email"
                     label="Email"
+                    variant="outlined"
                     value={email}
                     onChange={handleEmailChange}
                     required
-                    variant="outlined"
+                    InputLabelProps={{
+                        style: { transformOrigin: 'top left' }, // Adjust the transform origin as needed
+                    }}
+                    InputProps={{
+                        style: { lineHeight: 1 }, // Adjust the line height as needed
+                    }}
                 />
                 <Button className="custom-button mt-3" onClick={resetPassword}>
                     Next

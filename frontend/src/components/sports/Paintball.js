@@ -10,7 +10,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function Paintball(props) {
 
-    const [fields, setFields] = useState([]);
+    var [fields, setFields] = useState([]);
 
     useEffect(() => {
         getFields();
@@ -28,6 +28,34 @@ function Paintball(props) {
                 console.error('Error fetching fields:', error);
             });
     }
+
+    useEffect(()=> {
+            handleClick();
+        }
+        , [fields]);
+
+    const handleClick = () => {
+        props.sendData(fields); // Invoke the callback function passed from the parent with the data
+    };
+
+    fields = fields.filter((field) => {
+        // Apply name filter
+        if (props.objectFilter.nameFilter && field.fields.name.toLowerCase().indexOf(props.objectFilter.nameFilter.toLowerCase()) === -1) {
+            return false;
+        }
+
+        // Apply location filter
+        if (props.objectFilter.locationFilter && field.fields.address.toLowerCase().indexOf(props.objectFilter.locationFilter.toLowerCase()) === -1) {
+            return false;
+        }
+
+        if (props.objectFilter.priceRange!=null && (props.objectFilter.priceRange[0] > field.fields.price || props.objectFilter.priceRange[1] < field.fields.price)) {
+            return false;
+        }
+
+
+        return true; // Field satisfies all filters
+    });
 
     return (
         <div className="cardContainer">

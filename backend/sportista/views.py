@@ -34,11 +34,15 @@ def index(request):
 
 
 @api_view(['GET'])
-def dajSportove(request):
-    lista_sportova = Sport.objects.all()
-    res = serializers.serialize('json', lista_sportova)
+def get_sports(request):
+    list_of_sports = Sport.objects.all()
+    res = serializers.serialize('json', list_of_sports)
     return HttpResponse(res, content_type="text/json-comment-filtered")
 
+def get_emails(request):
+    list_of_emails = list(UserAccount.objects.values_list('email', flat=True).all())
+    res = json.dumps(list_of_emails)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
 
 # @api_view(['GET'])
 # def getListaUsera(request):
@@ -416,3 +420,5 @@ def archiveMessage(request, params):
     message.archived = True
     message.save()
     return HttpResponse("OK")
+
+

@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import FieldDetailsModal from "./FieldDetailsModal";
 import CancelBookingFieldModal from "./CancelBookingFieldModal";
 import {Carousel} from "react-responsive-carousel";
+import StarIcon from "@mui/icons-material/Star";
 
 function FieldCard(props) {
     console.log(props.fields)

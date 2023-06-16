@@ -23,12 +23,14 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
     const [phoneError, setPhoneError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [blockButton, setBlockButton] = useState(false);
-    const [showRenterPassword, setShowRenterPassword] = useState(false);
+    const [emails, setEmails] = useState([]);
+    const [showRenterPassword, setShowRenterPassword] = useState(false)
 
-    if(!gotData)
-        axios.get( `${SERVER_URL}/daj_sportove`).then((res) => {
-            setGotData(true)
+    useEffect(()=>{
+        axios.get( `${SERVER_URL}/get_emails/`).then((res) => {
+            setEmails(res.data)
         })
+    },[])
 
     const handleNextStep = () => {
         if (currentStep === 1 && !renterName) {
@@ -77,7 +79,18 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                 progress: undefined,
                 theme: "colored",
             });
-        }else if (currentStep === 2 && !renterCity) {
+        }else if (currentStep === 1 && emails.includes(renterEmail)){
+            toast.error('Email adress is taken', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        } else if (currentStep === 2 && !renterCity) {
             toast.error('Please enter your city.', {
                 position: "top-right",
                 autoClose: 5000,
@@ -208,6 +221,7 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                             <div className="step"></div>
                             <div className="step"></div>
                         </div>
+
                         <div className="text-center">
                             <h5 className="mt-5 mb-5">Personal info</h5>
                             <TextField
@@ -401,4 +415,4 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
     );
 })
 
-export default connect(null, {register, verify})(RenterRegisterForm);
+export default connect(null, {register, verify})(RenterRegisterForm)
