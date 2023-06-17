@@ -49,9 +49,11 @@ const ViewFieldModal = ({ field }) => {
                 VIEW
             </Button>
             <Modal show={isOpen} onHide={closeModal}>
-                <Modal.Header closeButton></Modal.Header>
+                <Modal.Header closeButton>
+                    <Modal.Title>FIELD DETAILS</Modal.Title>
+                </Modal.Header>
                 <Modal.Body className="text-center">
-                    <h5 style={{marginBottom: '2rem'}}>FIELD INFO</h5>
+
                     <div>
                         <p>Name: {field.fields.name}</p>
                         <p>Sport: {sport}</p>
@@ -61,9 +63,11 @@ const ViewFieldModal = ({ field }) => {
                         <p>End: {formattedEnd}</p>
                         <p>Price: {field.fields.price}</p>
                     </div>
+
                     <Button className="mt-3 custom-button" onClick={closeModal}>
                         CLOSE
                     </Button>
+                    
                 </Modal.Body>
             </Modal>
         </>
