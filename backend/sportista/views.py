@@ -9,6 +9,8 @@ from rest_framework.utils import json
 from django.shortcuts import redirect
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from datetime import datetime
+from pytz import timezone
 
 from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox, UserGradesField, \
     UserGradesFieldTemp
@@ -265,14 +267,26 @@ def deleteUser(request, params):
 
 @api_view(['POST'])
 def book_field_solo(request):
+    # Pretvaranje stringa u datetime objekt
+    start_time_str = request.data.get("start").replace('Z', '-02:00')
+    end_time_str = request.data.get("ends").replace('Z', '-02:00')
+    start_time = datetime.fromisoformat(start_time_str)
+    end_time = datetime.fromisoformat(end_time_str)
+
+    # Prilagođavanje vremena u željenu vremensku zonu
+    tz = timezone('Europe/Sarajevo')
+    adjusted_start_time = start_time.astimezone(tz)
+    adjusted_end_time = end_time.astimezone(tz)
+
+    # Spremanje prilagođenog vremena u bazu
     team = Team(id_leader=SportistaUser.objects.get(id=request.data.get("id_usera")),
                 plays_sport_id=request.data.get("id_sporta"))
     team.save()
     field = Field.objects.get(id=request.data.get("id_fielda"))
     field.has_teams.add(team, through_defaults={
         'price': request.data.get("price"),
-        'beginning': request.data.get("start"),
-        'ending': request.data.get("ends")
+        'beginning': adjusted_start_time,
+        'ending': adjusted_end_time
     })
 
     return HttpResponse("Ok")

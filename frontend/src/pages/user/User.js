@@ -88,7 +88,7 @@ function Dashboard({user, isAuthenticated}) {
         if (user) {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/user/dashboard');
-                const response2 = await axios.get(`${SERVER_URL}/user/get_recommended_fields/${user.id}`).then((response)=>{
+                const response2 = await axios.get(`${SERVER_URL}/user/get_recommended_fields/${user.id}/`).then((response)=>{
                     setRecommended(response.data)
                     var temp = []
                     fields.forEach((field)=>{

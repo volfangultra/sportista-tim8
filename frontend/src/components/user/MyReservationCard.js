@@ -38,7 +38,7 @@ function FieldCard(props) {
                                 component="img"
                                 height="140"
                                 image={image}
-                                alt="Field"
+
                             />
                         ))}
                     </Carousel>
