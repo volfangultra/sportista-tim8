@@ -36,12 +36,11 @@ const ReadMessageModal = (props) => {
                 </Modal.Header>
                 <Modal.Body className="text-center">
                     <h5>{props.text}</h5>
-                </Modal.Body>
-                <Modal.Footer>
+
                     <Button className="custom-button m-2" onClick={() => callFuns()}>
                         ARCHIVE
                     </Button>
-                </Modal.Footer>
+                </Modal.Body>
             </Modal>
         </>
     );

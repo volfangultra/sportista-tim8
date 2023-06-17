@@ -2,6 +2,7 @@
 
 .dashboard-data {
     display: flex;
+    margin-top: 3rem;
 }
 
 .bar-chart {
