@@ -50,5 +50,8 @@ urlpatterns = [
     path("get_ratings/", views.get_ratings, name="get_ratings"),
 
     path("inbox/message/", views.sendMessage, name="sendMessage"),
-
+    path("renter/field_count/<int:params>", views.getRenterFieldsCount, name="get_renter_fields_count"),
+    path("renter/field_price/<int:params>", views.getRenterFieldsPrice, name="get_renter_fields_price"),
+    path("renter/field_total_count/<int:params>", views.getRenterFieldsTotalCount, name="get_renter_fields_total_count"),
+    path("renter/get_bookings_count/<int:id_rentera>", views.get_bookings_count, name="get_bookings_count"),
 ]
