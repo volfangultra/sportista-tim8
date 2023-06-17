@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import Button from '@material-ui/core/Button';
+import { Button } from '@mui/material';
+
+//components
 import EditFieldForm from "./EditFieldForm";
 
 const EditFieldModal = (props) => {

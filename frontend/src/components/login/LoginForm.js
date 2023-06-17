@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import "./LoginForm.css";
 import { connect } from "react-redux";
 import { login } from "../../auth/Auth";
-import Button from '@material-ui/core/Button';
-import {toast, ToastContainer} from "react-toastify";
-
-import TextField from '@material-ui/core/TextField';
+import { toast, ToastContainer } from "react-toastify";
+import { TextField, Button } from "@mui/material";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 function LoginForm({ login }) {

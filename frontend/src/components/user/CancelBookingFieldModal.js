@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Button from '@material-ui/core/Button';
+import { Button } from '@mui/material';
 import axios from "axios";
-import {SERVER_URL} from "../../auth/Consts";
+import { SERVER_URL } from "../../auth/Consts";
 
 const CancelBookingFieldModal = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
-    useEffect(()=>{
 
-    }, [])
+    const [isOpen, setIsOpen] = useState(false);
+
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
     return (

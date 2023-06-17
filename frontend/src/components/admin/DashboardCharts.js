@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
 import '../../pages/admin/Admin.css';
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import {styled} from "@mui/material";
-import Card from "@mui/material/Card";
+import { Card, Typography, CardContent, styled } from "@mui/material";
 
 function DashboardCharts() {
     const [rentersCount, setRentersCount] = useState(0);

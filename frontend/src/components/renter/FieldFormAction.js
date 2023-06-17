@@ -3,10 +3,11 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { SERVER_URL } from "../../auth/Consts";
-import Button from "@material-ui/core/Button";
-import { Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from "@mui/material";
-import defaultImage from '../../../src/resources/images/favicon.jpg';
+import { Box, MenuItem, TextField, Button } from "@mui/material";
 import {toast} from "react-toastify";
+
+//components
+import defaultImage from '../../../src/resources/images/favicon.jpg';
 
 function FieldFormAction(props) {
 

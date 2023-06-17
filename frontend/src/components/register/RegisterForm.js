@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import UserRegisterForm from './UserRegisterForm';
 import RenterRegisterForm from './RenterRegisterForm';
 import "./RegisterForm.css";
-import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@material-ui/core';
-import { Paper, Grid } from '@material-ui/core';
+import { FormControl, FormControlLabel, Radio, RadioGroup, Typography, Paper, Grid } from "@mui/material";
 
 function RegisterForm() {
 

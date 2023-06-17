@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import "./LoginForm.css";
-import Button from '@material-ui/core/Button';
-import {connect} from "react-redux";
-import {login} from "../../auth/Auth";
-import {TextField} from "@mui/material";
-
-/* TODO:
-   povezati da ide na /admin kad se loguje
-*/
+import { connect } from "react-redux";
+import { login } from "../../auth/Auth";
+import { TextField, Button } from "@mui/material";
 
 function AdminLoginForm({login}) {
     const [adminEmail, setAdminEmail] = useState('');
     const [adminPassword, setAdminPassword] = useState('');
-
 
     const loginAdmin = (event) => {
         event.preventDefault()
@@ -44,7 +38,6 @@ function AdminLoginForm({login}) {
                     className="mt-5 custom-button"
                     onClick={loginAdmin}
                     variant="outlined"
-                    color="primary"
                 >
                     LOGIN
                 </Button>

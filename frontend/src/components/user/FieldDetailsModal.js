@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import Button from '@material-ui/core/Button';
+import { Button } from "@mui/material";
 import moment from "moment";
 
 const FieldDetailsModal = (props) => {

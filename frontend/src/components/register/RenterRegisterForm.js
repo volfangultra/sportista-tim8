@@ -1,14 +1,12 @@
 import React, { useState, useEffect  } from 'react';
-import Button from '@material-ui/core/Button';
 import "./RegisterForm.css";
-import {verify, register} from "../../auth/Auth";
-import {connect} from "react-redux";
+import { verify, register } from "../../auth/Auth";
+import { connect } from "react-redux";
 import axios from "axios";
-import {SERVER_URL} from "../../auth/Consts";
-import {toast, ToastContainer} from "react-toastify";
-import {Checkbox, TextField} from "@mui/material";
-import {FormControlLabel} from "@material-ui/core";
-import {FiEye, FiEyeOff} from "react-icons/fi";
+import { SERVER_URL } from "../../auth/Consts";
+import { toast, ToastContainer } from "react-toastify";
+import { Checkbox, TextField, Button, FormControlLabel } from "@mui/material";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const RenterRegisterForm = React.memo(({register, verify}) => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -80,7 +78,7 @@ const RenterRegisterForm = React.memo(({register, verify}) => {
                 theme: "colored",
             });
         }else if (currentStep === 1 && emails.includes(renterEmail)){
-            toast.error('Email adress is taken', {
+            toast.error('Email address is already taken', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

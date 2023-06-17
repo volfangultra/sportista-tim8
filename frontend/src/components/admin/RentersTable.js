@@ -1,17 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+import { Button, Paper, TableRow, TableHead, TableContainer, TableCell, TableBody, Table } from "@mui/material";
+import {Form, Modal} from "react-bootstrap";
 
 // components
 import DeleteConfirmationModalRenter from "./DeleteConfirmationModalRenter";
-import {Form, Modal} from "react-bootstrap";
+
 
 function RentersTable() {
 
@@ -53,7 +47,6 @@ function RentersTable() {
         setIsOpen(false);
 
     };
-
 
     useEffect(() => {
         getRenters();

@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import "../../pages/user/User.css";
 import axios from "axios";
-import { TextField, Box } from '@mui/material';
-import Button from '@material-ui/core/Button';
+import { TextField, Box, Button } from '@mui/material';
 import {toast} from "react-toastify";
 
 const UserAccountOverview = (props) => {
@@ -12,6 +11,7 @@ const UserAccountOverview = (props) => {
     const [last_name, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
+
     useEffect(() => {
         getUserData();
     }, [props.user]);
@@ -70,7 +70,6 @@ const UserAccountOverview = (props) => {
         });
     }
 
-
     return (
         <form className="userAccountForm" action="#">
             {userData.length === 0 ? (
@@ -126,8 +125,6 @@ const UserAccountOverview = (props) => {
     );
 };
 
-
 const mapStateToProps = state => ({isAuthenticated: state.auth.isAuthenticated, user : state.auth.user});
-
 
 export default connect(mapStateToProps,null)(UserAccountOverview);

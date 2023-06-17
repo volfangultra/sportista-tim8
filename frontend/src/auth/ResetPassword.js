@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
-import { reset_password } from "./Auth";
-import Button from '@material-ui/core/Button';
 import { Navigate } from "react-router-dom";
-import TopNavbar from "../components/navigation/Navbar";
-import Footer from "../components/navigation/Footer";
-import TextField from "@material-ui/core/TextField";
+import { TextField, Button } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+//components
+import { reset_password } from "./Auth";
+import TopNavbar from "../components/navigation/Navbar";
+import Footer from "../components/navigation/Footer";
 
 function ResetPassword({ reset_password }) {
     const [email, setEmail] = useState('');
