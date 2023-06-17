@@ -13,7 +13,10 @@ import {SERVER_URL} from "../../auth/Consts";
 function TableNext10Bookings(props) {
     const [bookings, setBookings] = useState([])
     useEffect(()=>{
-        console.log("HELLO", props.user)
+        getBookings()
+    },[props.user])
+
+    function getBookings(){
         if(props.user != null)
             axios.get(`${SERVER_URL}/renter/get_bookings/${props.user.id}/`)
                 .then((response) => {
@@ -23,12 +26,12 @@ function TableNext10Bookings(props) {
                 .catch((error) => {
                     console.error('Error fetching fields:', error);
                 });
-    },[props.user])
-
-    console.log(bookings)
-    return (
-        <div className="mt-5 box_shadow">
-            {bookings.map((booking) => (
+    }
+    return (<>
+            {bookings.length === 0 ? (
+                <h5 style={{marginTop: "1rem"}}>You don't have recent bookings.</h5>
+            ) : (
+                    <div className="mt-5 box_shadow">
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
@@ -43,8 +46,9 @@ function TableNext10Bookings(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
+                            {bookings.map((booking, index) => (
                             <TableRow>
-                                <TableCell>1</TableCell>
+                                <TableCell>{index+1}</TableCell>
                                 <TableCell>{booking.field}</TableCell>
                                 <TableCell>{booking.booked_by}</TableCell>
                                 <TableCell>{booking.email}</TableCell>
@@ -52,17 +56,18 @@ function TableNext10Bookings(props) {
                                 <TableCell>{booking.start.split(" ")[1] + " - " + booking.end.split(" ")[1]}</TableCell>
                                 <TableCell>
                                     <div>
-                                        <Button className="custom-button m-2" onClick={() => {axios.post(`${SERVER_URL}/renter/cancel_booking/${booking["id"]}/`).then(()=>{setBookings([])})}}>DENY</Button>
-                                        <Button className="custom-button m-2" onClick={() => {axios.post(`${SERVER_URL}/renter/approve_booking/${booking["id"]}/`).then(()=>{setBookings([])})}}>APPROVE</Button>
+                                        <Button className="custom-button m-2" onClick={() => {axios.post(`${SERVER_URL}/renter/cancel_booking/${booking["id"]}/`).then(()=>{getBookings()})}}>ABSENT</Button>
+                                        <Button className="custom-button m-2" onClick={() => {axios.post(`${SERVER_URL}/renter/approve_booking/${booking["id"]}/`).then(()=>{getBookings()})}}>ATTENDED</Button>
                                     </div>
                                 </TableCell>
                             </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
-            ))}
-
-        </div>
+                    </div>
+                )}
+        </>
     );
 }
 
