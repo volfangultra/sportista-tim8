@@ -34,8 +34,6 @@ function InboxTable() {
             });
     }
 
-
-
     return (
         <div className="mt-5 box_shadow">
             <TableContainer component={Paper}>

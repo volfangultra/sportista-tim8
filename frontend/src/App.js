@@ -51,7 +51,7 @@ function App() {
               <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin/inbox" element={<AdminInbox />} />
-              <Route path="/admin/arcvhied-messages" element={<ArchivedMessages/>} />
+              <Route path="/admin/archived-messages" element={<ArchivedMessages/>} />
               <Route path="/admin/renters" element={<Renters />} />
               <Route path="/admin/users" element={<Users />} />
               <Route path="/renter" element={<Renter />} />
