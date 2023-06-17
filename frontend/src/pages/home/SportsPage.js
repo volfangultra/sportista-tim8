@@ -198,7 +198,6 @@ function SportsPage() {
             {sport === 'handball' && <Handball header="Handball" sendData={handleChildData} objectFilter={objectFilter}/>}
             {sport === 'table_tennis' && <TableTennis header="Table Tennis" sendData={handleChildData} objectFilter={objectFilter}/>}
             {sport === 'hockey' && <Hockey header="Hockey" sendData={handleChildData} objectFilter={objectFilter}/>}
-            <Pagination className="m-5" count={10} variant="outlined" shape="rounded" />
             <Footer />
         </div>
         </div>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../pages/admin/Admin.css";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,9 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from "@material-ui/core/Button";
 import axios from "axios";
-import DeleteConfirmationModalUser from "./DeleteConfirmationModalUser";
 import DeleteConfirmationModalMessage from "./DeleteConfirmationModalMessage";
 import ReadMessageModal from "./ReadMessageModal";
 
@@ -19,7 +17,6 @@ function InboxTable() {
     useEffect(() => {
         getMessages();
     }, []);
-
 
      function getMessages() {
          axios.get(`http://127.0.0.1:8000/admin/inbox/getMessages/`)
