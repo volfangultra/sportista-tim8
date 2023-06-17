@@ -15,12 +15,14 @@ const FieldDetailsModal = (props) => {
     const formattedEnd = formatTime(props.ends);
 
     function formatTime(time) {
-        if (time.includes('-')) {
-            // Format: YYYY-MM-DD HH:mm:ss
-            return moment(time, "YYYY-MM-DD HH:mm:ss").format("HH:mm");
-        } else {
-            // Format: HH:mm:ss
-            return moment(time, "HH:mm:ss").format("HH:mm");
+        if(time) {
+            if (time.includes('-')) {
+                // Format: YYYY-MM-DD HH:mm:ss
+                return moment(time, "YYYY-MM-DD HH:mm:ss").format("HH:mm");
+            } else {
+                // Format: HH:mm:ss
+                return moment(time, "HH:mm:ss").format("HH:mm");
+            }
         }
     }
 

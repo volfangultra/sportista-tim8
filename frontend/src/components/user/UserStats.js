@@ -12,7 +12,7 @@ const UserStats = ({ scheduled, played }) => {
             },
         ],
     };
-
+    console.log(scheduled, played)
     return (
         <Bar data={data} />
     );

@@ -13,6 +13,7 @@ import {useState} from "react";
 import {Rating} from "@mui/material";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
+import moment from "moment";
 
 export function izracunaj_ratings(ratings, field_id){
     let suma = 0
@@ -73,10 +74,10 @@ function FieldCard(props) {
 
 
     return (
-        <div style={{display:"flex"}}>
+        <div className={"cardRow"} style={{display:"flex"}}>
         {props.fields.map((field) => (
             <div>{ field.played &&
-                <Card sx={{ maxWidth: 345,marginRight:"10px" }} key={field.fild.id}>
+                <Card className={"card"} sx={{ maxWidth: 345,marginRight:"10px" }} key={field.fild.id}>
                     <Carousel showThumbs={false}>
                         {field.fild.images.split("SPLIT").map((image) => (
                             <CardMedia
@@ -88,13 +89,13 @@ function FieldCard(props) {
                             />
                         ))}
                     </Carousel>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            <p>{field.fild.name}</p>
-                            <p>{field.beginning}</p>
-                            <p>{field.ending}</p>
-                        </Typography>
-                    </CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        <p>{field.fild.name}</p>
+                    </Typography >
+                    <Typography variant="h2" component="div">
+                        <p style={{fontSize: "16px"}}>{"Starts: " + moment(field.beginning, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm")}</p>
+                        <p style={{fontSize: "16px"}}>{"Ends: " + moment(field.ending, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm")}</p>
+                    </Typography>
                     <CardActions className="d-flex justify-content-center" disableSpacing>
                         <Rating
                             key={gradesField[field.fild.id] + " " + field.fild.id}

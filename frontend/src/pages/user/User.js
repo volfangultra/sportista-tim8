@@ -159,6 +159,9 @@ function Dashboard({user, isAuthenticated}) {
                     </Button>
 
                     <Menu
+                        sx={{
+                                float: "none"
+                            }}
                         anchorEl={anchorEl}
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
