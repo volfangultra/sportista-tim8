@@ -44,11 +44,11 @@
 }
 
 .analytic-cards {
-    height: calc(100vh - 15rem);
+    height: calc(100vh - 9rem);
     overflow-y: auto;
     padding-bottom: 1rem;
 }
 
 canvas {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }

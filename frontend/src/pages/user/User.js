@@ -106,7 +106,6 @@ function Dashboard({user, isAuthenticated}) {
     }, [fields, minPrice, maxPrice]);
 
     fields = fields.filter((field) => {
-        console.log(field)
         // Apply name filter
         if (nameFilter && field.fields.name.toLowerCase().indexOf(nameFilter.toLowerCase()) === -1) {
             return false;
@@ -160,6 +159,9 @@ function Dashboard({user, isAuthenticated}) {
                     </Button>
 
                     <Menu
+                        sx={{
+                                float: "none"
+                            }}
                         anchorEl={anchorEl}
                         open={Boolean(anchorEl)}
                         onClose={handleClose}

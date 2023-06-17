@@ -482,3 +482,48 @@ def get_ratings(request):
     res = serializers.serialize('json', ratings)
 
     return HttpResponse(res, content_type="application/json")
+
+@api_view(['GET'])
+def getRenterFieldsCount(request, params):
+    sports = Sport.objects.all()
+    renter_fields_count = []
+
+    for sport in sports:
+        field_count = Field.objects.filter(id_rentera_id=params, is_sport=sport).count()
+        renter_fields_count.append({"sport": sport.name, "count": field_count})
+
+    res = json.dumps(renter_fields_count)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
+@api_view(['GET'])
+def getRenterFieldsPrice(request, params):
+    fields = Field.objects.filter(id_rentera_id=params)
+    renter_fields_price = []
+
+    for field in fields:
+        renter_fields_price.append({"name": field.name, "price": field.price})
+
+    res = json.dumps(renter_fields_price)
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
+@api_view(['GET'])
+def getRenterFieldsTotalCount(request, params):
+    fields_count = Field.objects.filter(id_rentera_id=params).count()
+    res = json.dumps({"total_fields_count": fields_count})
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
+@api_view(['GET'])
+def get_bookings_count(request, id_rentera):
+    bookings = list(TeamRentsField.objects.all())
+    count = 0
+
+    for booking in bookings:
+        booking = model_to_dict(booking)
+
+        if not booking["cancelled"] and not booking["played"]:
+            field = model_to_dict(Field.objects.get(id=booking["id_fielda"]))
+            if field["id_rentera"] == id_rentera:
+                count += 1
+
+    res = json.dumps({"booking_count": count})
+    return HttpResponse(res, content_type='application/json')

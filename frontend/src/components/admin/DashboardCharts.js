@@ -117,30 +117,15 @@ function DashboardCharts() {
     });
 
     return (
-        <div className="dashboard-data mt-5">
+        <div className="dashboard-data mt-3">
             <CardContainer className="analytic-cards">
                 <CardWrapper>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Card 1
+                            Bookings
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget.
-                        </Typography>
-                        <Typography>
-                            DODATI NEKI CHART
-                        </Typography>
-                    </CardContent>
-                </CardWrapper>
-                <CardWrapper>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            Card 2
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget.
+                            Number of bookings in recent 6 months.
                         </Typography>
                         <canvas ref={barChartRef} id="barChartRef" />
                     </CardContent>
@@ -148,27 +133,12 @@ function DashboardCharts() {
                 <CardWrapper>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Card 3
+                            Clients
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget.
+                            Number of clients.
                         </Typography>
                         <canvas ref={pieChartRef} id="pieChartRef" />
-                    </CardContent>
-                </CardWrapper>
-                <CardWrapper>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            Card 4
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget.
-                        </Typography>
-                        <Typography>
-                            DODATI NEKI CHART
-                        </Typography>
                     </CardContent>
                 </CardWrapper>
             </CardContainer>

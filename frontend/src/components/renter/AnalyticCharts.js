@@ -1,306 +1,245 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import { Card, CardContent, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import "../../pages/renter/Renter.css";
+import {SERVER_URL} from "../../auth/Consts";
+import axios from "axios";
 
-const AnalyticCharts = () => {
-
+const AnalyticCharts = (props) => {
+    const pieChartRef = useRef();
     const lineChartRef = useRef();
     const barChartRef = useRef();
-    const pieChartRef = useRef();
-    const radarChartRef = useRef();
-    const radarChartRef2 = useRef();
-    const radarChartRef3 = useRef();
+    const barChartRef2 = useRef();
 
-    useEffect(() => {
-        let lineChartInstance = null;
-
-        const lineChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    label: "Number of requests",
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    borderColor: "rgb(75, 192, 192)",
-                    tension: 0.1,
-                },
-            ],
-        };
-
-        if (lineChartRef.current) {
-            const ctx = lineChartRef.current.getContext("2d");
-
-            if (lineChartInstance) {
-                lineChartInstance.destroy();
-            }
-
-            lineChartInstance = new Chart(ctx, {
-                type: "line",
-                data: lineChartData,
-                options: {
-                    responsive: true,
-                },
-            });
-        }
-
-        return () => {
-            if (lineChartInstance) {
-                lineChartInstance.destroy();
-            }
-        };
-    }, []);
-
-    useEffect(() => {
-        let barChartInstance = null;
-
-        const barChartData = {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [
-                {
-                    label: "Number of items",
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        "rgba(255, 99, 132, 0.2)",
-                        "rgba(54, 162, 235, 0.2)",
-                        "rgba(255, 206, 86, 0.2)",
-                        "rgba(75, 192, 192, 0.2)",
-                        "rgba(153, 102, 255, 0.2)",
-                        "rgba(255, 159, 64, 0.2)",
-                    ],
-                    borderColor: [
-                        "rgba(255, 99, 132, 1)",
-                        "rgba(54, 162, 235, 1)",
-                        "rgba(255, 206, 86, 1)",
-                        "rgba(75, 192, 192, 1)",
-                        "rgba(153, 102, 255, 1)",
-                        "rgba(255, 159, 64, 1)",
-                    ],
-                    borderWidth: 1,
-                },
-            ],
-        };
-
-        if (barChartRef.current) {
-            const ctx = barChartRef.current.getContext("2d");
-
-            if (barChartInstance) {
-                barChartInstance.destroy();
-            }
-
-            barChartInstance = new Chart(ctx, {
-                type: "bar",
-                data: barChartData,
-                options: {
-                    responsive: true,
-                },
-            });
-        }
-
-        return () => {
-            if (barChartInstance) {
-                barChartInstance.destroy();
-            }
-        };
-    }, []);
+    const renterID = props.renter_id;
 
     useEffect(() => {
         let pieChartInstance = null;
 
-        const pieChartData = {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [
-                {
-                    label: "Number of items",
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        "rgba(255, 99, 132, 0.2)",
-                        "rgba(54, 162, 235, 0.2)",
-                        "rgba(255, 206, 86, 0.2)",
-                        "rgba(75, 192, 192, 0.2)",
-                        "rgba(153, 102, 255, 0.2)",
-                        "rgba(255, 159, 64, 0.2)",
+        const fetchRenterFieldsCount = async () => {
+            try {
+                const response = await axios.get(`${SERVER_URL}/renter/field_count/${renterID}`);
+                const renterFieldsCount = response.data;
+
+                const pieChartData = {
+                    labels: renterFieldsCount.map((item) => item.sport),
+                    datasets: [
+                        {
+                            label: "Number of fields",
+                            data: renterFieldsCount.map((item) => item.count),
+                            backgroundColor: [
+                                "rgba(255, 99, 132, 0.2)",
+                                "rgba(54, 162, 235, 0.2)",
+                                "rgba(255, 206, 86, 0.2)",
+                                "rgba(75, 192, 192, 0.2)",
+                                "rgba(153, 102, 255, 0.2)",
+                                "rgba(255, 159, 64, 0.2)",
+                                "rgba(135, 206, 250, 0.2)",
+                                "rgba(192, 192, 192, 0.2)",
+                                "rgba(0, 0, 0, 0.2)",
+                                "rgba(255, 165, 0, 0.2)",
+                            ],
+                            borderColor: [
+                                "rgba(255, 99, 132, 1)",
+                                "rgba(54, 162, 235, 1)",
+                                "rgba(255, 206, 86, 1)",
+                                "rgba(75, 192, 192, 1)",
+                                "rgba(153, 102, 255, 1)",
+                                "rgba(255, 159, 64, 1)",
+                                "rgba(135, 206, 250, 1)",
+                                "rgba(192, 192, 192, 1)",
+                                "rgba(0, 0, 0, 1)",
+                                "rgba(255, 165, 0, 1)",
+                            ],
+                            borderWidth: 1,
+                        },
                     ],
-                    borderColor: [
-                        "rgba(255, 99, 132, 1)",
-                        "rgba(54, 162, 235, 1)",
-                        "rgba(255, 206, 86, 1)",
-                        "rgba(75, 192, 192, 1)",
-                        "rgba(153, 102, 255, 1)",
-                        "rgba(255, 159, 64, 1)",
-                    ],
-                    borderWidth: 1,
-                },
-            ],
+                };
+
+                if (pieChartRef.current) {
+                    const ctx = pieChartRef.current.getContext("2d");
+
+                    if (pieChartInstance) {
+                        pieChartInstance.destroy();
+                    }
+
+                    if (Chart.getChart(ctx)) {
+                        Chart.getChart(ctx).destroy();
+                    }
+
+                    pieChartInstance = new Chart(ctx, {
+                        type: "pie",
+                        data: pieChartData,
+                        options: {
+                            responsive: true,
+                        },
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching renter fields count:", error);
+            }
         };
 
-        if (pieChartRef.current) {
-            const ctx = pieChartRef.current.getContext("2d");
+        fetchRenterFieldsCount();
 
+        return () => {
             if (pieChartInstance) {
                 pieChartInstance.destroy();
             }
-
-            pieChartInstance = new Chart(ctx, {
-                type: "pie",
-                data: pieChartData,
-                options: {
-                    responsive: true,
-                },
-            });
-        }
-
-        return () => {
-            if (pieChartInstance) {
-                pieChartInstance.destroy();
-            }
         };
-    }, []);
+    }, [renterID]);
 
     useEffect(() => {
-        let radarChartInstance = null;
+        let lineChartInstance = null;
 
-        const radarChartData = {
-            labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-            datasets: [
-                {
-                    label: "My First Radar Chart",
-                    data: [65, 59, 90, 81, 56, 55, 40],
-                    fill: true,
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    borderColor: "rgb(255, 99, 132)",
-                    pointBackgroundColor: "rgb(255, 99, 132)",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgb(255, 99, 132)"
+        const fetchRenterFieldsPrice = async () => {
+            try {
+                const response = await axios.get(`${SERVER_URL}/renter/field_price/${renterID}`);
+                const renterFieldsPrice = response.data;
+
+                const lineChartData = {
+                    labels: renterFieldsPrice.map((item) => item.name),
+                    datasets: [
+                        {
+                            label: "Price",
+                            data: renterFieldsPrice.map((item) => item.price),
+                            fill: false,
+                            borderColor: "rgb(75, 192, 192)",
+                            tension: 0.1,
+                        },
+                    ],
+                };
+
+                if (lineChartRef.current) {
+                    const ctx = lineChartRef.current.getContext("2d");
+
+                    if (lineChartInstance) {
+                        lineChartInstance.destroy();
+                    }
+
+                    if (Chart.getChart(ctx)) {
+                        Chart.getChart(ctx).destroy();
+                    }
+
+                    lineChartInstance = new Chart(ctx, {
+                        type: "line",
+                        data: lineChartData,
+                        options: {
+                            responsive: true,
+                        },
+                    });
                 }
-            ]
+            } catch (error) {
+                console.error("Error fetching renter fields price:", error);
+            }
         };
 
-        if (radarChartRef.current) {
-            const ctx = radarChartRef.current.getContext("2d");
-
-            if (radarChartInstance) {
-                radarChartInstance.destroy();
-            }
-
-            radarChartInstance = new Chart(ctx, {
-                type: "radar",
-                data: radarChartData,
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
+        fetchRenterFieldsPrice();
 
         return () => {
-            if (radarChartInstance) {
-                radarChartInstance.destroy();
+            if (lineChartInstance) {
+                lineChartInstance.destroy();
             }
         };
-    }, []);
+    }, [renterID]);
 
     useEffect(() => {
-        let radarChartInstance2 = null;
+        let barChartInstance = null;
 
-        const radarChartData2 = {
-            labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-            datasets: [
-                {
-                    label: "My First Radar Chart",
-                    data: [65, 70, 20, 44, 16, 22, 40],
-                    fill: true,
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    borderColor: "rgb(255, 99, 132)",
-                    pointBackgroundColor: "rgb(255, 99, 132)",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgb(255, 99, 132)"
-                }
-            ]
-        };
+        const fetchRenterFieldsCount = async () => {
+            try {
+                const response = await axios.get(
+                    `${SERVER_URL}/renter/field_total_count/${renterID}`
+                );
+                const renterFieldsCount = response.data.total_fields_count;
 
-        if (radarChartRef2.current) {
-            const ctx = radarChartRef2.current.getContext("2d");
+                const barChartData = {
+                    labels: ["Total Fields"],
+                    datasets: [
+                        {
+                            label: "Number of fields",
+                            data: [renterFieldsCount],
+                            backgroundColor: "rgba(54, 162, 235, 0.2)",
+                            borderColor: "rgba(54, 162, 235, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                };
 
-            if (radarChartInstance2) {
-                radarChartInstance2.destroy();
-            }
+                if (barChartRef.current) {
+                    const ctx = barChartRef.current.getContext("2d");
 
-            radarChartInstance2 = new Chart(ctx, {
-                type: "radar",
-                data: radarChartData2,
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            beginAtZero: true
-                        }
+                    if (barChartInstance) {
+                        barChartInstance.destroy();
                     }
-                }
-            });
-        }
 
-        return () => {
-            if (radarChartInstance2) {
-                radarChartInstance2.destroy();
+                    new Chart(ctx, {
+                        type: "bar",
+                        data: barChartData,
+                        options: {
+                            responsive: true,
+                        },
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching renter fields count:", error);
             }
         };
-    }, []);
+
+        fetchRenterFieldsCount();
+
+    }, [renterID]);
 
     useEffect(() => {
-        let radarChartInstance3 = null;
+        let barChartInstance2 = null;
 
-        const radarChartData3 = {
-            labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-            datasets: [
-                {
-                    label: "My First Radar Chart",
-                    data: [89, 99, 80, 81, 16, 1, 51],
-                    fill: true,
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    borderColor: "rgb(255, 99, 132)",
-                    pointBackgroundColor: "rgb(255, 99, 132)",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgb(255, 99, 132)"
+        const fetchRenterBookingCount = async () => {
+            try {
+                const response = await axios.get(`${SERVER_URL}/renter/get_bookings_count/${renterID}`);
+                const renterBookingCount = response.data.booking_count;
+
+                const barChartData2 = {
+                    labels: ["Total Bookings"],
+                    datasets: [
+                        {
+                            label: "Number of bookings",
+                            data: [renterBookingCount],
+                            backgroundColor: "rgba(135, 206, 250, 0.2)",
+                            borderColor: "rgba(135, 206, 250, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
+                if (barChartRef2.current) {
+                    const ctx = barChartRef2.current.getContext("2d");
+
+                    if (barChartInstance2) {
+                        barChartInstance2.destroy();
+                    }
+
+                    barChartInstance2 = new Chart(ctx, {
+                        type: "bar",
+                        data: barChartData2,
+                        options: {
+                            responsive: true,
+                        },
+                    });
                 }
-            ]
+            } catch (error) {
+                console.error("Error fetching renter booking count:", error);
+            }
         };
 
-        if (radarChartRef3.current) {
-            const ctx = radarChartRef3.current.getContext("2d");
-
-            if (radarChartInstance3) {
-                radarChartInstance3.destroy();
-            }
-
-            radarChartInstance3 = new Chart(ctx, {
-                type: "radar",
-                data: radarChartData3,
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
+        fetchRenterBookingCount();
 
         return () => {
-            if (radarChartInstance3) {
-                radarChartInstance3.destroy();
+            if (barChartInstance2) {
+                barChartInstance2.destroy();
             }
         };
-    }, []);
+    }, [renterID]);
 
     const CardContainer = styled("div")({
         display: "flex",
@@ -321,35 +260,10 @@ const AnalyticCharts = () => {
             <CardWrapper>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        Card 1
+                        SPORTS
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </Typography>
-                    <canvas ref={lineChartRef} id="lineChartRef" />
-                </CardContent>
-            </CardWrapper>
-            <CardWrapper>
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Card 2
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </Typography>
-                    <canvas ref={barChartRef} id="barChartRef" />
-                </CardContent>
-            </CardWrapper>
-            <CardWrapper>
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Card 3
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        Here you can see the number of your fields for a specific sport.
                     </Typography>
                     <canvas ref={pieChartRef} id="pieChartRef" />
                 </CardContent>
@@ -357,37 +271,34 @@ const AnalyticCharts = () => {
             <CardWrapper>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        Card 4
+                        PRICES
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        Here you can see the prices of your fields.
                     </Typography>
-                    <canvas ref={radarChartRef} id="radarChartRef" />
+                    <canvas ref={lineChartRef} id="lineChartRef" />
                 </CardContent>
             </CardWrapper>
             <CardWrapper>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        Card 5
+                        FIELDS
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        Here you can see the total number of your fields.
                     </Typography>
-                    <canvas ref={radarChartRef2} id="radarChartRef2" />
+                    <canvas ref={barChartRef} id="barChartRef" />
                 </CardContent>
             </CardWrapper>
             <CardWrapper>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        Card 6
+                        RESERVATIONS
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        Here you can see the total number of reservations for your fields.
                     </Typography>
-                    <canvas ref={radarChartRef3} id="radarChartRef3" />
+                    <canvas ref={barChartRef2} id="radarChartRef2" />
                 </CardContent>
             </CardWrapper>
         </CardContainer>

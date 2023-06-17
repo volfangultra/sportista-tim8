@@ -12,6 +12,7 @@ import StarIcon from "@mui/icons-material/Star";
 import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
 import {izracunaj_ratings} from "./MyPlayedCard";
+import moment from "moment";
 
 function FieldCard(props) {
     const [ratings, setRatings] = useState([])
@@ -30,7 +31,7 @@ function FieldCard(props) {
         <div style={{display:"flex"}}>
         {props.fields.map((field) => (
             <div>{ field.played === false && field.cancelled === false &&
-                <Card sx={{ maxWidth: 345,marginRight:"10px" }} key={field.fild.id}>
+                <Card className={"card"} sx={{marginRight:"10px" }} key={field.fild.id}>
                     <Carousel showThumbs={false}>
                         {field.fild.images.split("SPLIT").map((image) => (
                             <CardMedia key={image}
@@ -41,16 +42,19 @@ function FieldCard(props) {
                             />
                         ))}
                     </Carousel>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            <p>{field.fild.name}</p>
-                            <p>{field.beginning}</p>
-                            <p>{field.ending}</p>
-                        </Typography>
-                    </CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        <p>{field.fild.name}</p>
+                    </Typography >
+                    <Typography variant="h2" component="div">
+                        <p style={{fontSize: "16px"}}>{"Starts: " + moment(field.beginning, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm")}</p>
+                        <p style={{fontSize: "16px"}}>{"Ends: " + moment(field.ending, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD HH:mm")}</p>
+                    </Typography>
                     <CardActions className="d-flex justify-content-evenly">
                         <CancelBookingFieldModal id={field.id} user={props.user} />
-                        <FieldDetailsModal address={field.fild.address} details={field.fild.details} price={field.fild.price} />
+                        <FieldDetailsModal name={field.fild.name} address={field.fild.address}
+                                           details={field.fild.details} price={field.price}
+                                           is_sport={field.fild.is_sport} starts={field.beginning}
+                                           ends={field.ending} title={"RESERVATION DETAILS"}/>
                     </CardActions>
                     <CardActions className="float-end" disableSpacing>
                         {ratings.length != 0 &&
