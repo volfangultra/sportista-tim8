@@ -127,7 +127,11 @@ function FieldFormAction(props) {
                     onChange={(e) => setSport(e.target.value)}
                 >
                     {hasSports.map((sport) => (
-                        <MenuItem key={sport.pk} value={sport.pk}>
+                        <MenuItem
+                            key={sport.pk}
+                            value={sport.pk}
+                            style={{display: "block", paddingLeft: "1rem"}}
+                        >
                             {sport.fields.name}
                         </MenuItem>
                     ))}
