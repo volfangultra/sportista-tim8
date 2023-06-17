@@ -11,6 +11,7 @@ import json
 from urllib.parse import unquote
 
 from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser
+from sportista.recomendation import create_user_field_model, train
 
 
 def reset_password_confirm(request, uid, token):
@@ -40,7 +41,29 @@ def add_user(request):
     else:
         u = SportistaUser(first_name=unquote(data['first_name']), last_name=unquote(data['last_name']),id_logina=account, gender=False, date_of_birth=data['date_of_birth'])
     u.save()
-
+    for day, hours in data['user_availability'].items():
+        if day == "Monday":
+            u.monday_start = hours['startHour']
+            u.monday_end = hours['endHour']
+        if day == "Tuesday":
+            u.tuesday_start = hours['startHour']
+            u.tuesday_end = hours['endHour']
+        if day == "Wednesday":
+            u.wednesday_start = hours['startHour']
+            u.wednesday_end = hours['endHour']
+        if day == "Thursday":
+            u.thursday_start = hours['startHour']
+            u.thursday_end = hours['endHour']
+        if day == "Friday":
+            u.friday_start = hours['startHour']
+            u.friday_end = hours['endHour']
+        if day == "Saturday":
+            u.saturday_start = hours['startHour']
+            u.saturday_end = hours['endHour']
+        if day == "Sunday":
+            u.sunday_start = hours['startHour']
+            u.sunday_end = hours['endHour']
+    u.save()
     return HttpResponse()
 
 

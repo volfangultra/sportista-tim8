@@ -9,7 +9,8 @@ from django.shortcuts import redirect
 from django.core.mail import send_mail
 from django.http import HttpResponse
 
-from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox, UserGradesField
+from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox, UserGradesField, \
+    UserGradesFieldTemp
 
 from sportista.models import Field, Sport, UserAccount, SportistaUser, Renter, Team, TeamRentsField
 
@@ -470,7 +471,9 @@ def approve_booking(request, id_booking):
 @api_view(['POST'])
 def rate_field(request, rating, id_field, id_user):
     ocjena = UserGradesField(id_usera_id=id_user, id_fielda_id=id_field, grade=rating)
+    ocjena_temp = UserGradesFieldTemp(id_usera_id=id_user, id_fielda_id=id_field, grade=rating)
     ocjena.save()
+    ocjena_temp.save()
     return HttpResponse("ok")
 
 @api_view(['GET'])

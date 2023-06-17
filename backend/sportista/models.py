@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta, time
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
@@ -5,6 +6,7 @@ from django.utils import timezone
 
 
 # Create your models here.
+
 
 
 class Sport(models.Model):
@@ -20,6 +22,21 @@ class SportistaUser(models.Model):
     date_of_birth = models.DateField()
     plays_sports = models.ManyToManyField(Sport)
     favourite_fields = models.ManyToManyField("Field", blank=True, related_name="users_favourite_set")
+
+    monday_start = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    monday_end = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    tuesday_start = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    tuesday_end = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    wednesday_start = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    wednesday_end = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    thursday_start = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    thursday_end = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    friday_start = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    friday_end = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    saturday_start = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    saturday_end = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    sunday_start = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
+    sunday_end = models.TimeField(default=time(hour=0, minute=0, second=0, microsecond=0))
 
 
 class Renter(models.Model):
