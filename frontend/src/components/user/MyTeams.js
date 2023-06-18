@@ -46,7 +46,6 @@ function MyTeamsComp(props) {
             });
         }
     }
-    console.log(props.team)
 
     const [playerNames, setPlayerNames] = useState('');
     const [teamA, setTeamA] = useState([]);
@@ -100,18 +99,20 @@ function MyTeamsComp(props) {
 
     const [ratings, setRatings] = useState({});
 
-    const handleRate = (index, rating) => {
-        setRatings((prevRatings) => ({
-            ...prevRatings,
-            [index]: rating
-        }));
-        handleClose();
+    const handleRate = (id_grader, id_reciver) => {
+        axios.post(`${SERVER_URL}/user/user_rate_user/${id_grader}/${id_reciver}/${rating}/`).then(()=>{
+            handleClose();
+        })
+
     };
 
-    const deleteMember = () => {
-        //za brisanje membera u timu
+    const deleteMember = (id_member) => {
+        console.log(id_member, props.team.id)
+        axios.post(`${SERVER_URL}/user/delete_member/${id_member}/${props.team.id}/`).then(()=>{
+            props.getTeam()
+        })
     };
-
+    console.log("HELLO")
     console.log(props.team)
 
     return (
@@ -130,11 +131,13 @@ function MyTeamsComp(props) {
             />
             <div className="my-teams-comp-container mt-5 mr-3">
                     <h4>Team Members</h4>
+                {props.team.users !== undefined &&
                     <ul>
+                        <li>You</li>
                         {props.team.users.map((member, index) => (
                             <li key={index}>
                                 <Typography>
-                                    <FaTimes onClick={()=>deleteMember(index)} style={{ cursor: "pointer", color: "red", marginRight: "5px" }} />
+                                    <FaTimes onClick={()=>deleteMember(member.id)} style={{ cursor: "pointer", color: "red", marginRight: "5px" }} />
                                     {member.first_name + " " + member.last_name}
                                     <Button variant="text" onClick={handleOpen}>Rate</Button>
                                 </Typography>
@@ -146,7 +149,7 @@ function MyTeamsComp(props) {
                                         <div className={"d-flex justify-content-center"}>
                                             <Rating
                                                 value={rating}
-                                                onChange={(event, newValue) => setRating(newValue)}
+                                                onChange={(event, newValue) => {setRating(newValue)}}
                                             />
                                         </div>
                                     </Modal.Body>
@@ -154,7 +157,7 @@ function MyTeamsComp(props) {
                                         <Button variant="secondary" onClick={handleClose}>
                                             Close
                                         </Button>
-                                        <Button variant="primary" onClick={()=> {handleRate(index); handleClose()}}>
+                                        <Button variant="primary" onClick={()=> {handleRate(props.user.id, member.id)}}>
                                             Submit
                                         </Button>
                                     </Modal.Footer>
@@ -162,6 +165,7 @@ function MyTeamsComp(props) {
                             </li>
                         ))}
                     </ul>
+                }
                 <div>
                     <TextField
                         className="teams-inputs mt-2"

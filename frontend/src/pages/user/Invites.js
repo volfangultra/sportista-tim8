@@ -41,7 +41,7 @@ function Invites({ user, isAuthenticated }) {
                 <TeamInvitesTable invites={invites} user={user}/>
                 <h1 className={"mt-5"}>Accepted Invites</h1>
                 <h5>List of invites from other users.</h5>
-                <AcceptedInvitesTable invites={invites} user={user}/>
+                <AcceptedInvitesTable invites={playInvites} user={user}/>
             </div>
         </div>
     );

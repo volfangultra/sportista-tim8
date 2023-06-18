@@ -80,7 +80,6 @@ def get_renter(request, id):
 
 @api_view(['GET'])
 def get_user(request, id):
-    create_user_field_model()
     train()
     sportista_users = list(SportistaUser.objects.filter(id_logina=id).values())
     res = json.dumps(sportista_users[0], cls=DjangoJSONEncoder)

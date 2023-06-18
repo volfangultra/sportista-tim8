@@ -7,6 +7,10 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
+import {SERVER_URL} from "../../auth/Consts";
+import moment from "moment"
+
 
 function AcceptedInvitesTable(props) {
     console.log("OVO")
@@ -28,20 +32,24 @@ function AcceptedInvitesTable(props) {
                     </TableHead>
                     <TableBody>
                         {  props.invites.map((item)=>(
-                            <TableRow key={item.pk}>
-                                <TableCell>1</TableCell>
-                                <TableCell>alic.said@user.sportista.com</TableCell>
-                                <TableCell>Garden City Konjic</TableCell>
-                                <TableCell>Football</TableCell>
-                                <TableCell>23-02-2023</TableCell>
-                                <TableCell>17:00h - 20:00h</TableCell>
-                                <TableCell>
-                                    <div>
-                                        <Button className="custom-button m-2">REJECT</Button>
-                                        <Button className="custom-button m-2">ACCEPT</Button>
-                                    </div>
-                                </TableCell>
-                            </TableRow>))
+                            <div>
+                                {item.accepted && (
+                                    <TableRow key={item.pk}>
+                                        <TableCell>1</TableCell>
+                                        <TableCell>{item.sender_name}</TableCell>
+                                        <TableCell>{item.field_name}</TableCell>
+                                        <TableCell>{item.sport}</TableCell>
+                                        <TableCell>{moment(item.start, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}</TableCell>
+                                        <TableCell>{moment(item.start, "YYYY-MM-DD HH:mm:ss").format("HH:mm")}</TableCell>
+                                        <TableCell>
+                                            <div>
+                                                <Button className="custom-button m-2" onClick={()=>{axios.post(`${SERVER_URL}/user/delete_invite/${item.id}/`)}}>REJECT</Button>
+                                                <Button className="custom-button m-2" onClick={()=>{axios.post(`${SERVER_URL}/user/enter_team_play/${props.user.id}/${item.id}/${item.id_sender}/`).then(()=>{window.location.reload(false)})}}>ACCEPT</Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>)
+                                }
+                            </div>))
                         }
                     </TableBody>
                 </Table>

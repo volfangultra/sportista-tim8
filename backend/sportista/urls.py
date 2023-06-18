@@ -43,7 +43,12 @@ urlpatterns = [
     path("user/get_invites/<int:id_user>/", views.get_invites, name="get_invites"),
     path("user/get_play_invites/<int:id_user>/", views.get_play_invites, name="get_play_invites"),
     path("user/enter_team/<int:id_user>/<int:id_invite>/<int:id_leader>/", views.enter_team, name="get_invites"),
+    path("user/enter_team_play/<int:id_user>/<int:id_invite>/<int:id_leader>/", views.enter_team_play, name="enter_team_play"),
     path("user/find_user/<int:id_user>/<int:id_field>/", views.find_user, name="find_user"),
+    path("user/delete_invite/<int:id_invite>/", views.delete_invite, name="delete_invite"),
+    path("user/delete_team_invite/<int:id_invite>/", views.delete_team_invite, name="delete_team_invite"),
+    path("user/delete_member/<int:id_user>/<int:id_team>/", views.delete_team_member, name="delete_team_invite"),
+    path("user/user_rate_user/<int:id_grader>/<int:id_reciver>/<int:grade>/", views.user_rate_user, name="user_rate_user"),
 
     path("renter/getData/<int:params>/", views.getRenterData, name="getRenterData"),
     path("renter/changeData/<int:params>/", views.changeRenterData, name="changeRenterData"),

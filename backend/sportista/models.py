@@ -150,8 +150,8 @@ class UserGradesFieldTemp(models.Model):
 
 
 class UserClicksFieldTemp(models.Model):
-    id_usera = models.ForeignKey(SportistaUser, on_delete=models.CASCADE)
-    id_fielda = models.ForeignKey(Field, on_delete=models.CASCADE)
+    grade_giver = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="grade_giver", null=True)
+    grade_reciver = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="grade_reciver", null=True)
 
 
 class Inbox(models.Model):
@@ -171,8 +171,15 @@ class TeamInvite(models.Model):
 class PlayInvite(models.Model):
     invite_sender = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="id_invite_sender")
     invite_reciver = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="id_invite_reciver")
-    sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name="id_sport")
-    field = models.ForeignKey(Field, on_delete=models.CASCADE, related_name="Id_field")
-    price = models.IntegerField()
-    start = models.DateTimeField()
-    ends = models.DateTimeField()
+    sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name="id_sport", null=True)
+    field = models.ForeignKey(Field, on_delete=models.CASCADE, related_name="Id_field", null=True)
+    price = models.IntegerField(null=True)
+    start = models.DateTimeField(null=True)
+    ends = models.DateTimeField(null=True)
+    accepted = models.BooleanField(default=False, null=True)
+
+
+class UserRatesUSer(models.Model):
+    id_graders = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="grader", null=True)
+    id_player = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="player", null=True)
+    grade = models.IntegerField(null=True)
