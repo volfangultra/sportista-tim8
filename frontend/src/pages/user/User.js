@@ -6,16 +6,14 @@ import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import axios from "axios";
 import 'react-toastify/dist/ReactToastify.css';
+import { Button, Menu, MenuItem, Slider, TextField } from "@mui/material";
 
 //components
 import UserSidebar from "../../components/navigation/UserSidebar";
 import FieldCard from "../../components/user/FieldCard";
 import Tab from "../../components/user/Tab";
 import RecommendedFields from "../../components/user/RecomendedFields";
-import {Button, ClickAwayListener, Collapse, Menu, MenuItem, Popper, Slider, TextField} from "@mui/material";
-import Paper from "@material-ui/core/Paper";
 import {SERVER_URL} from "../../auth/Consts";
-
 
 function Dashboard({user, isAuthenticated}) {
     var [fields, setFields] = useState([]);
@@ -88,7 +86,7 @@ function Dashboard({user, isAuthenticated}) {
         if (user) {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/user/dashboard');
-                const response2 = await axios.get(`${SERVER_URL}/user/get_recommended_fields/${user.id}`).then((response)=>{
+                const response2 = await axios.get(`${SERVER_URL}/user/get_recommended_fields/${user.id}/`).then((response)=>{
                     setRecommended(response.data)
                     var temp = []
                     fields.forEach((field)=>{
@@ -142,6 +140,7 @@ function Dashboard({user, isAuthenticated}) {
 
     // if(!isAuthenticated && user == null)
     //     return (<Navigate to={"/"}/>)
+
     useEffect(() => {
         let min = 9999;
         let max = 0;
@@ -173,7 +172,6 @@ function Dashboard({user, isAuthenticated}) {
         if (priceRange!=null && (priceRange[0] > field.fields.price || priceRange[1] < field.fields.price)) {
             return false;
         }
-
 
         return true;
     });

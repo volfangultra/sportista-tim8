@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
-import Button from '@material-ui/core/Button';
+import { Button } from '@mui/material';
 
 const DeleteConfirmationModalUser = (props) => {
     const [isOpen, setIsOpen] = useState(false);

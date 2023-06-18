@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
-import Button from '@material-ui/core/Button';
+import { Button } from '@mui/material';
 
 const ReadMessageModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -36,12 +36,11 @@ const ReadMessageModal = (props) => {
                 </Modal.Header>
                 <Modal.Body className="text-center">
                     <h5>{props.text}</h5>
-                </Modal.Body>
-                <Modal.Footer>
+
                     <Button className="custom-button m-2" onClick={() => callFuns()}>
                         ARCHIVE
                     </Button>
-                </Modal.Footer>
+                </Modal.Body>
             </Modal>
         </>
     );

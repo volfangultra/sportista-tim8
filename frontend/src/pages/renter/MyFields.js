@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
-
+import {ToastContainer} from "react-toastify";
+import {connect} from "react-redux";
+import {Navigate} from "react-router-dom";
+import axios from "axios";
 
 //components
 import RenterSidebar from "../../components/navigation/RenterSidebar";
 import Field from "../../components/renter/Field";
-import {connect} from "react-redux";
-import {Navigate} from "react-router-dom";
-import axios from "axios";
 import AddFieldModal from "../../components/renter/AddFieldModal";
-import {ToastContainer} from "react-toastify";
 
-function MyFields({user,isAuthenticated}) {
+
+function MyFields({ user, isAuthenticated }) {
 
     const [fields, setFields] = useState([]);
 

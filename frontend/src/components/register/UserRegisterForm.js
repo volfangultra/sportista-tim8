@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
 import "./RegisterForm.css";
-import {register} from "../../auth/Auth";
-import {connect} from "react-redux";
+import { register } from "../../auth/Auth";
+import { connect } from "react-redux";
 import axios from "axios";
-import {SERVER_URL} from "../../auth/Consts";
-import {toast, ToastContainer} from "react-toastify";
-import {Checkbox, MenuItem, TextField} from "@mui/material";
-import {FormControlLabel} from "@material-ui/core";
-import {FiEye, FiEyeOff} from "react-icons/fi";
+import { SERVER_URL } from "../../auth/Consts";
+import { toast, ToastContainer } from "react-toastify";
+import { Checkbox, MenuItem, TextField, Button, FormControlLabel } from "@mui/material";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function UserRegisterForm({register}) {
     const [currentStep, setCurrentStep] = useState(1);
@@ -26,6 +24,7 @@ function UserRegisterForm({register}) {
     const [chosenSports, setChosenSprots] = useState([]);
     const [showUserPassword, setShowUserPassword] = useState(false);
     const [emails, setEmails] = useState([]);
+
     useEffect(()=>{
         axios.get( `${SERVER_URL}/get_sports/`).then((res) => {
             setplaysSports(res.data)
@@ -34,7 +33,6 @@ function UserRegisterForm({register}) {
             setEmails(res.data)
         })
     },[])
-
 
     const handleUserFirstNameChange = (event) => {
         const inputText = event.target.value;
@@ -99,7 +97,7 @@ function UserRegisterForm({register}) {
                 theme: "colored",
             });
         }else if (currentStep === 1 && emails.includes(userEmail)){
-            toast.error('Email adress is taken', {
+            toast.error('Email address is already taken', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -135,7 +133,7 @@ function UserRegisterForm({register}) {
             });
         }
         else if (currentStep === 2 && !userGender) {
-            toast.error('Please enter your gender.', {
+            toast.error('Please select your gender.', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

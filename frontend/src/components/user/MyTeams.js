@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import {TextField, Button, MenuItem, Grid, Typography} from '@mui/material';
+import { TextField, Button, MenuItem, Grid, Typography } from '@mui/material';
 import "../../pages/user/User.css";
 import Divider from "@material-ui/core/Divider";
 import axios from "axios";
@@ -23,7 +23,6 @@ function MyTeamsComp(props) {
             })
         }
     }
-    console.log("HEL")
     console.log(props.team)
 
     const [playerNames, setPlayerNames] = useState('');

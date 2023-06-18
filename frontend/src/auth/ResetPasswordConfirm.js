@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import {connect} from "react-redux";
-import {reset_password_confirm} from "./Auth";
-import Button from '@material-ui/core/Button';
-import {Navigate} from "react-router-dom";
-import {useParams} from "react-router-dom";
+import { connect } from "react-redux";
+import { reset_password_confirm } from "./Auth";
+import { Navigate, useParams } from "react-router-dom";
+import { TextField, Button } from "@mui/material";
+
+//components
 import TopNavbar from "../components/navigation/Navbar";
 import Footer from "../components/navigation/Footer";
-import TextField from '@material-ui/core/TextField';
-
 
 function ResetPasswordConfirm({match, reset_password_confirm}) {
     const [password, setPassword] = useState('');

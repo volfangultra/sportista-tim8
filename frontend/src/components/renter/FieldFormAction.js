@@ -3,10 +3,11 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { SERVER_URL } from "../../auth/Consts";
-import Button from "@material-ui/core/Button";
-import { Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from "@mui/material";
-import defaultImage from '../../../src/resources/images/favicon.jpg';
+import { Box, MenuItem, TextField, Button } from "@mui/material";
 import {toast} from "react-toastify";
+
+//components
+import defaultImage from '../../../src/resources/images/favicon.jpg';
 
 function FieldFormAction(props) {
 
@@ -144,6 +145,7 @@ function FieldFormAction(props) {
                     label="Name"
                     variant="outlined"
                     onChange={(e) => setName(e.target.value)}
+                    inputProps={{ maxLength: 30 }}
                 />
             </Box>
             <Box mb={1} className="d-flex">
@@ -156,6 +158,7 @@ function FieldFormAction(props) {
                     value={start}
                     onChange={(e)=>setStart(e.target.value)}
                     variant="outlined"
+                    InputLabelProps={{ shrink: true }}
                 />
                 <TextField
                     sx={{ margin: "0 0 0 1rem" }}
@@ -166,6 +169,7 @@ function FieldFormAction(props) {
                     value={end}
                     onChange={(e)=>setEnd(e.target.value)}
                     variant="outlined"
+                    InputLabelProps={{ shrink: true }}
                 />
             </Box>
 
@@ -196,6 +200,7 @@ function FieldFormAction(props) {
                     variant="outlined"
                     onChange={(e) => setImages(e.target.files)}
                     inputProps={{ multiple: true }}
+                    InputLabelProps={{ shrink: true }}
                 />
             </Box>
 

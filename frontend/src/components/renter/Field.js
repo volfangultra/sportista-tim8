@@ -1,18 +1,13 @@
 import React from "react";
 import { Carousel } from 'react-responsive-carousel';
+import { Card, CardContent, Typography, Switch, Button, Divider } from '@mui/material';
+import axios from "axios";
+import { SERVER_URL } from "../../auth/Consts";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-/* components */
+//components
 import EditFieldModal from "./EditFieldModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Switch from '@material-ui/core/Switch';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import axios from "axios";
-import {SERVER_URL} from "../../auth/Consts";
 import ViewFieldModal from "./ViewFieldModal";
 
 function Field(props) {

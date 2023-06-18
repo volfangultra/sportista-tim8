@@ -1,6 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from '@material-ui/core/Button';
+import { Button } from '@mui/material';
 import "./Navbar&Footer.css";
 
 function TopNavbar() {
