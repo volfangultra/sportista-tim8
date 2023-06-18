@@ -1,10 +1,5 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import { Card, CardHeader, CardMedia, List, ListItem, ListItemText } from '@mui/material';
 import '../../pages/admin/Admin.css';
 
 function MostRentedFields() {

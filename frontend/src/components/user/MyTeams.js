@@ -1,8 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import {TextField, Button, MenuItem, Grid, Typography} from '@mui/material';
+import { TextField, Button, MenuItem, Grid, Typography } from '@mui/material';
 import "../../pages/user/User.css";
-import Divider from "@material-ui/core/Divider";
 
 function MyTeamsComp() {
 

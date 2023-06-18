@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import {Card, CardContent, Typography} from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
-import CardActions from "@mui/material/CardActions";
-import BookFieldModal from "../user/BookFieldModal";
-import FieldDetailsModal from "../user/FieldDetailsModal";
+import { Card, CardActions, CardContent, Typography } from "@mui/material";
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+//components
+import BookFieldModal from "../user/BookFieldModal";
+import FieldDetailsModal from "../user/FieldDetailsModal";
 
 function Volleyball(props) {
 

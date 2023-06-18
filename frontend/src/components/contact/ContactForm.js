@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import "./Contact.css";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
-import {SERVER_URL} from "../../auth/Consts";
-import {Box, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField} from "@mui/material";
+import { SERVER_URL } from "../../auth/Consts";
+import { Box, FormControl, Button, MenuItem, TextField } from "@mui/material";
 import {toast} from "react-toastify";
 
 
