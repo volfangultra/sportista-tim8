@@ -113,22 +113,16 @@ function Dashboard({user, isAuthenticated}) {
                     console.log(temp)
                     setRecommendedFields(temp)
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> origin
                 });
                 if (fields.length !== response.data.length) {
                     setFields(response.data.reverse());
                 }
 
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> origin
             } catch (error) {
                 console.error('Error fetching fields:', error);
             }

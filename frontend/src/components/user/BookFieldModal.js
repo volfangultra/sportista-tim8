@@ -7,8 +7,6 @@ import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
 =======
 import {toast} from "react-toastify";
-import Clock from "../Clock";
->>>>>>> origin
 
 const BookFieldModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
