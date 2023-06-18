@@ -171,3 +171,8 @@ class TeamInvite(models.Model):
 class PlayInvite(models.Model):
     invite_sender = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="id_invite_sender")
     invite_reciver = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="id_invite_reciver")
+    sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name="id_sport")
+    field = models.ForeignKey(Field, on_delete=models.CASCADE, related_name="Id_field")
+    price = models.IntegerField()
+    start = models.DateTimeField()
+    ends = models.DateTimeField()

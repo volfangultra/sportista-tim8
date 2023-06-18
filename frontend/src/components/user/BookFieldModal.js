@@ -146,8 +146,6 @@ const BookFieldModal = (props) => {
                     ends:  end
                 })
         }
-
-        console.log("OVO JE TEAM BIN BANANA", props.team)
         closeModal()
 
         toast.success('Field booked successfully!', {
@@ -256,7 +254,101 @@ const BookFieldModal = (props) => {
     const closeModal = () => {resetModal(); setIsOpen(false)};
 
     function handleFindingTeamate() {
-        axios.post("");
+        if(selectedTimeFrom === 'NONE' || selectedTimeTo === 'NONE') {
+            toast.error("Please select time", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return
+        }
+
+        if(selectedTimeFrom && selectedTimeTo) {
+            let validan = true
+            let start = new Date(selectedDate)
+            let end = new Date(selectedDate)
+            start.setHours(selectedTimeFrom.split(':')[0])
+            start.setMinutes(selectedTimeFrom.split(':')[1])
+            end.setHours(selectedTimeTo.split(':')[0])
+            end.setMinutes(selectedTimeTo.split(':')[1])
+            if (start >= end) {
+                toast.error("Wrong time selection", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                return
+            }
+            bookedDates.forEach((date) => {
+                if (date.start.getDate() === selectedDate.getDate()) {
+                    const time_appointed_start = 60 * start.getHours() + start.getMinutes()
+                    const time_appointed_end = 60 * end.getHours() + end.getMinutes()
+                    const time_start = 60 * date.start.getHours() + date.start.getMinutes()
+                    const time_end = 60 * date.end.getHours() + date.end.getMinutes()
+                    validan = !((time_start > time_appointed_start && time_end <= time_appointed_end) || (time_start >= time_appointed_start && time_end < time_appointed_end))
+                }
+            })
+
+            if (!validan) {
+                toast.error("Field is reserved at that time.", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                return
+            }
+            if (start >= end) {
+                toast.error("Wrong date selection", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                return
+            }
+
+            axios.post(`${SERVER_URL}/user/find_user/${props.user.id}/${props.field.pk}/`, {
+                id_usera: props.user.id,
+                id_sporta: props.field.fields.is_sport,
+                id_fielda: props.field.pk,
+                price: props.field.fields.price,
+                start: start,
+                ends: end
+
+            });
+        }
+
+        closeModal()
+
+        toast.success('Field booked successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
     return (
