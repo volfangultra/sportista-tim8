@@ -80,7 +80,7 @@ function Football(props) {
                             <CardActions className="d-flex justify-content-evenly">
                                 <BookFieldModal field={field} user={props.user}/>
                                 <FieldDetailsModal name={field.fields.name} address={field.fields.address}
-                                                   details={field.fields.details} price={field.fields.price}/>
+                                                   details={field.fields.details} price={field.fields.price} starts={field.fields.starts} ends={field.fields.ends} />
                             </CardActions>
                         </Card>
                     ))

@@ -133,6 +133,7 @@ function EditFieldForm(props, { user, isAuthenticated } ) {
                     variant="outlined"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    inputProps={{ maxLength: 30 }}
                 />
             </Box>
 
@@ -165,6 +166,7 @@ function EditFieldForm(props, { user, isAuthenticated } ) {
                     variant="outlined"
                     onChange={(e) => setImg(e.target.files[0])}
                     inputProps={{ multiple: true }}
+                    InputLabelProps={{ shrink: true }}
                 />
             </Box>
 

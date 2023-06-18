@@ -52,14 +52,17 @@ const ViewFieldModal = ({ field }) => {
                 </Modal.Header>
                 <Modal.Body className="text-center">
 
-                    <div>
-                        <p>Name: {field.fields.name}</p>
-                        <p>Sport: {sport}</p>
-                        <p>Location: {field.fields.address}</p>
-                        <p>Description: {field.fields.details}</p>
-                        <p>Start: {formattedStart}</p>
-                        <p>End: {formattedEnd}</p>
-                        <p>Price: {field.fields.price}</p>
+                    <div className="d-flex flex-column align-items-center">
+                        <p><b>Name:</b> {field.fields.name}</p>
+                        <p><b>Sport:</b> {sport}</p>
+                        <p><b>Location:</b> {field.fields.address}</p>
+                        <p className="text-center"><b>Description:</b> {field.fields.details}</p>
+                        <p><b>Working hours:</b></p>
+                        <div className="d-flex justify-content-between w-50">
+                            <p><b>From:</b> {formattedStart}</p>
+                            <p><b>To:</b> {formattedEnd}</p>
+                        </div>
+                        <p><b>Price per slot:</b> {field.fields.price} KM</p>
                     </div>
 
                     <Button className="mt-3 custom-button" onClick={closeModal}>

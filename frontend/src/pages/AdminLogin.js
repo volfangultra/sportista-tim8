@@ -8,11 +8,14 @@ import Footer from "../components/navigation/Footer";
 import AdminLoginForm from "../components/login/AdminLoginForm";
 
 function Login({ isAuthenticated, user }) {
-    // if(isAuthenticated && user != null)
-    //     if(user.is_renter)
-    //         return (<Navigate to={"/renter"}/>)
-    //     else if(user.is_user)
-    //         return (<Navigate to={"/user"}/>)
+
+    if(isAuthenticated && user != null)
+        if(user.is_renter)
+            return (<Navigate to={"/renter"}/>)
+        else if(user.is_user)
+            return (<Navigate to={"/user"}/>)
+        else if(user.is_admin)
+            return (<Navigate to={"/admin"}/>)
 
     return (
         <div className="background-grayish" style={{ height: "100vh", width: "100%" }}>

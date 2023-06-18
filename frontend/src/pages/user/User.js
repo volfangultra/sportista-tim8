@@ -137,6 +137,7 @@ function Dashboard({user, isAuthenticated}) {
 
     // if(!isAuthenticated && user == null)
     //     return (<Navigate to={"/"}/>)
+
     useEffect(() => {
         let min = 9999;
         let max = 0;
@@ -168,7 +169,6 @@ function Dashboard({user, isAuthenticated}) {
         if (priceRange!=null && (priceRange[0] > field.fields.price || priceRange[1] < field.fields.price)) {
             return false;
         }
-
 
         return true;
     });

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import { Button } from '@mui/material';
+import { Button, MenuItem, TextField } from '@mui/material';
 import { SERVER_URL } from "../../auth/Consts";
 import axios from "axios";
+<<<<<<< HEAD
+import {toast, ToastContainer} from "react-toastify";
+=======
 import {toast} from "react-toastify";
-import Clock from "../Clock";
 
 const BookFieldModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +29,6 @@ const BookFieldModal = (props) => {
         setSelectedTimeFrom("NONE")
         setSelectedTimeTo("NONE")
         setSelectedDate(new Date())
-
     }
 
     const handleTimeChangeFrom = (event) => {
@@ -49,7 +50,7 @@ const BookFieldModal = (props) => {
         const numSlots = Math.ceil(diffInMillis / (30 * 60 * 1000));
         setNumSlots(numSlots);
         if(numSlots)
-            document.getElementById('price').value=(numSlots * props.field.fields.price).toString() + "$";
+            document.getElementById('price').value=(numSlots * props.field.fields.price).toString() + "KM";
         else
             document.getElementById('price').value="";
     };
@@ -69,6 +70,7 @@ const BookFieldModal = (props) => {
             });
             return
         }
+
         if(selectedTimeFrom && selectedTimeTo){
             let validan = true
             let start = new Date(selectedDate)
@@ -135,7 +137,9 @@ const BookFieldModal = (props) => {
                     ends:  end
                 })
         }
+
         closeModal()
+
         toast.success('Field booked successfully!', {
             position: "top-right",
             autoClose: 5000,
@@ -152,51 +156,87 @@ const BookFieldModal = (props) => {
     // Generate time options from 8 AM to 12 PM
     const generateTimeOptions = (start, end, id) => {
         const options = [];
-        //TO DO - provjeri da li odgovara sa terminima u bazi
-        if(start !== undefined && end !== undefined){
-            let start_date = new Date(selectedDate)
-            let end_date = new Date(selectedDate)
-            start_date.setHours(start.split(":")[0])
-            end_date.setHours(end.split(":")[0])
-            options.push(<option>NONE</option>)
-            if(new Date().getDate() === start_date.getDate()){
-                start_date.setHours(Math.max(parseInt(start.split(":")[0]), new Date().getHours()))
+
+        if (start !== undefined && end !== undefined) {
+            let start_date = new Date(selectedDate);
+            let end_date = new Date(selectedDate);
+            start_date.setHours(start.split(':')[0]);
+            end_date.setHours(end.split(':')[0]);
+
+            options.push(
+                <MenuItem key="NONE" value="NONE">
+                    NONE
+                </MenuItem>
+            );
+
+            if (new Date().getDate() === start_date.getDate()) {
+                start_date.setHours(Math.max(parseInt(start.split(':')[0]), new Date().getHours()));
             }
-            if(new Date().getDate() > start_date.getDate()){
-                start_date.setHours(24)
+
+            if (new Date().getDate() > start_date.getDate()) {
+                start_date.setHours(24);
             }
+
             for (let i = start_date.getHours(); i <= end_date.getHours(); i++) {
-                let validHour = true
-                let validHalfHour = true
+                let validHour = true;
+                let validHalfHour = true;
+
                 bookedDates.forEach((date) => {
-                    date.start = new Date(date.start)
-                    date.end = new Date(date.end)
-                    if(date.start.getDate() === selectedDate.getDate() && date.start.getHours() <= i && i <= date.end.getHours() && date.id_field !== id && !(date.end.getMinutes() === 0 && i === date.end.getHours())){
-                        validHour = false
-                    }
-                    if(date.start.getDate() === selectedDate.getDate() && date.start.getHours() <= i && i <= date.end.getHours() && date.id_field !== id && !(date.end.getMinutes() === 30 && i === date.end.getHours())){
-                        if(!(validHour === true && i === date.end.getHours()))
-                            validHalfHour = false
-                    }
-                    if(i === end_date.getHours())
-                        validHalfHour = false
+                    date.start = new Date(date.start);
+                    date.end = new Date(date.end);
 
-                })
-                if(validHour)
+                    if (
+                        date.start.getDate() === selectedDate.getDate() &&
+                        date.start.getHours() <= i &&
+                        i <= date.end.getHours() &&
+                        date.id_field !== id &&
+                        !(date.end.getMinutes() === 0 && i === date.end.getHours())
+                    ) {
+                        validHour = false;
+                    }
+
+                    if (
+                        date.start.getDate() === selectedDate.getDate() &&
+                        date.start.getHours() <= i &&
+                        i <= date.end.getHours() &&
+                        date.id_field !== id &&
+                        !(date.end.getMinutes() === 30 && i === date.end.getHours())
+                    ) {
+                        if (!(validHour === true && i === date.end.getHours())) validHalfHour = false;
+                    }
+
+                    if (i === end_date.getHours()) validHalfHour = false;
+                });
+
+                if (validHour) {
                     options.push(
-                        <option key={`${i}:00`} value={`${i}:00`}>{`${i}:00`}</option>,
+                        <MenuItem key={`${i}:00`} value={`${i}:00`}>
+                            {`${i}:00`}
+                        </MenuItem>
                     );
-                if(validHalfHour)
+                }
+
+                if (validHalfHour) {
                     options.push(
-                        <option key={`${i}:30`} value={`${i}:30`}>{`${i}:30`}</option>,
+                        <MenuItem key={`${i}:30`} value={`${i}:30`}>
+                            {`${i}:30`}
+                        </MenuItem>
                     );
+                }
             }
-
         }
-        if(options.length === 2)
-            return [ <option>NONE</option> ]
+
+        if (options.length === 1) {
+            options.push(
+                <MenuItem key="NONE" value="NONE">
+                    NONE
+                </MenuItem>
+            );
+        }
+
         return options;
     };
+
 
     const openModal = () => {
         axios.get(`${SERVER_URL}/user/get_dates/${props.field.pk}/`).then((result)=>{
@@ -212,18 +252,63 @@ const BookFieldModal = (props) => {
                 <Modal.Header closeButton>
                 </Modal.Header>
                 <Modal.Body className="d-flex flex-column align-items-center">
-                    <input className="custom-input" type="date" value={selectedDate.toISOString().split('T')[0]} onChange={(event) => {setSelectedDate(new Date(event.target.value))}}/>
-                        <select className="custom-input" value={selectedTimeFrom} onChange={handleTimeChangeFrom}>
-                            {generateTimeOptions(props.field.fields.starts, props.field.fields.ends, props.field.pk)}
-                        </select>
-                        <select className="custom-input" value={selectedTimeTo} onChange={handleTimeChangeTo}>
-                            {generateTimeOptions(props.field.fields.starts, props.field.fields.ends, props.field.pk)}
-                        </select>
+                    <TextField
+                        label="Date"
+                        value={selectedDate.toISOString().split('T')[0]}
+                        onChange={(event) => {setSelectedDate(new Date(event.target.value))}}
+                        type="date"
+                        variant="outlined"
+                        className="custom-input"
+                        required
+                    />
 
-                    {/* cijena bi trebalo da se izračuna po slotu, a cijena slota se pravi kada se pravi teren, slot je pola sata */}
-                    <input className="custom-input" id="price" name="price" type="text" disabled={true}/>
+                    <TextField
+                        label="From"
+                        select
+                        value={selectedTimeFrom}
+                        onChange={handleTimeChangeFrom}
+                        inputProps={{ id: 'selectedTimeFrom' }}
+                        className="custom-input mt-2"
+                        required
+                    >
+                        {generateTimeOptions(props.field.fields.starts, props.field.fields.ends, props.field.pk).map((option) => (
+                            <MenuItem key={option.key} value={option.props.value}>
+                                {option.props.value}
+                            </MenuItem>
+                        ))}
+                    </TextField>
 
-                    {!isUserLoggedIn && <p>You need to be logged in to book this field.</p>}
+                    <TextField
+                        label="To"
+                        select
+                        value={selectedTimeTo}
+                        variant="outlined"
+                        onChange={handleTimeChangeTo}
+                        inputProps={{ id: 'selectedTimeTo' }}
+                        className="custom-input mt-2"
+                        required
+                    >
+                        {generateTimeOptions(props.field.fields.starts, props.field.fields.ends, props.field.pk).map((option) => (
+                            <MenuItem key={option.key} value={option.props.value}>
+                                {option.props.value}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+                    <TextField
+                        label="Price"
+                        type="text"
+                        variant="outlined"
+                        className="custom-input mt-2"
+                        id="price"
+                        name="price"
+                        disabled={true}
+                        InputLabelProps={{ shrink: true }}
+                        required
+                    />
+
+
+                    {!isUserLoggedIn && <p className="mt-3">You need to be logged in to book this field.</p>}
                     {isUserLoggedIn ? (
                         <Button className="custom-button mt-3" onClick={handleBooking}>
                             BOOK
@@ -233,6 +318,19 @@ const BookFieldModal = (props) => {
                             LOGIN
                         </Button>
                     )}
+
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="colored"
+                    />
 
                 </Modal.Body>
             </Modal>
