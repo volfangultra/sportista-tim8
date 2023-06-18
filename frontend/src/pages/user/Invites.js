@@ -19,7 +19,7 @@ function Invites({ user, isAuthenticated }) {
     console.log(invites)
     useEffect(()=>{
         if(user)
-            axios.get(`${SERVER_URL}/user/get_invites/${user.id}`).then((response)=>{
+            axios.get(`${SERVER_URL}/user/get_invites/${user.id}/`).then((response)=>{
                 setInvites(response.data)
             })
     }, [user])

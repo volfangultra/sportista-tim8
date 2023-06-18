@@ -11,7 +11,7 @@ import axios from "axios";
 import {SERVER_URL} from "../../auth/Consts";
 
 function TeamInvitesTable(props) {
-
+    console.log(props.invites)
     return (
         <div className="mt-5 box_shadow">
             <TableContainer component={Paper}>

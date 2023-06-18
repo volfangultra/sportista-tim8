@@ -13,13 +13,18 @@ function MyTeams({ user, isAuthenticated }) {
     // if(!isAuthenticated && user == null)
     //     return (<Navigate to={"/"}/>)
 
-    useEffect(()=>{
+    useEffect(()=>{console.log("Prosloooo")
+        getTeam();
+    }, [user])
+
+    async function getTeam(){
         if(user){
-            axios.get(`${SERVER_URL}/user/get_team/${user.id}/`).then((response)=>{
+            console.log("Prosloooo213123213213")
+            await axios.get(`${SERVER_URL}/user/get_team/${user.id}/`).then((response)=>{
                 setTeam(response.data)
             })
         }
-    }, [user])
+    }
 
     console.log("OV")
     console.log(team)
@@ -31,7 +36,9 @@ function MyTeams({ user, isAuthenticated }) {
             <div className="page-margin">
                 <h1>My teams</h1>
                 <h5>You can create teams here.</h5>
-                <MyTeamsComp user={user} team={team} />
+                {Object.keys(team).length > 0 && (
+                    <MyTeamsComp user={user} team={team} />
+                )}
             </div>
         </div>
     );
