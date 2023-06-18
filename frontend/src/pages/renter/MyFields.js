@@ -18,8 +18,13 @@ function MyFields({ user, isAuthenticated }) {
         getFields();
     }, [user]);
 
-    // if(!isAuthenticated && user == null)
-    //     return (<Navigate to={"/"}/>)
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
 
     function getFields() {
         if(user)

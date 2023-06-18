@@ -5,8 +5,16 @@ import "./Admin.css";
 import AdminSidebar from "../../components/navigation/AdminSidebar";
 import RentersTable from "../../components/admin/RentersTable";
 import {connect} from "react-redux";
+import {Navigate} from "react-router-dom";
 
 function Renters({isAuthenticated, user}) {
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
     return (
         <div className="background-grayish" style={{display: 'flex'}}>
             <AdminSidebar/>

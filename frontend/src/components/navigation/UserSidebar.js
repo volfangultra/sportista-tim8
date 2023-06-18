@@ -49,7 +49,7 @@ const RenterSidebar = () => {
                         <NavLink exact to="/user/my-teams" className={({ isActive }) => (isActive ? "activeClicked" : '')}>
                             <CDBSidebarMenuItem>
                                 <FaUsers style={{ marginRight: '15px' }} />
-                                My Teams
+                                My Team
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/user/favorites" className={({ isActive }) => (isActive ? "activeClicked" : '')}>

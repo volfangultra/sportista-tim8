@@ -9,8 +9,13 @@ import {ToastContainer} from "react-toastify";
 
 function Contact({ user, isAuthenticated }) {
 
-    // if(!isAuthenticated && user == null)
-    //     return (<Navigate to={"/"}/>)
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
 
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>

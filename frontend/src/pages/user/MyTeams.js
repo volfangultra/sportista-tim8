@@ -10,8 +10,7 @@ import {SERVER_URL} from "../../auth/Consts";
 
 function MyTeams({ user, isAuthenticated }) {
     const [team, setTeam] = useState({})
-    // if(!isAuthenticated && user == null)
-    //     return (<Navigate to={"/"}/>)
+
 
     useEffect(()=>{console.log("Prosloooo")
         getTeam();
@@ -26,16 +25,21 @@ function MyTeams({ user, isAuthenticated }) {
         }
     }
 
-    console.log("OV")
-    console.log(team)
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
 
 
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>
             <UserSidebar />
             <div className="page-margin">
-                <h1>My teams</h1>
-                <h5>You can create teams here.</h5>
+                <h1>My team</h1>
+                <h5>You can create team here.</h5>
                 {
                     <MyTeamsComp user={user} team={team} getTeam={getTeam} />
 

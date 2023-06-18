@@ -12,8 +12,6 @@ import MyCanceledCard from "../../components/user/MyCanceledCard";
 
 function MyReservations({ user, isAuthenticated }) {
 
-    // if(!isAuthenticated && user == null)
-    //     return (<Navigate to={"/"}/>)
     const [fields, setFields] = useState([]);
     const [scheduled, setScheduled] = useState(0);
     const [played, setPlayed] = useState(0);
@@ -42,7 +40,13 @@ function MyReservations({ user, isAuthenticated }) {
 
 
 
+    setTimeout(protect, 120);
 
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>
             <UserSidebar />

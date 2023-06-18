@@ -61,7 +61,7 @@ function Basketball(props) {
     });
 
     return (
-        <div className="cardContainer">
+        <div className="cardContainer mb-5">
             <h1 className="sportHeader">{props.header}</h1>
 
             <div className="cardRow">

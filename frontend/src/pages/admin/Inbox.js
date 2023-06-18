@@ -4,8 +4,17 @@ import "./Admin.css";
 //components
 import AdminSidebar from "../../components/navigation/AdminSidebar";
 import InboxTable from "../../components/admin/InboxTable";
+import {connect} from "react-redux";
+import {Navigate} from "react-router-dom";
 
-function Inbox() {
+function Inbox({user, isAuthenticated}) {
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>
             <AdminSidebar />
@@ -18,4 +27,7 @@ function Inbox() {
     );
 }
 
-export default Inbox;
+const mapStateToProps = state => ({isAuthenticated: state.auth.isAuthenticated, user : state.auth.user});
+
+
+export default connect(mapStateToProps,null)(Inbox);

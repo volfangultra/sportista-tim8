@@ -29,8 +29,13 @@ function Dashboard({user, isAuthenticated}) {
                 });
     }
 
-    // if(!isAuthenticated && user == null)
-    //     return (<Navigate to={"/"}/>)
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
 
     return (
         <div style={{ display: 'flex' }}>

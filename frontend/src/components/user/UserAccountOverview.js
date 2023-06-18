@@ -43,6 +43,7 @@ const UserAccountOverview = (props) => {
             email,
             city
         }
+        console.log(first_name)
         if(props.user)
             axios
                 .post(`http://127.0.0.1:8000/user/changeData/${props.user.id_logina_id}/`,userObject)

@@ -14,21 +14,24 @@ function Invites({ user, isAuthenticated }) {
     const [invites, setInvites] = useState([])
     const [playInvites, setPlayInvites] = useState([])
 
-    // if(!isAuthenticated && user == null)
-    //     return (<Navigate to={"/"}/>)
-    console.log("HELL")
-    console.log(invites)
+
     useEffect(()=>{
         if(user){
-            axios.get(`${SERVER_URL}/user/get_invites/${user.id}`).then((response)=>{
+            axios.get(`${SERVER_URL}/user/get_invites/${user.id}/`).then((response)=>{
                 setInvites(response.data)
             })
-            axios.get(`${SERVER_URL}/user/get_play_invites/${user.id}`).then((response)=>{
+            axios.get(`${SERVER_URL}/user/get_play_invites/${user.id}/`).then((response)=>{
                 setPlayInvites(response.data)
             })
         }
     }, [user])
+    setTimeout(protect, 120);
 
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>
             <UserSidebar />

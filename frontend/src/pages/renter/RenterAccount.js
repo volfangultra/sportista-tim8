@@ -4,8 +4,17 @@ import React from 'react';
 import RenterSidebar from "../../components/navigation/RenterSidebar";
 import RenterAccountOverview from "../../components/renter/RenterAccountOverview";
 import {ToastContainer} from "react-toastify";
+import {Navigate} from "react-router-dom";
+import {connect} from "react-redux";
 
 function RenterAccount({user,isAuthenticated}) {
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>
             <RenterSidebar />
@@ -30,4 +39,8 @@ function RenterAccount({user,isAuthenticated}) {
     );
 }
 
-export default RenterAccount;
+
+const mapStateToProps = state => ({isAuthenticated: state.auth.isAuthenticated, user: state.auth.user});
+
+
+export default connect(mapStateToProps,null)(RenterAccount);

@@ -59,9 +59,13 @@ function MyTeamsComp(props) {
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
+        var teamPlayers = []
+        if(props.team.users !== undefined)
+            teamPlayers = props.team.users.map((member) => member.first_name + " " + member.last_name)
+
         const playerNamesArray = playerNames.split(",").map((name) => name.trim());
         const shuffledPlayers = shuffleArray([
-            ...props.team.users.map((member) => member.first_name + " " + member.last_name),
+            ...teamPlayers,
             ...playerNamesArray,
         ]);
 

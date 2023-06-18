@@ -138,8 +138,6 @@ function Dashboard({user, isAuthenticated}) {
             setGotData(true);
         });
 
-    // if(!isAuthenticated && user == null)
-    //     return (<Navigate to={"/"}/>)
 
     useEffect(() => {
         let min = 9999;
@@ -181,6 +179,14 @@ function Dashboard({user, isAuthenticated}) {
         e.stopPropagation()
     }
 
+
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>
             <UserSidebar />

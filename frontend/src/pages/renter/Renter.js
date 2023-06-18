@@ -5,8 +5,15 @@ import "./Renter.css";
 import RenterSidebar from "../../components/navigation/RenterSidebar";
 import {connect} from "react-redux";
 import TableNext10Bookings from "../../components/renter/TableNext10Bookings";
+import {Navigate} from "react-router-dom";
 function Dashboard({isAuthenticated, user}) {
+    setTimeout(protect, 120);
 
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>
             <RenterSidebar />

@@ -8,8 +8,13 @@ import AnalyticCharts from "../../components/renter/AnalyticCharts";
 
 function Analytics({isAuthenticated,user}) {
 
-    // if(!isAuthenticated && user == null)
-    //     return (<Navigate to={"/"}/>)
+    setTimeout(protect, 120);
+
+    function protect()
+    {
+        if (!isAuthenticated && user == null)
+            return (<Navigate to={"/"}/>)
+    }
 
     return (
         <div className="background-grayish" style={{ display: 'flex' }}>
