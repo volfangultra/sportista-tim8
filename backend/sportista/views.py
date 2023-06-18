@@ -14,7 +14,7 @@ from datetime import datetime
 from pytz import timezone
 
 from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox, UserGradesField, \
-    UserGradesFieldTemp, TeamInvite, PlayInvite
+    UserGradesFieldTemp, TeamInvite, PlayInvite, UserRatesUSer
 
 from sportista.models import Field, Sport, UserAccount, SportistaUser, Renter, Team, TeamRentsField
 
@@ -667,7 +667,7 @@ def enter_team(request, id_user, id_invite, id_leader):
 
 
 @api_view(['POST'])
-def find_user(request, id_user):
+def find_user(request, id_user, id_field):
     data = request.data
     print(data)
     start_datetime_str = data['start']
@@ -694,14 +694,15 @@ def find_user(request, id_user):
     users = SportistaUser.objects.filter(query)
     for user in users:
         invite = PlayInvite(invite_sender_id=id_user, invite_reciver_id=user,
-                            price=data['price'], start=data['starts'], ends=data['ends'], sport_id=data['id_sporta'])
+                            price=data['price'], start=data['starts'], ends=data['ends'],
+                            sport_id=data['id_sporta'], field_id=id_field)
         invite.save()
 
     return HttpResponse("OK")
 
 
 @api_view(['GET'])
-def get_play_invites(request, id_user, id_field):
+def get_play_invites(request, id_user):
     invites = PlayInvite.objects.filter(invite_reciver_id=id_user)
     lista = []
     for invite in invites:
@@ -714,8 +715,64 @@ def get_play_invites(request, id_user, id_field):
             "price": invite.price,
             "start": invite.start.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
             "ends": invite.ends.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
-            "sport": invite.sport.name
+            "sport": invite.sport.name,
+            "field_name": invite.field.name,
+            "accepted": invite.accepted
         })
 
     lista = json.dumps(lista)
     return HttpResponse(lista, content_type="text/json-comment-filtered")
+
+
+@api_view(['POST'])
+def delete_invite(request, id_invite):
+    invite = PlayInvite.objects.get(id=id_invite)
+    invite.delete()
+
+    return HttpResponse("Ok")
+
+
+@api_view(['POST'])
+def delete_team_invite(request, id_invite):
+    invite = TeamInvite.objects.get(id=id_invite)
+    invite.delete()
+
+    return HttpResponse("Ok")
+
+
+@api_view(['POST'])
+def enter_team_play(request, id_user, id_invite, id_leader):
+
+    teams = Team.objects.filter(id_leader_id=id_leader)
+    real_team = ""
+    for team in teams:
+        if model_to_dict(team)['users']:
+            real_team = team
+    if real_team == "":
+        new_team = Team(id_leader_id=id_leader)
+        new_team.save()
+        new_team.users.add(SportistaUser.objects.get(id=id_user))
+        new_team.save()
+    else:
+        real_team.users.add(SportistaUser.objects.get(id=id_user))
+        real_team.save()
+
+    invite = PlayInvite.objects.get(id=id_invite)
+    invite.accepted = True
+
+    return HttpResponse("OK")
+
+
+@api_view(['POST'])
+def delete_team_member(request, id_user, id_team):
+    team = Team.objects.get(id=id_team)
+    team.users.remove(SportistaUser.objects.get(id=id_user))
+
+    return HttpResponse("OK")
+
+
+@api_view(['POST'])
+def user_rate_user(request, id_grader, id_reciver, grade):
+    rating = UserRatesUSer(id_graders_id=id_grader, id_player_id=id_reciver, grade=grade)
+    rating.save()
+    return HttpResponse("OK")

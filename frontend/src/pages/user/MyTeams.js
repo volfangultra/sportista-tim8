@@ -36,9 +36,10 @@ function MyTeams({ user, isAuthenticated }) {
             <div className="page-margin">
                 <h1>My teams</h1>
                 <h5>You can create teams here.</h5>
-                {Object.keys(team).length > 0 && (
-                    <MyTeamsComp user={user} team={team} />
-                )}
+                {
+                    <MyTeamsComp user={user} team={team} getTeam={getTeam} />
+
+                }
             </div>
         </div>
     );

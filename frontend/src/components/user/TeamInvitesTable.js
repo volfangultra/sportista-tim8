@@ -30,7 +30,7 @@ function TeamInvitesTable(props) {
                                 <TableCell>{item.sender_name}</TableCell>
                                 <TableCell>
                                     <div>
-                                        <Button className="custom-button m-2" onClick={()=>{}}>REJECT</Button>
+                                        <Button className="custom-button m-2" onClick={()=>{axios.post(`${SERVER_URL}/user/delete_team_invite/${item.id}/`)}}>REJECT</Button>
                                         <Button className="custom-button m-2" onClick={()=>{axios.post(`${SERVER_URL}/user/enter_team/${props.user.id}/${item.id}/${item.id_sender}/`).then(()=>{window.location.reload(false)})}}>ACCEPT</Button>
                                     </div>
                                 </TableCell>
