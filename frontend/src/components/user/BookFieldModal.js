@@ -53,7 +53,7 @@ const BookFieldModal = (props) => {
             document.getElementById('price').value="";
     };
 
-    const handleBooking = () => {
+    const handleBooking = (as_team) => {
         //TO DO sredi alertove za pogresan unos
         if(selectedTimeFrom === 'NONE' || selectedTimeTo === 'NONE') {
             toast.error("Please select time", {
@@ -125,6 +125,7 @@ const BookFieldModal = (props) => {
                 });
                 return
             }
+            if(as_team === false)
                 axios.post(`${SERVER_URL}/user/solo_book_field/`, {
                     id_usera: props.user.id,
                     id_sporta: props.field.fields.is_sport,
@@ -133,7 +134,17 @@ const BookFieldModal = (props) => {
                     start: start,
                     ends:  end
                 })
+            else
+                axios.post(`${SERVER_URL}/user/team_book_field/${props.team.id}/`, {
+                    id_usera: props.user.id,
+                    id_sporta: props.field.fields.is_sport,
+                    id_fielda: props.field.pk,
+                    price: props.field.fields.price,
+                    start: start,
+                    ends:  end
+                })
         }
+        console.log("OVO JE TEAM BIN BANANA", props.team)
         closeModal()
         toast.success('Field booked successfully!', {
             position: "top-right",
@@ -204,6 +215,10 @@ const BookFieldModal = (props) => {
         setIsOpen(true)};
     const closeModal = () => {resetModal(); setIsOpen(false)};
 
+    function handleFindingTeamate() {
+        axios.post("");
+    }
+
     return (
         <>
             <Button className="custom-button" onClick={openModal}>BOOK</Button>
@@ -224,9 +239,17 @@ const BookFieldModal = (props) => {
 
                     {!isUserLoggedIn && <p>You need to be logged in to book this field.</p>}
                     {isUserLoggedIn ? (
-                        <Button className="custom-button mt-3" onClick={handleBooking}>
-                            BOOK
-                        </Button>
+                        <div className={"justify-content-around d-flex"}>
+                            <Button className="custom-button mt-3" onClick={() => handleBooking(false)}>
+                                BOOK
+                            </Button>
+                            <Button className="custom-button mt-3" onClick={() => handleBooking(true)}>
+                                BOOK as Team
+                            </Button>
+                            <Button className="custom-button mt-3" onClick={handleFindingTeamate}>
+                                FIND Teamate
+                            </Button>
+                        </div>
                     ) : (
                         <Button className="custom-button mt-3" onClick={handleLogin}>
                             LOGIN

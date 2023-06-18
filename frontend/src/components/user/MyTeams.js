@@ -3,37 +3,28 @@ import { useState } from 'react';
 import {TextField, Button, MenuItem, Grid, Typography} from '@mui/material';
 import "../../pages/user/User.css";
 import Divider from "@material-ui/core/Divider";
+import axios from "axios";
+import {SERVER_URL} from "../../auth/Consts";
 
-function MyTeamsComp() {
+function MyTeamsComp(props) {
 
     const [friendEmail, setFriendEmail] = useState('');
-    const [selectedSport, setSelectedSport] = useState('');
-    const [teamMembers, setTeamMembers] = useState([
-        { username: 'said' },
-        { username: 'nedim' },
-        { username: 'emin' },
-        { username: 'haris' },
-    ]);
+    const [teamMembers, setTeamMembers] = useState([]);
 
     const handleFriendEmailChange = (event) => {
         setFriendEmail(event.target.value);
     };
 
-    const handleSportChange = (event) => {
-        setSelectedSport(event.target.value);
-    };
 
     const handleInviteFriend = () => {
-        if (friendEmail && selectedSport) {
-            const newTeamMember = {
-                email: friendEmail,
-                sport: selectedSport,
-            };
-            setTeamMembers([...teamMembers, newTeamMember]);
-            setFriendEmail('');
-            setSelectedSport('');
+        if (friendEmail && props.user) {
+            axios.post(`${SERVER_URL}/user/send_invite/${props.user.id}/`, {email:friendEmail}).then((response)=>{
+
+            })
         }
-    };
+    }
+    console.log("HEL")
+    console.log(props.team)
 
     const [playerNames, setPlayerNames] = useState('');
     const [teamA, setTeamA] = useState([]);
@@ -95,48 +86,6 @@ function MyTeamsComp() {
                         value={friendEmail}
                         onChange={handleFriendEmailChange}
                     />
-                </div>
-                <div>
-                    <TextField
-                        className="mt-2 teams-inputs"
-                        select
-                        label="Sport"
-                        value={selectedSport}
-                        onChange={handleSportChange}
-                    >
-                        <MenuItem value="basketball">Basketball</MenuItem>
-                        <MenuItem value="paintball/airsoft">Paintball/Airsoft</MenuItem>
-                        <MenuItem value="tennis">Tennis</MenuItem>
-                        <MenuItem value="ice_skating">Ice skating</MenuItem>
-                        <MenuItem value="football">Football</MenuItem>
-                        <MenuItem value="volleyball">Volleyball</MenuItem>
-                        <MenuItem value="boxing">Boxing</MenuItem>
-                        <MenuItem value="handball">Handball</MenuItem>
-                        <MenuItem value="table_tennis">Table tennis</MenuItem>
-                        <MenuItem value="hockey">Hockey</MenuItem>
-                    </TextField>
-                </div>
-                <div>
-                    <TextField
-                        className="mt-2 teams-inputs"
-                        select
-                        label="Field"
-                        value={selectedSport}
-                        onChange={handleSportChange}
-                    >
-                        <MenuItem value="garden_city_konjic">Garden City Konjic</MenuItem>
-                        <MenuItem value="vistafon">Vistafon</MenuItem>
-                        <MenuItem value="arena_x">Arena X</MenuItem>
-                    </TextField>
-                </div>
-                <div>
-                    <TextField
-                        className="mt-2 teams-inputs"
-                        select
-                        label="Date"
-                    >
-                        <MenuItem value="">Datum 1</MenuItem>
-                    </TextField>
                 </div>
                 <Button className="custom-button5 mt-5 mb-5" onClick={handleInviteFriend}>
                     SEND INVITE

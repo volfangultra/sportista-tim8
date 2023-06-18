@@ -32,11 +32,16 @@ urlpatterns = [
 
     path("renter/lock_field/<int:id_field>/<int:state>/", views.lock_field, name="lock_field"),
     path("user/solo_book_field/", views.book_field_solo, name="book_field_solo"),
+    path("user/team_book_field/<int:team_id>/", views.book_field_team, name="book_field_solo"),
     path("user/get_dates/<int:field_id>/", views.get_dates, name="book_field_solo"),
     path("user/get_favorite_fields/<int:user_id>/", views.get_favorite_field, name="get_favorite_field"),
     path("user/favorite_field/<int:field_id>/<int:user_id>/", views.favorite_field, name="favorite_field"),
     path("user/unfavorite_field/<int:field_id>/<int:user_id>/", views.unfavorite_field, name="unfavorite_field"),
     path("user/get_recommended_fields/<int:user_id>/", views.get_recommended_fields, name="get_recommended_fields"),
+    path("user/get_team/<int:id_user>/", views.get_team, name="get_team"),
+    path("user/send_invite/<int:id_user>/", views.send_invite, name="get_team"),
+    path("user/get_invites/<int:id_user>/", views.get_invites, name="get_invites"),
+    path("user/enter_team/<int:id_user>/<int:id_invite>/<int:id_leader>/", views.enter_team, name="get_invites"),
 
     path("renter/getData/<int:params>/", views.getRenterData, name="getRenterData"),
     path("renter/changeData/<int:params>/", views.changeRenterData, name="changeRenterData"),

@@ -28,7 +28,7 @@ function Dashboard({user, isAuthenticated}) {
     const [locationFilter, setLocationFilter] = useState('');
     const [hasSports, setHasSports] = useState([]);
     const [gotData, setGotData] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [team, setTeam] = useState(null)
     const[recommended, setRecommended] = useState([])
     const[recommendedFields, setRecommendedFields] = useState([])
 
@@ -118,6 +118,9 @@ function Dashboard({user, isAuthenticated}) {
 
 
                 });
+                axios.get(`${SERVER_URL}/user/get_team/${user.id}/ `).then((response)=>{
+                    setTeam(response.data)
+                })
                 if (fields.length !== response.data.length) {
                     setFields(response.data.reverse());
                 }
@@ -315,8 +318,8 @@ function Dashboard({user, isAuthenticated}) {
                     </Menu>
                 </div>
                 <div className="fieldCards">
-                    {activeTab === 'fields' && <FieldCard onlyFavorites={false} fields={fields} user={user} />}
-                    {activeTab === 'recommended' && (<RecommendedFields fields={recommendedFields} />)}
+                    {activeTab === 'fields' && <FieldCard team={team} onlyFavorites={false} fields={fields} user={user} />}
+                    {activeTab === 'recommended' && (<RecommendedFields fields={recommendedFields} team={team} />)}
                 </div>
             </div>
         </div>

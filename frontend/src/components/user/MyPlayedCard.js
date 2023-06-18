@@ -48,29 +48,32 @@ function FieldCard(props) {
     const [ratings, setRatings] = useState([])
     const [gradesField, setGradesField] = useState({})
 
-    useEffect(() => {
-        axios.get(`${SERVER_URL}/get_ratings/`)
-            .then((response) => {
-                setRatings(response.data)
+    async function get_data(){
+        if(props.user)
+            await axios.get(`${SERVER_URL}/get_ratings/`)
+                .then((response) => {
+                    setRatings(response.data)
+                    let temp = {}
+                    for(let i = 0; i < props.fields.length; i++){
+                        temp[props.fields[i].fild.id] = rating_od_usera(ratings, props.user.id, props.fields[i].fild.id)
+                    }
+                    setGradesField(temp)
+                })
+                .catch((error) => {
+                    console.error('Error fetching fields:', error);
+                });
+    }
 
-            })
-            .catch((error) => {
-                console.error('Error fetching fields:', error);
-            });
-        const intervalId = setInterval(() => {
-            // Code to be executed every 500ms goes here
-            let temp = {}
-            for(let i = 0; i < props.fields.length; i++){
-                temp[props.fields[i].fild.id] = rating_od_usera(ratings, props.user.id, props.fields[i].fild.id)
-            }
-            setGradesField(temp)
+    useEffect(() => {
+        const interval = setInterval(function() {
+            get_data()
         }, 500);
 
         return () => {
-            // Clean up the interval when the component unmounts
-            clearInterval(intervalId);
+            clearInterval(interval);
         };
-    }, [gradesField]);
+
+    }, [props.user, gradesField]);
 
 
     return (
@@ -102,8 +105,11 @@ function FieldCard(props) {
                             name={ratingState(gradesField[field.fild.id])}
                             value={gradesField[field.fild.id]}
                             onChange={(event, newValue) => {
-                                if(gradesField[field.fild.id] === 0)
-                                    axios.post(`${SERVER_URL}/user/rate_field/${newValue}/${field.fild.id}/${props.user.id}/`)
+                                get_data().then(()=>{
+                                    if(gradesField[field.fild.id] === 0)
+                                        axios.post(`${SERVER_URL}/user/rate_field/${newValue}/${field.fild.id}/${props.user.id}/`)
+                                })
+
                             }}
                         />
                     </CardActions>

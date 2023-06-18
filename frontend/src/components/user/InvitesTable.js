@@ -8,8 +8,9 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Button from "@material-ui/core/Button";
 
-function InvitesTable({ isAuthenticated,user }) {
-
+function InvitesTable(props) {
+    console.log("OVO")
+    console.log(props.invites)
     return (
         <div className="mt-5 box_shadow">
             <TableContainer component={Paper}>
@@ -26,7 +27,8 @@ function InvitesTable({ isAuthenticated,user }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                            <TableRow>
+                        {  props.invites.map((item)=>(
+                            <TableRow key={item.pk}>
                                 <TableCell>1</TableCell>
                                 <TableCell>alic.said@user.sportista.com</TableCell>
                                 <TableCell>Garden City Konjic</TableCell>
@@ -39,7 +41,8 @@ function InvitesTable({ isAuthenticated,user }) {
                                         <Button className="custom-button m-2">ACCEPT</Button>
                                     </div>
                                 </TableCell>
-                            </TableRow>
+                            </TableRow>))
+                        }
                     </TableBody>
                 </Table>
             </TableContainer>

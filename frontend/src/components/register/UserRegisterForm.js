@@ -250,7 +250,7 @@ function UserRegisterForm({register}) {
             city: "Sarajevo"
         }
         register(userEmail, userPassword, false, true, false, DATA).then(() => {
-            
+            setFormSubmitted(true)
         })
     };
 
