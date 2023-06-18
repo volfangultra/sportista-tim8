@@ -1,4 +1,5 @@
 from django.core import serializers
+from django.core.serializers import serialize
 from django.db.models.functions import ExtractMonth
 from django.forms import model_to_dict
 from django.http import HttpResponse
@@ -8,13 +9,15 @@ from rest_framework.utils import json
 from django.shortcuts import redirect
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from datetime import datetime
+from pytz import timezone
 
 from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox, UserGradesField, \
     UserGradesFieldTemp
 
 from sportista.models import Field, Sport, UserAccount, SportistaUser, Renter, Team, TeamRentsField
 
-from sportista.recomendation import train, create_user_field_model
+from sportista.recomendation import train, create_user_field_model, predict
 
 
 # from sportista.models import Users
@@ -264,14 +267,26 @@ def deleteUser(request, params):
 
 @api_view(['POST'])
 def book_field_solo(request):
+    # Pretvaranje stringa u datetime objekt
+    start_time_str = request.data.get("start").replace('Z', '-02:00')
+    end_time_str = request.data.get("ends").replace('Z', '-02:00')
+    start_time = datetime.fromisoformat(start_time_str)
+    end_time = datetime.fromisoformat(end_time_str)
+
+    # Prilagođavanje vremena u željenu vremensku zonu
+    tz = timezone('Europe/Sarajevo')
+    adjusted_start_time = start_time.astimezone(tz)
+    adjusted_end_time = end_time.astimezone(tz)
+
+    # Spremanje prilagođenog vremena u bazu
     team = Team(id_leader=SportistaUser.objects.get(id=request.data.get("id_usera")),
                 plays_sport_id=request.data.get("id_sporta"))
     team.save()
     field = Field.objects.get(id=request.data.get("id_fielda"))
     field.has_teams.add(team, through_defaults={
         'price': request.data.get("price"),
-        'beginning': request.data.get("start"),
-        'ending': request.data.get("ends")
+        'beginning': adjusted_start_time,
+        'ending': adjusted_end_time
     })
 
     return HttpResponse("Ok")
@@ -399,12 +414,14 @@ def sendMessage(request):
     message.save()
     return HttpResponse("ok")
 
+
 @api_view(['GET'])
 def getMessages(request):
     messages = Inbox.objects.filter(archived=0)
     res = serializers.serialize('json', messages)
     print(res)
     return HttpResponse(res, content_type="text/json-comment-filtered")
+
 
 @api_view(['GET'])
 def getArchivedMessages(request):
@@ -420,12 +437,14 @@ def deleteMessage(request, params):
     Inbox.objects.filter(pk=params).delete()
     return HttpResponse('OK')
 
+
 @api_view(['POST'])
 def archiveMessage(request, params):
     message = Inbox.objects.get(pk=params)
     message.archived = True
     message.save()
     return HttpResponse("OK")
+
 
 @api_view(['GET'])
 def get_bookings(request, id_rentera):
@@ -468,6 +487,7 @@ def approve_booking(request, id_booking):
 
     return HttpResponse("ok")
 
+
 @api_view(['POST'])
 def rate_field(request, rating, id_field, id_user):
     ocjena = UserGradesField(id_usera_id=id_user, id_fielda_id=id_field, grade=rating)
@@ -476,12 +496,14 @@ def rate_field(request, rating, id_field, id_user):
     ocjena_temp.save()
     return HttpResponse("ok")
 
+
 @api_view(['GET'])
 def get_ratings(request):
     ratings = UserGradesField.objects.all()
     res = serializers.serialize('json', ratings)
 
     return HttpResponse(res, content_type="application/json")
+
 
 @api_view(['GET'])
 def getRenterFieldsCount(request, params):
@@ -495,6 +517,7 @@ def getRenterFieldsCount(request, params):
     res = json.dumps(renter_fields_count)
     return HttpResponse(res, content_type="text/json-comment-filtered")
 
+
 @api_view(['GET'])
 def getRenterFieldsPrice(request, params):
     fields = Field.objects.filter(id_rentera_id=params)
@@ -506,11 +529,13 @@ def getRenterFieldsPrice(request, params):
     res = json.dumps(renter_fields_price)
     return HttpResponse(res, content_type="text/json-comment-filtered")
 
+
 @api_view(['GET'])
 def getRenterFieldsTotalCount(request, params):
     fields_count = Field.objects.filter(id_rentera_id=params).count()
     res = json.dumps({"total_fields_count": fields_count})
     return HttpResponse(res, content_type="text/json-comment-filtered")
+
 
 @api_view(['GET'])
 def get_bookings_count(request, id_rentera):
@@ -527,3 +552,14 @@ def get_bookings_count(request, id_rentera):
 
     res = json.dumps({"booking_count": count})
     return HttpResponse(res, content_type='application/json')
+
+
+@api_view(['GET'])
+def get_recommended_fields(request, user_id):
+    user = SportistaUser.objects.get(id=user_id)
+    rezultat = predict(model_to_dict(user))
+    print(rezultat)
+    rezultat = json.dumps(rezultat)
+
+
+    return HttpResponse(rezultat, content_type='application/json')

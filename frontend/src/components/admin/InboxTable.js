@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../pages/admin/Admin.css";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from "axios";
@@ -13,7 +13,6 @@ function InboxTable() {
     useEffect(() => {
         getMessages();
     }, []);
-
 
      function getMessages() {
          axios.get(`http://127.0.0.1:8000/admin/inbox/getMessages/`)
