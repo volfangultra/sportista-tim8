@@ -92,7 +92,6 @@ class Team(models.Model):
     id_leader = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="teams_leader_set")
     name = models.CharField(max_length=255, unique=False, null=True)
     users = models.ManyToManyField(SportistaUser, related_name="teams_users_set", blank=True)
-    plays_sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name="teams_sport_set")
 
 
 class Field(models.Model):
@@ -154,6 +153,7 @@ class UserClicksFieldTemp(models.Model):
     id_usera = models.ForeignKey(SportistaUser, on_delete=models.CASCADE)
     id_fielda = models.ForeignKey(Field, on_delete=models.CASCADE)
 
+
 class Inbox(models.Model):
     first_name = models.TextField(null=True)
     last_name = models.TextField(null=True)
@@ -161,3 +161,13 @@ class Inbox(models.Model):
     text = models.TextField(null=True)
     time = models.DateTimeField(default=timezone.now)
     archived = models.BooleanField(default=False)
+
+
+class TeamInvite(models.Model):
+    sender = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="id_sender")
+    reciver = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="id_reciver")
+
+
+class PlayInvite(models.Model):
+    invite_sender = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="id_invite_sender")
+    invite_reciver = models.ForeignKey(SportistaUser, on_delete=models.CASCADE, related_name="id_invite_reciver")

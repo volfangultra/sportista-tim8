@@ -20,7 +20,7 @@ function MyReservations({ user, isAuthenticated }) {
 
     useEffect(() => {
         getFields();
-    }, [fields, user]);
+    }, [user]);
     async function getFields() {
         if(user) {
             await axios

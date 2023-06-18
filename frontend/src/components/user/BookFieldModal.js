@@ -3,9 +3,9 @@ import { Modal } from "react-bootstrap";
 import { Button, MenuItem, TextField } from '@mui/material';
 import { SERVER_URL } from "../../auth/Consts";
 import axios from "axios";
-<<<<<<< HEAD
+
 import {toast, ToastContainer} from "react-toastify";
-=======
+
 import {toast} from "react-toastify";
 
 const BookFieldModal = (props) => {
@@ -29,6 +29,7 @@ const BookFieldModal = (props) => {
         setSelectedTimeFrom("NONE")
         setSelectedTimeTo("NONE")
         setSelectedDate(new Date())
+
     }
 
     const handleTimeChangeFrom = (event) => {
@@ -55,7 +56,7 @@ const BookFieldModal = (props) => {
             document.getElementById('price').value="";
     };
 
-    const handleBooking = () => {
+    const handleBooking = (as_team) => {
         //TO DO sredi alertove za pogresan unos
         if(selectedTimeFrom === 'NONE' || selectedTimeTo === 'NONE') {
             toast.error("Please select time", {
@@ -136,8 +137,18 @@ const BookFieldModal = (props) => {
                     start: start,
                     ends:  end
                 })
+            else
+                axios.post(`${SERVER_URL}/user/team_book_field/${props.team.id}/`, {
+                    id_usera: props.user.id,
+                    id_sporta: props.field.fields.is_sport,
+                    id_fielda: props.field.pk,
+                    price: props.field.fields.price,
+                    start: start,
+                    ends:  end
+                })
         }
 
+        console.log("OVO JE TEAM BIN BANANA", props.team)
         closeModal()
 
         toast.success('Field booked successfully!', {
@@ -245,6 +256,10 @@ const BookFieldModal = (props) => {
         setIsOpen(true)};
     const closeModal = () => {resetModal(); setIsOpen(false)};
 
+    function handleFindingTeamate() {
+        axios.post("");
+    }
+
     return (
         <>
             <Button className="custom-button" onClick={openModal}>BOOK</Button>
@@ -310,9 +325,17 @@ const BookFieldModal = (props) => {
 
                     {!isUserLoggedIn && <p className="mt-3">You need to be logged in to book this field.</p>}
                     {isUserLoggedIn ? (
-                        <Button className="custom-button mt-3" onClick={handleBooking}>
-                            BOOK
-                        </Button>
+                        <div className={"justify-content-around d-flex"}>
+                            <Button className="custom-button mt-3" onClick={() => handleBooking(false)}>
+                                BOOK
+                            </Button>
+                            <Button className="custom-button mt-3" onClick={() => handleBooking(true)}>
+                                BOOK as Team
+                            </Button>
+                            <Button className="custom-button mt-3" onClick={handleFindingTeamate}>
+                                FIND Teamate
+                            </Button>
+                        </div>
                     ) : (
                         <Button className="custom-button mt-3" onClick={handleLogin}>
                             LOGIN

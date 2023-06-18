@@ -18,7 +18,9 @@ import {izracunaj_ratings} from "./MyPlayedCard";
 function FieldCard(props) {
     const [favoriteMap, setFavoriteMap] = useState({});
     const [favorite, setFavorite] = useState(true);
-    const [ratings, setRatings] = useState([])
+    const [ratings, setRatings] = useState([]);
+    console.log(props.team)
+
     useEffect(() => {
         axios.get(`${SERVER_URL}/get_ratings/`)
             .then((response) => {
@@ -28,6 +30,7 @@ function FieldCard(props) {
             .catch((error) => {
                 console.error('Error fetching fields:', error);
             });
+
     }, []);
 
     useEffect(()=>{
@@ -37,7 +40,7 @@ function FieldCard(props) {
                 temp[field.pk] = false
             })
         }
-        if(props.user != null)
+        if(props.user != null){
             axios.get(`${SERVER_URL}/user/get_favorite_fields/${props.user.id}/`)
                 .then((response) => {
                     for (let field in response.data)
@@ -49,6 +52,7 @@ function FieldCard(props) {
                 .catch((error) => {
                     console.error('Error fetching fields:', error);
                 });
+        }
     }, [favorite])
     return (
         <div className="cardContainer">
@@ -70,7 +74,7 @@ function FieldCard(props) {
                             </Typography>
                         </CardContent>
                         <CardActions className="d-flex justify-content-evenly">
-                            <BookFieldModal field={field} user={props.user}/>
+                            <BookFieldModal field={field} user={props.user} team={props.team}/>
                             <FieldDetailsModal name={field.fields.name} address={field.fields.address}
                                                details={field.fields.details} price={field.fields.price}
                                                is_sport={field.fields.is_sport} starts={field.fields.starts}

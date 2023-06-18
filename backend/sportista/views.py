@@ -13,7 +13,7 @@ from datetime import datetime
 from pytz import timezone
 
 from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox, UserGradesField, \
-    UserGradesFieldTemp
+    UserGradesFieldTemp, TeamInvite
 
 from sportista.models import Field, Sport, UserAccount, SportistaUser, Renter, Team, TeamRentsField
 
@@ -279,14 +279,25 @@ def book_field_solo(request):
     adjusted_end_time = end_time.astimezone(tz)
 
     # Spremanje prilagođenog vremena u bazu
-    team = Team(id_leader=SportistaUser.objects.get(id=request.data.get("id_usera")),
-                plays_sport_id=request.data.get("id_sporta"))
+    team = Team(id_leader=SportistaUser.objects.get(id=request.data.get("id_usera")))
     team.save()
     field = Field.objects.get(id=request.data.get("id_fielda"))
     field.has_teams.add(team, through_defaults={
         'price': request.data.get("price"),
         'beginning': adjusted_start_time,
         'ending': adjusted_end_time
+    })
+
+    return HttpResponse("Ok")
+
+@api_view(['POST'])
+def book_field_team(request, team_id):
+    team = Team.objects.get(id=team_id)
+    field = Field.objects.get(id=request.data.get("id_fielda"))
+    field.has_teams.add(team, through_defaults={
+        'price': request.data.get("price"),
+        'beginning': request.data.get("start"),
+        'ending': request.data.get("ends")
     })
 
     return HttpResponse("Ok")
@@ -563,3 +574,97 @@ def get_recommended_fields(request, user_id):
 
 
     return HttpResponse(rezultat, content_type='application/json')
+
+
+@api_view(['GET'])
+def get_team(request, id_user):
+    teams = Team.objects.filter(id_leader_id=id_user)
+    res = []
+    for team in teams:
+        team = model_to_dict(team)
+        if team['users']:
+            for i in range(len(team['users'])):
+                team['users'][i] = model_to_dict(team['users'][i])
+                team['users'][i].pop('date_of_birth')
+                team['users'][i].pop('plays_sports')
+                team['users'][i].pop('favourite_fields')
+                team['users'][i].pop('monday_start')
+                team['users'][i].pop('monday_end')
+                team['users'][i].pop('tuesday_start')
+                team['users'][i].pop('tuesday_end')
+                team['users'][i].pop('wednesday_start')
+                team['users'][i].pop('wednesday_end')
+                team['users'][i].pop('thursday_start')
+                team['users'][i].pop('thursday_end')
+                team['users'][i].pop('friday_start')
+                team['users'][i].pop('friday_end')
+                team['users'][i].pop('saturday_start')
+                team['users'][i].pop('saturday_end')
+                team['users'][i].pop('sunday_end')
+                team['users'][i].pop('sunday_start')
+            res = team
+
+    res = json.dumps(res)
+
+    return HttpResponse(res, content_type="text/json-comment-filtered")
+
+
+@api_view(['POST'])
+def send_invite(request, id_user):
+    sender = SportistaUser.objects.get(id=id_user)
+    reciver_account= UserAccount.objects.get(email=request.data['email'])
+    reciver = SportistaUser.objects.filter(id_logina_id=reciver_account.id)
+    if reciver:
+        temp = list(TeamInvite.objects.filter(sender=sender, reciver=reciver[0]))
+        print(temp)
+        if not temp:
+            print("DOBAR")
+            invite = TeamInvite(sender=sender, reciver=reciver[0])
+            invite.save()
+        return HttpResponse("Ok")
+    else:
+        return HttpResponse("Not OK")
+
+
+@api_view(['GET'])
+def get_invites(request, id_user):
+    invites = TeamInvite.objects.filter(reciver_id=id_user)
+    lista = []
+    for invite in invites:
+        sender = model_to_dict(invite.sender)
+        reciver = model_to_dict(invite.reciver)
+        lista.append({
+            "id_sender": sender['id'],
+            "sender_name": sender['first_name'] + " " + sender['last_name'],
+            "id": invite.id,
+        })
+
+    lista = json.dumps(lista)
+    return HttpResponse(lista, content_type="text/json-comment-filtered")
+
+@api_view(['POST'])
+def enter_team(request, id_user, id_invite, id_leader):
+    print(id_user, id_invite, id_leader)
+    teams = Team.objects.filter(id_leader_id=id_leader)
+    print(teams)
+    real_team = ""
+    for team in teams:
+        team = model_to_dict(team)
+        if team['users']:
+            real_team = team
+    if real_team == "":
+        new_team = Team(id_leader_id=id_leader)
+        new_team.save()
+        new_team.users.add(SportistaUser.objects.get(id=id_user))
+        new_team.save()
+        new_team.save()
+    else:
+        real_team.users.add(SportistaUser.objects.get(id=id_user))
+        real_team.save()
+
+    invite = TeamInvite.objects.get(id=id_invite)
+    invite.delete()
+
+    return HttpResponse("OK")
+
+
