@@ -52,13 +52,16 @@ const FieldDetailsModal = (props) => {
                     <Modal.Title>{props.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="d-flex flex-column align-items-center">
-                    <p>Name: {props.name}</p>
-                    <p>Sport: {sport}</p>
-                    <p>Location: {props.address}</p>
-                    <p>Description: {props.details}</p>
-                    <p>Start: {formattedStart}</p>
-                    <p>End: {formattedEnd}</p>
-                    <p>Price: {props.price}</p>
+                    <p><b>Name:</b> {props.name}</p>
+                    <p><b>Sport:</b> {sport}</p>
+                    <p><b>Location:</b> {props.address}</p>
+                    <p className="text-center"><b>Description:</b> {props.details}</p>
+                    <p><b>Working hours:</b></p>
+                    <div className="d-flex justify-content-between w-50">
+                        <p><b>From:</b> {formattedStart}</p>
+                        <p><b>To:</b> {formattedEnd}</p>
+                    </div>
+                    <p><b>Price per slot:</b> {props.price} KM</p>
                     <Button className="mt-3 custom-button" onClick={closeModal}>
                         CLOSE
                     </Button>

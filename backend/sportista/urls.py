@@ -36,6 +36,7 @@ urlpatterns = [
     path("user/get_favorite_fields/<int:user_id>/", views.get_favorite_field, name="get_favorite_field"),
     path("user/favorite_field/<int:field_id>/<int:user_id>/", views.favorite_field, name="favorite_field"),
     path("user/unfavorite_field/<int:field_id>/<int:user_id>/", views.unfavorite_field, name="unfavorite_field"),
+    path("user/get_recommended_fields/<int:user_id>/", views.get_recommended_fields, name="get_recommended_fields"),
 
     path("renter/getData/<int:params>/", views.getRenterData, name="getRenterData"),
     path("renter/changeData/<int:params>/", views.changeRenterData, name="changeRenterData"),

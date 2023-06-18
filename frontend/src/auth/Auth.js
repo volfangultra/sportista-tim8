@@ -63,7 +63,6 @@ export const load_user = () => async dispatch => {
             else if(res1.data.is_user)
                 res2 = await axios.get( `${SERVER_URL}/get_user/${res1.data.id}`)
 
-
             dispatch({
                 type: USER_LOADED_SUCCESS,
                 payload: {...res1.data, ...res2.data}
@@ -109,8 +108,6 @@ export const login = (email, password, is_admin, is_user, is_renter, handleError
                 type: LOGIN_FAIL
             })
 
-
-
     } catch(err){
         console.log(err.response.data)
         handleError(err.response.data)
@@ -132,14 +129,14 @@ export const register = (email, password, is_admin, is_user, is_renter, DATA) =>
         })
         if(is_renter){
             const encodedName = encodeURIComponent(DATA.name)
-            const  res2 = await axios.post(`${SERVER_URL}/add_renter/`, {
+            const res2 = await axios.post(`${SERVER_URL}/add_renter/`, {
                 ...DATA,
                 name:encodedName,
                 id: res1.data.id
 
             })
         }else if(is_user) {
-            const  res2 = await axios.post(`${SERVER_URL}/add_user/`, {
+            const res2 = await axios.post(`${SERVER_URL}/add_user/`, {
                 ...DATA,
                 first_name:encodeURIComponent(DATA.first_name),
                 last_name:encodeURIComponent(DATA.last_name),
@@ -166,7 +163,6 @@ export const verify = (uid, token) => async dispatch =>{
         dispatch({
             type: ACTIVATION_SUCCESS
         })
-
 
     } catch(err){
         dispatch({

@@ -145,6 +145,7 @@ function FieldFormAction(props) {
                     label="Name"
                     variant="outlined"
                     onChange={(e) => setName(e.target.value)}
+                    inputProps={{ maxLength: 30 }}
                 />
             </Box>
             <Box mb={1} className="d-flex">
@@ -157,6 +158,7 @@ function FieldFormAction(props) {
                     value={start}
                     onChange={(e)=>setStart(e.target.value)}
                     variant="outlined"
+                    InputLabelProps={{ shrink: true }}
                 />
                 <TextField
                     sx={{ margin: "0 0 0 1rem" }}
@@ -167,6 +169,7 @@ function FieldFormAction(props) {
                     value={end}
                     onChange={(e)=>setEnd(e.target.value)}
                     variant="outlined"
+                    InputLabelProps={{ shrink: true }}
                 />
             </Box>
 
@@ -197,6 +200,7 @@ function FieldFormAction(props) {
                     variant="outlined"
                     onChange={(e) => setImages(e.target.files)}
                     inputProps={{ multiple: true }}
+                    InputLabelProps={{ shrink: true }}
                 />
             </Box>
 

@@ -63,6 +63,11 @@ def add_user(request):
         if day == "Sunday":
             u.sunday_start = hours['startHour']
             u.sunday_end = hours['endHour']
+    for i in range(len(data['sports'])):
+        data['sports'][i] = int(data['sports'][i])
+
+    sports = Sport.objects.filter(id__in=data['sports'])
+    u.plays_sports.add(*sports)
     u.save()
     return HttpResponse()
 
@@ -75,6 +80,7 @@ def get_renter(request, id):
 
 @api_view(['GET'])
 def get_user(request, id):
+    train()
     sportista_users = list(SportistaUser.objects.filter(id_logina=id).values())
     res = json.dumps(sportista_users[0], cls=DjangoJSONEncoder)
     return HttpResponse(res, content_type="text/json-comment-filtered")

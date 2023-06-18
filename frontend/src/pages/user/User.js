@@ -26,9 +26,24 @@ function Dashboard({user, isAuthenticated}) {
     const [locationFilter, setLocationFilter] = useState('');
     const [hasSports, setHasSports] = useState([]);
     const [gotData, setGotData] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const[recommended, setRecommended] = useState([])
+    const[recommendedFields, setRecommendedFields] = useState([])
 
     const [anchorEl, setAnchorEl] = useState(null);
 
+
+    function convertTimeStringToTime(timeString) {
+        var timeParts = timeString.split(":");
+        var hours = parseInt(timeParts[0], 10);
+        var minutes = parseInt(timeParts[1], 10);
+
+        var time = new Date();
+        time.setHours(hours);
+        time.setMinutes(minutes);
+
+        return time;
+    }
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -72,9 +87,38 @@ function Dashboard({user, isAuthenticated}) {
         if (user) {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/user/dashboard');
+                const response2 = await axios.get(`${SERVER_URL}/user/get_recommended_fields/${user.id}/`).then((response)=>{
+                    setRecommended(response.data)
+                    var temp = []
+                    fields.forEach((field)=>{
+                        if((convertTimeStringToTime(user.monday_start) > convertTimeStringToTime(field.fields.starts) || convertTimeStringToTime(user.monday_end) < convertTimeStringToTime(field.fields.ends)) ||
+                            (convertTimeStringToTime(user.tuesday_start) > convertTimeStringToTime(field.fields.starts) || convertTimeStringToTime(user.tuesday_end) < convertTimeStringToTime(field.fields.ends)) ||
+                            (convertTimeStringToTime(user.wednesday_start) > convertTimeStringToTime(field.fields.starts) || convertTimeStringToTime(user.wednesday_end) < convertTimeStringToTime(field.fields.ends)) ||
+                            (convertTimeStringToTime(user.thursday_start) > convertTimeStringToTime(field.fields.starts) || convertTimeStringToTime(user.thursday_end) < convertTimeStringToTime(field.fields.ends)) ||
+                            (convertTimeStringToTime(user.friday_start) > convertTimeStringToTime(field.fields.starts) || convertTimeStringToTime(user.friday_end) < convertTimeStringToTime(field.fields.ends)) ||
+                            (convertTimeStringToTime(user.saturday_start) > convertTimeStringToTime(field.fields.starts) || convertTimeStringToTime(user.saturday_end) < convertTimeStringToTime(field.fields.ends)) ||
+                            (convertTimeStringToTime(user.sunday_start) > convertTimeStringToTime(field.fields.starts) || convertTimeStringToTime(user.sunday_end) < convertTimeStringToTime(field.fields.ends))){
+                            temp.push(field)
+                        }
+
+                    })
+                    console.log("HELL")
+                    for(let i = 0; i < temp.length; i++){
+                        for(let j = 0; j < recommended.length; j++){
+                            if(temp[i].pk === recommended[j].field)
+                                temp[i]["approximate_grade"] = recommended[j].grade
+                        }
+                    }
+
+                    temp.sort((a, b) => (a.approximate_grade < b.approximate_grade) ? 1 : -1)
+                    console.log(temp)
+                    setRecommendedFields(temp)
+
+                });
                 if (fields.length !== response.data.length) {
                     setFields(response.data.reverse());
                 }
+
             } catch (error) {
                 console.error('Error fetching fields:', error);
             }
@@ -89,6 +133,7 @@ function Dashboard({user, isAuthenticated}) {
 
     // if(!isAuthenticated && user == null)
     //     return (<Navigate to={"/"}/>)
+
     useEffect(() => {
         let min = 9999;
         let max = 0;
@@ -121,9 +166,9 @@ function Dashboard({user, isAuthenticated}) {
             return false;
         }
 
-
         return true;
     });
+
 
     const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         e.stopPropagation()
@@ -145,7 +190,7 @@ function Dashboard({user, isAuthenticated}) {
                     <Tab
                         label="Recommended Fields"
                         active={activeTab === 'recommended'}
-                        onClick={() => handleTabChange('recommended')}
+                        onClick={() => {handleTabChange('recommended'); getFields();}}
                     />
                     <Button
                         id="dropdown-button"
@@ -265,7 +310,7 @@ function Dashboard({user, isAuthenticated}) {
                 </div>
                 <div className="fieldCards">
                     {activeTab === 'fields' && <FieldCard onlyFavorites={false} fields={fields} user={user} />}
-                    {activeTab === 'recommended' && <RecommendedFields />}
+                    {activeTab === 'recommended' && (<RecommendedFields fields={recommendedFields} />)}
                 </div>
             </div>
         </div>
