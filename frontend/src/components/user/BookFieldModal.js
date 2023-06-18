@@ -324,16 +324,23 @@ const BookFieldModal = (props) => {
 
                     {!isUserLoggedIn && <p className="mt-3">You need to be logged in to book this field.</p>}
                     {isUserLoggedIn ? (
+                        <div>
                         <div className={"justify-content-around d-flex"}>
-                            <Button className="custom-button mt-3" onClick={() => handleBooking(false)}>
+                            <Button className="custom-button m-2" onClick={() => handleBooking(false)}>
                                 BOOK
                             </Button>
-                            <Button className="custom-button mt-3" onClick={() => handleBooking(true)}>
-                                BOOK as Team
-                            </Button>
-                            <Button className="custom-button mt-3" onClick={handleFindingTeamate}>
-                                FIND Teamate
-                            </Button>
+
+                        </div>
+                            <div style={{display:"flex"}}>
+                                <div className={"row"}>
+                                <Button className="custom-button mt-3" onClick={() => handleBooking(true)}>
+                                    BOOK as Team
+                                </Button>
+                                <Button className="custom-button mt-3" onClick={handleFindingTeamate}>
+                                    FIND Teammate
+                                </Button>
+                                </div>
+                            </div>
                         </div>
                     ) : (
                         <Button className="custom-button mt-3" onClick={handleLogin}>
