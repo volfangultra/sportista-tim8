@@ -1,8 +1,6 @@
 import React from 'react';
 import { TableContainer, Paper, Table, Button, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 
-function InvitesTable({ isAuthenticated, user }) {
-
 function InvitesTable(props) {
     console.log("OVO")
     console.log(props.invites)

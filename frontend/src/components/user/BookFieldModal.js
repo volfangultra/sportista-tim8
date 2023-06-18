@@ -6,8 +6,6 @@ import axios from "axios";
 
 import {toast, ToastContainer} from "react-toastify";
 
-import {toast} from "react-toastify";
-
 const BookFieldModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedTimeFrom, setSelectedTimeFrom] = useState('NONE'); // Selected time slot
@@ -129,6 +127,7 @@ const BookFieldModal = (props) => {
                 });
                 return
             }
+            if(as_team === false)
                 axios.post(`${SERVER_URL}/user/solo_book_field/`, {
                     id_usera: props.user.id,
                     id_sporta: props.field.fields.is_sport,
