@@ -1,5 +1,6 @@
 from django.core import serializers
 from django.core.serializers import serialize
+from django.db.models import Q
 from django.db.models.functions import ExtractMonth
 from django.forms import model_to_dict
 from django.http import HttpResponse
@@ -13,7 +14,7 @@ from datetime import datetime
 from pytz import timezone
 
 from sportista.models import Field, Sport, Renter, UserAccount, SportistaUser, Inbox, UserGradesField, \
-    UserGradesFieldTemp, TeamInvite
+    UserGradesFieldTemp, TeamInvite, PlayInvite
 
 from sportista.models import Field, Sport, UserAccount, SportistaUser, Renter, Team, TeamRentsField
 
@@ -644,19 +645,16 @@ def get_invites(request, id_user):
 
 @api_view(['POST'])
 def enter_team(request, id_user, id_invite, id_leader):
-    print(id_user, id_invite, id_leader)
+
     teams = Team.objects.filter(id_leader_id=id_leader)
-    print(teams)
     real_team = ""
     for team in teams:
-        team = model_to_dict(team)
-        if team['users']:
+        if model_to_dict(team)['users']:
             real_team = team
     if real_team == "":
         new_team = Team(id_leader_id=id_leader)
         new_team.save()
         new_team.users.add(SportistaUser.objects.get(id=id_user))
-        new_team.save()
         new_team.save()
     else:
         real_team.users.add(SportistaUser.objects.get(id=id_user))
@@ -668,3 +666,56 @@ def enter_team(request, id_user, id_invite, id_leader):
     return HttpResponse("OK")
 
 
+@api_view(['POST'])
+def find_user(request, id_user):
+    data = request.data
+    print(data)
+    start_datetime_str = data['start']
+    end_datetime_str = data['ends']
+
+    start_datetime = datetime.strptime(start_datetime_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+    end_datetime = datetime.strptime(end_datetime_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+    start_day_of_week = start_datetime.weekday()
+    day_of_week_field = {
+        0: 'monday',
+        1: 'tuesday',
+        2: 'wednesday',
+        3: 'thursday',
+        4: 'friday',
+        5: 'saturday',
+        6: 'sunday',
+    }
+
+    field_name = f"{day_of_week_field[start_day_of_week]}_start"
+
+    query = Q(**{field_name + '__lt': start_datetime})
+    query &= Q(**{field_name.replace('_start', '_end') + '__gt': end_datetime})
+
+    users = SportistaUser.objects.filter(query)
+    for user in users:
+        invite = PlayInvite(invite_sender_id=id_user, invite_reciver_id=user,
+                            price=data['price'], start=data['starts'], ends=data['ends'], sport_id=data['id_sporta'])
+        invite.save()
+
+    return HttpResponse("OK")
+
+
+@api_view(['GET'])
+def get_play_invites(request, id_user, id_field):
+    invites = PlayInvite.objects.filter(invite_reciver_id=id_user)
+    lista = []
+    for invite in invites:
+        sender = model_to_dict(invite.invite_sender)
+        reciver = model_to_dict(invite.invite_reciver)
+        lista.append({
+            "id_sender": sender['id'],
+            "sender_name": sender['first_name'] + " " + sender['last_name'],
+            "id": invite.id,
+            "price": invite.price,
+            "start": invite.start.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+            "ends": invite.ends.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+            "sport": invite.sport.name
+        })
+
+    lista = json.dumps(lista)
+    return HttpResponse(lista, content_type="text/json-comment-filtered")

@@ -12,16 +12,21 @@ import AcceptedInvitesTable from "../../components/user/AcceptedInvitesTable";
 
 function Invites({ user, isAuthenticated }) {
     const [invites, setInvites] = useState([])
+    const [playInvites, setPlayInvites] = useState([])
 
     // if(!isAuthenticated && user == null)
     //     return (<Navigate to={"/"}/>)
     console.log("HELL")
     console.log(invites)
     useEffect(()=>{
-        if(user)
-            axios.get(`${SERVER_URL}/user/get_invites/${user.id}/`).then((response)=>{
+        if(user){
+            axios.get(`${SERVER_URL}/user/get_invites/${user.id}`).then((response)=>{
                 setInvites(response.data)
             })
+            axios.get(`${SERVER_URL}/user/get_play_invites/${user.id}`).then((response)=>{
+                setPlayInvites(response.data)
+            })
+        }
     }, [user])
 
     return (
@@ -30,7 +35,7 @@ function Invites({ user, isAuthenticated }) {
             <div className="page-margin">
                 <h1>Invites</h1>
                 <h5>List of invites from other users.</h5>
-                <InvitesTable invites={invites} user={user}/>
+                <InvitesTable invites={playInvites} user={user}/>
                 <h1 className={"mt-5"}>Team Invites</h1>
                 <h5>List of invites from other users.</h5>
                 <TeamInvitesTable invites={invites} user={user}/>

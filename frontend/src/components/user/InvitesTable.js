@@ -2,7 +2,7 @@ import React from 'react';
 import { TableContainer, Paper, Table, Button, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 
 function InvitesTable(props) {
-    console.log("OVO")
+    console.log("O")
     console.log(props.invites)
     return (
         <div className="mt-5 box_shadow">
@@ -23,9 +23,9 @@ function InvitesTable(props) {
                         {  props.invites.map((item)=>(
                             <TableRow key={item.pk}>
                                 <TableCell>1</TableCell>
-                                <TableCell>alic.said@user.sportista.com</TableCell>
-                                <TableCell>Garden City Konjic</TableCell>
-                                <TableCell>Football</TableCell>
+                                <TableCell>{item.sender_name}</TableCell>
+                                <TableCell>{item.sport}</TableCell>
+                                <TableCell>{item.price}</TableCell>
                                 <TableCell>23-02-2023</TableCell>
                                 <TableCell>17:00h - 20:00h</TableCell>
                                 <TableCell>
